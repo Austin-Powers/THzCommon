@@ -9,7 +9,6 @@ endfunction()
 function(setup_additional_information PROJECTNAME)
 	target_include_directories(${PROJECTNAME} PUBLIC
 		${PROJECT_SOURCE_DIR}
-		${PROJECT_SOURCE_DIR}/external_libs
 	)
 endfunction()
 

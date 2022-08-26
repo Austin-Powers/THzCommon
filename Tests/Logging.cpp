@@ -22,6 +22,12 @@ TEST_F(LoggingTests, LogLevelCharactersCorrect)
 
 TEST_F(LoggingTests, NewLoggerHasEmptyFilepath) {}
 
+TEST_F(LoggingTests, LogLevelsAreCorrectlyUsed) {}
+
+TEST_F(LoggingTests, TimeMostlyRight) {}
+
+TEST_F(LoggingTests, SetProjectNameMaxLength) {}
+
 TEST_F(LoggingTests, Test0)
 {
     Logger::globalInstance().setMaxLevel(LogLevel::Trace);
