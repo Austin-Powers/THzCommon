@@ -1,11 +1,15 @@
-set(SOURCES
+set(PROJECTNAME THzCommon.Tests)
+
+add_executable(
+	${PROJECTNAME}
 	Utility/BitBuffer.cpp
 	Logging.cpp
 )
 
-setup_executable("${SOURCES}")
+target_include_directories(${PROJECTNAME} PUBLIC
+	${PROJECT_SOURCE_DIR}
+)
 
-get_project_name()
 target_link_libraries(${PROJECTNAME} PUBLIC
 	Utility
 	Logging

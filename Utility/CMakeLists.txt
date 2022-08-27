@@ -1,11 +1,16 @@
-set(SOURCES
+set(PROJECTNAME THzCommon.Utility)
+
+add_library(
+	${PROJECTNAME}
 	BitBuffer.cpp
 	BitBuffer.h
 )
 
-setup_library("${SOURCES}")
+target_include_directories(${PROJECTNAME} PUBLIC
+	${PROJECT_SOURCE_DIR}
+)
 
-get_project_name()
 target_link_libraries(${PROJECTNAME} PUBLIC
 	Microsoft.GSL::GSL
+	THzCommon.Logging
 )
