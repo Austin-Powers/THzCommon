@@ -1,7 +1,6 @@
 set(PROJECTNAME THzCommon.Logging)
 
-add_library(
-	${PROJECTNAME}
+add_library(${PROJECTNAME} STATIC
 	Logging.cpp
 	Logging.h
 	Logging.hpp

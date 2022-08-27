@@ -1,9 +1,8 @@
 set(PROJECTNAME THzCommon.Tests)
 
-add_executable(
-	${PROJECTNAME}
-	Utility/BitBuffer.cpp
+add_executable(${PROJECTNAME}
 	Logging.cpp
+	Utility/BitBuffer.cpp
 )
 
 target_include_directories(${PROJECTNAME} PUBLIC
@@ -11,8 +10,8 @@ target_include_directories(${PROJECTNAME} PUBLIC
 )
 
 target_link_libraries(${PROJECTNAME} PUBLIC
-	Utility
-	Logging
+	THzCommon.Logging
+	THzCommon.Utility
 	gtest_main
 )
 
