@@ -27,6 +27,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(gsl)
 
 add_subdirectory(Logging)
+add_subdirectory(Utility)
 
 if(THZ_COMMON_IS_ROOT)
 	# For Windows: Prevent overriding the parent project's compiler/linker settings
