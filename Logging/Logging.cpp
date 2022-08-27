@@ -35,9 +35,15 @@ Logger &Logger::globalInstance() noexcept
     return instance;
 }
 
+Logger::Logger() noexcept { addProject<LoggingProject>(); }
+
 Logger::~Logger() noexcept { _logFile.close(); }
 
-void Logger::setMaxLevel(LogLevel level) noexcept { _maxLevel = level; }
+LogLevel &Logger::maxLevel() noexcept { return _maxLevel; }
+
+LogLevel Logger::maxLevel() const noexcept { return _maxLevel; }
+
+std::string const &Logger::filepath() const noexcept { return _filepath; }
 
 void Logger::setFilepath(std::string const &filepath) noexcept
 {
@@ -52,6 +58,8 @@ void Logger::setFilepath(std::string const &filepath) noexcept
         _filepath += timeString;
     }
 }
+
+std::uint16_t Logger::maxProjectNameLength() const noexcept { return _maxProjectNameLength; }
 
 void Logger::logString(std::string const &text) noexcept
 {

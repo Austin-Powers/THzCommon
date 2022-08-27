@@ -54,17 +54,26 @@ concept Project = requires
 };
 // clang-format on
 
+/// @brief Name provider for the logging project.
+struct LoggingProject
+{
+    static constexpr char const *name() noexcept { return "THzCommon.Logging"; }
+};
+
 /// @brief Logs messages to console and specified log file.
 class Logger
 {
 public:
+    /// @brief The limit for the maxProjectNameLength.
+    static constexpr std::uint16_t ProjectNameLengthLimit{48U};
+
     /// @brief Returns the global logger instance.
     ///
     /// @returns The global logger intance.
     static Logger &globalInstance() noexcept;
 
     /// @brief Default initializes the logger.
-    Logger() noexcept = default;
+    Logger() noexcept;
 
     /// @brief Prevent copy construction by explicitly deleting the constructor.
     Logger(Logger const &) = delete;
@@ -81,33 +90,60 @@ public:
     /// @brief Finalizes the logger instance.
     ~Logger() noexcept;
 
-    /// Logs a message to console and log file.
+    /// @brief Logs a message to console and log file.
     ///
     /// @tparam TLevel The level of the log message.
-    /// @tparam TID The id of the project that created the message.
+    /// @tparam TProject The proejct for which to log the message.
     /// @param message The message to log.
     template <LogLevel TLevel, Project TProject>
     void log(std::string const &message) noexcept;
 
-    /// Logs a message to console and log file.
+    /// @brief Logs a message to console and log file.
     ///
     /// @tparam TLevel The level of the log message.
-    /// @tparam TID The id of the project that created the message.
+    /// @tparam TProject The proejct for which to log the message.
+    /// @param message The message to log.
+    template <LogLevel TLevel, Project TProject>
+    void log(std::string_view const &message) noexcept;
+
+    /// @brief Logs a message to console and log file.
+    ///
+    /// @tparam TLevel The level of the log message.
+    /// @tparam TProject The proejct for which to log the message.
     /// @param message The message to log.
     template <LogLevel TLevel, Project TProject>
     void log(gsl::czstring const message) noexcept;
 
-    /// @brief Sets the maximum log level.
+    /// @brief Provides access to the maximum LogLevel.
     ///
-    /// @param level The maximum level of message logged.
-    void setMaxLevel(LogLevel level) noexcept;
+    /// @return A reference to the maximum LogLevel.
+    LogLevel &maxLevel() noexcept;
 
-    /// @brief Sets the path of the log file.
+    /// @brief Returns the maximum LogLevel.
     ///
-    /// @param filepath The path of the log file.
-    /// @remarks If the string is empty no log file will be created.
-    /// At the end of the path timestamp and '.log' will be added.
-    void setFilepath(std::string const &filepath) noexcept;
+    /// @return The maximum LogLevel.
+    LogLevel maxLevel() const noexcept;
+
+    /// @brief Provides acces the path of the log file.
+    ///
+    /// @return A reference to the path of the log file.
+    std::string const &filepath() const noexcept;
+
+    /// @brief Sets a new path for the log file of the logger.
+    ///
+    /// @param path The new path for the log file.
+    void setFilepath(std::string const &path) noexcept;
+
+    /// @brief Returns the maximum length of the known project names.
+    ///
+    /// @return The maximum length of the known project names.
+    std::uint16_t maxProjectNameLength() const noexcept;
+
+    /// @brief Adds a project so the logger can readjust the maxProjectNameLength.
+    ///
+    /// @tparam TProject The project to add.
+    template <Project TProject>
+    void addProject() noexcept;
 
 private:
     /// @brief Logs a text to console and file if present.
@@ -121,6 +157,9 @@ private:
     /// @brief Maximum level of log messages actually written to console and file.
     LogLevel _maxLevel{LogLevel::Error};
 
+    /// @brief The maximum length of the project names.
+    std::uint16_t _maxProjectNameLength{};
+
     /// @brief The path of the log file.
     std::string _filepath{};
 
@@ -130,11 +169,33 @@ private:
 
 /// @brief Logs a message to console and log file.
 ///
-/// @param level The level of the log message.
-/// @param id The id of the project that created the message.
+/// @tparam TLevel The level of the log message.
+/// @tparam TProject The proejct for which to log the message.
 /// @param message The message to log.
-template <LogLevel TLevel, Project TID>
+template <LogLevel TLevel, Project TProject>
 void logMessage(std::string const &message) noexcept;
+
+/// @brief Logs a message to console and log file.
+///
+/// @tparam TLevel The level of the log message.
+/// @tparam TProject The proejct for which to log the message.
+/// @param message The message to log.
+template <LogLevel TLevel, Project TProject>
+void logMessage(std::string_view const &message) noexcept;
+
+/// @brief Logs a message to console and log file.
+///
+/// @tparam TLevel The level of the log message.
+/// @tparam TProject The proejct for which to log the message.
+/// @param message The message to log.
+template <LogLevel TLevel, Project TProject>
+void logMessage(gsl::czstring const message) noexcept;
+
+/// @brief Adds a project so the global logger can readjust the maxProjectNameLength.
+///
+/// @tparam TProject The project to add.
+template <Project TProject>
+void addProjectName() noexcept;
 
 } // namespace Terrahertz
 
