@@ -3,6 +3,7 @@ set(PROJECTNAME THzCommon.Utility)
 add_library(${PROJECTNAME} STATIC
 	BitBuffer.cpp
 	BitBuffer.h
+	SpanHelpers.h
 )
 
 target_include_directories(${PROJECTNAME} PUBLIC

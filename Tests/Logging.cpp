@@ -20,7 +20,7 @@ struct LongTestProject
     }
 };
 
-struct LoggerTest : public testing::Test
+struct Logging_Logger : public testing::Test
 {
     std::unique_ptr<Logger> logger{};
 
@@ -36,7 +36,7 @@ struct LoggerTest : public testing::Test
     void TearDown() noexcept override { std::remove(loggerFilepath.c_str()); }
 };
 
-TEST_F(LoggerTest, LogLevelCharactersCorrect)
+TEST_F(Logging_Logger, LogLevelCharactersCorrect)
 {
     EXPECT_EQ(getLogLevelCharacter<LogLevel::Error>(), 'E');
     EXPECT_EQ(getLogLevelCharacter<LogLevel::Warning>(), 'W');
@@ -44,7 +44,7 @@ TEST_F(LoggerTest, LogLevelCharactersCorrect)
     EXPECT_EQ(getLogLevelCharacter<LogLevel::Trace>(), 'T');
 }
 
-TEST_F(LoggerTest, LoggerInitializedWithCorrectValues)
+TEST_F(Logging_Logger, LoggerInitializedWithCorrectValues)
 {
     Logger logger{};
     EXPECT_EQ(logger.maxLevel(), LogLevel::Error);
@@ -52,7 +52,7 @@ TEST_F(LoggerTest, LoggerInitializedWithCorrectValues)
     EXPECT_EQ(logger.maxProjectNameLength(), 17U);
 }
 
-TEST_F(LoggerTest, FilepathGetsExtended)
+TEST_F(Logging_Logger, FilepathGetsExtended)
 {
     std::string filepath{"test_"};
     Logger      logger{};
@@ -66,20 +66,20 @@ TEST_F(LoggerTest, FilepathGetsExtended)
     EXPECT_EQ(logger.filepath(), filepath);
 }
 
-TEST_F(LoggerTest, LoggerIncreasesMaxNameLength)
+TEST_F(Logging_Logger, LoggerIncreasesMaxNameLength)
 {
     EXPECT_LT(logger->maxProjectNameLength(), std::strlen(TestProject::name()));
     logger->addProject<TestProject>();
     EXPECT_EQ(logger->maxProjectNameLength(), std::strlen(TestProject::name()));
 }
 
-TEST_F(LoggerTest, MaxNameLengthLimited)
+TEST_F(Logging_Logger, MaxNameLengthLimited)
 {
     logger->addProject<LongTestProject>();
     EXPECT_EQ(logger->maxProjectNameLength(), Logger::ProjectNameLengthLimit);
 }
 
-TEST_F(LoggerTest, MessagesLoggedToFile)
+TEST_F(Logging_Logger, MessagesLoggedToFile)
 {
     // LogLevel tests
     logger->addProject<TestProject>();
