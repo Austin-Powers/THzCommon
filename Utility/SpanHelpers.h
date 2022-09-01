@@ -27,7 +27,7 @@ template <typename TSpanType, typename TDataType, typename TSizeType>
 template <typename TContainerType>
 concept Container = requires(TContainerType container)
 {
-    {TContainerType::value_type};
+    {typename TContainerType::value_type};
     {container.data()} -> std::same_as<typename TContainerType::value_type *>;
     {container.size()} -> std::integral;
 };
