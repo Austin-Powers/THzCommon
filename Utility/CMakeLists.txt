@@ -6,7 +6,9 @@ add_library(${PROJECTNAME} STATIC
 	Concepts.hpp
 	FStreamHelpers.h
 	SpanHelpers.h
- "Concepts.hpp")
+	Time.cpp
+	Time.h
+)
 
 target_include_directories(${PROJECTNAME} PUBLIC
 	${PROJECT_SOURCE_DIR}
