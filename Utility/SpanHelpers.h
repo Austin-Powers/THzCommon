@@ -1,8 +1,9 @@
 #ifndef THZ_COMMON_UTILITY_SPANCAST_H
 #define THZ_COMMON_UTILITY_SPANCAST_H
 
+#include "Concepts.hpp"
+
 #include <bit>
-#include <concepts>
 #include <cstring>
 #include <gsl/gsl>
 
@@ -21,17 +22,6 @@ template <typename TSpanType, typename TDataType, typename TSizeType>
 {
     return gsl::span<TSpanType>{std::bit_cast<TSpanType *>(pointer), static_cast<size_t>(size)};
 }
-
-// clang-format off
-/// @brief Concept of a container a span can be created from.
-template <typename TContainerType>
-concept Container = requires(TContainerType container)
-{
-    {typename TContainerType::value_type};
-    {container.data()} -> std::same_as<typename TContainerType::value_type *>;
-    {container.size()} -> std::integral;
-};
-// clang-format on
 
 /// @brief Explicitly creates a gsl::span from a given container.
 ///
