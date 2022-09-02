@@ -5,7 +5,7 @@
 template <typename TContainerType>
 concept Container = requires(TContainerType container)
 {
-    {typename TContainerType::value_type};
+    typename TContainerType::value_type;
     {container.data()} -> std::same_as<typename TContainerType::value_type *>;
     {container.size()} -> std::integral;
 };
