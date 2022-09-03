@@ -26,6 +26,7 @@ FetchContent_MakeAvailable(gsl)
 
 add_subdirectory(Diagnostics)
 add_subdirectory(Logging)
+add_subdirectory(Math)
 add_subdirectory(Utility)
 
 if(THZ_COMMON_IS_ROOT)
