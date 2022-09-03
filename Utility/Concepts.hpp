@@ -1,4 +1,9 @@
+#ifndef THZ_COMMON_UTILITY_CONCEPTS_HPP
+#define THZ_COMMON_UTILITY_CONCEPTS_HPP
+
 #include <concepts>
+
+namespace Terrahertz {
 
 // clang-format off
 /// @brief Concept of a container a span can be created from.
@@ -10,3 +15,7 @@ concept Container = requires(TContainerType container)
     {container.size()} -> std::integral;
 };
 // clang-format on
+
+} // namespace Terrahertz
+
+#endif // !THZ_COMMON_UTILITY_CONCEPTS_HPP

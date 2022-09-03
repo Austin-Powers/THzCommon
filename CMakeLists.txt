@@ -24,6 +24,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(gsl)
 
+add_subdirectory(Converter)
 add_subdirectory(Diagnostics)
 add_subdirectory(Logging)
 add_subdirectory(Math)

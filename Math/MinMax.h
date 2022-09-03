@@ -1,5 +1,5 @@
-#ifndef THZ_COMMON_UTILITY_MINMAX_H
-#define THZ_COMMON_UTILITY_MINMAX_H
+#ifndef THZ_COMMON_MATH_MINMAX_H
+#define THZ_COMMON_MATH_MINMAX_H
 
 #include <type_traits>
 
@@ -122,4 +122,4 @@ constexpr TValueType clamp(TValueType value, TMinType min, TMaxType max) noexcep
 
 } // namespace Terrahertz
 
-#endif // !THZ_COMMON_UTILITY_MINMAX_H
+#endif // !THZ_COMMON_MATH_MINMAX_H

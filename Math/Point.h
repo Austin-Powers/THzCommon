@@ -1,5 +1,5 @@
-#ifndef THZ_GEOMETRY_POINT_H
-#define THZ_GEOMETRY_POINT_H
+#ifndef THZ_COMMON_MATH_POINT_H
+#define THZ_COMMON_MATH_POINT_H
 
 #include <cstdint>
 
@@ -130,4 +130,4 @@ public:
 
 } // namespace Terrahertz
 
-#endif // !THZ_GEOMETRY_POINT_H
+#endif // !THZ_COMMON_MATH_POINT_H

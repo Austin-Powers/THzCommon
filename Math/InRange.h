@@ -1,5 +1,5 @@
-#ifndef THZ_COMMON_UTILITY_INRANGE_H
-#define THZ_COMMON_UTILITY_INRANGE_H
+#ifndef THZ_COMMON_MATH_INRANGE_H
+#define THZ_COMMON_MATH_INRANGE_H
 
 #include <type_traits>
 
@@ -36,4 +36,4 @@ constexpr bool inRange(TCheckType check, TRangeType min, TRangeType max) noexcep
 
 } // namespace Terrahertz
 
-#endif // !THZ_COMMON_UTILITY_INRANGE_H
+#endif // !THZ_COMMON_MATH_INRANGE_H

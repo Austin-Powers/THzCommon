@@ -1,5 +1,5 @@
-#ifndef THZ_COMMON_UTILITY_SPANCAST_H
-#define THZ_COMMON_UTILITY_SPANCAST_H
+#ifndef THZ_COMMON_UTILITY_SPANHELPERS_H
+#define THZ_COMMON_UTILITY_SPANHELPERS_H
 
 #include "Concepts.hpp"
 
@@ -93,4 +93,4 @@ template <typename TDataType>
 
 } // namespace Terrahertz
 
-#endif // !THZ_COMMON_UTILITY_SPANCAST_H
+#endif // !THZ_COMMON_UTILITY_SPANHELPERS_H
