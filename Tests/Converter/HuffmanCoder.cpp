@@ -18,7 +18,7 @@
 
 namespace Terrahertz::UnitTests {
 
-struct THzConverter_HuffmanCoder : public testing::Test
+struct Converter_HuffmanCoder : public testing::Test
 {
     using StaticBuffer = std::array<std::uint8_t, 4U * 1024U>;
     using Buffer       = std::unique_ptr<StaticBuffer>;
@@ -52,19 +52,19 @@ struct THzConverter_HuffmanCoder : public testing::Test
     }
 };
 
-TEST_F(THzConverter_HuffmanCoder, EmptyEncoderBehavesCorrectly)
+TEST_F(Converter_HuffmanCoder, EmptyEncoderBehavesCorrectly)
 {
     EXPECT_EQ(encoder.expectedSize(), 0U);
     EXPECT_EQ(encoder.collectCompressedData(compressedSpan), 0U);
 }
 
-TEST_F(THzConverter_HuffmanCoder, EncodingRejectNewBufferIfOldBufferIsNotFullyProcessed)
+TEST_F(Converter_HuffmanCoder, EncodingRejectNewBufferIfOldBufferIsNotFullyProcessed)
 {
     EXPECT_TRUE(encoder.compress(uncompressedSpan));
     EXPECT_FALSE(encoder.compress(uncompressedSpan));
 }
 
-TEST_F(THzConverter_HuffmanCoder, EncodingRejectsTooSmallBuffers)
+TEST_F(Converter_HuffmanCoder, EncodingRejectsTooSmallBuffers)
 {
     loadInput();
 
@@ -74,7 +74,7 @@ TEST_F(THzConverter_HuffmanCoder, EncodingRejectsTooSmallBuffers)
     EXPECT_EQ(encoder.collectCompressedData(smallSpan), 0U);
 }
 
-TEST_F(THzConverter_HuffmanCoder, EncodingExpectationCorrect)
+TEST_F(Converter_HuffmanCoder, EncodingExpectationCorrect)
 {
     loadInput();
 
@@ -92,7 +92,7 @@ TEST_F(THzConverter_HuffmanCoder, EncodingExpectationCorrect)
     EXPECT_EQ(expectedSize, compressedSize);
 }
 
-TEST_F(THzConverter_HuffmanCoder, EncodingExpectationCorrectOnCollectingMultipleChunks)
+TEST_F(Converter_HuffmanCoder, EncodingExpectationCorrectOnCollectingMultipleChunks)
 {
     loadInput();
 
@@ -114,24 +114,24 @@ TEST_F(THzConverter_HuffmanCoder, EncodingExpectationCorrectOnCollectingMultiple
     EXPECT_EQ(expectedSize, compressedSize);
 }
 
-TEST_F(THzConverter_HuffmanCoder, EmptyDecoderDoesNotReturnData)
+TEST_F(Converter_HuffmanCoder, EmptyDecoderDoesNotReturnData)
 {
     EXPECT_EQ(decoder.bytesLeft(), 0U);
     EXPECT_EQ(decoder.collectNextByte(), 0U);
     EXPECT_EQ(decoder.collectDecompressedData(decompressedSpan), 0U);
 }
 
-TEST_F(THzConverter_HuffmanCoder, DecodingDoesNotAcceptBufferTooSmallForHeader)
+TEST_F(Converter_HuffmanCoder, DecodingDoesNotAcceptBufferTooSmallForHeader)
 {
     EXPECT_FALSE(decoder.decompress(compressedSpan.subspan(0, 5)));
 }
 
-TEST_F(THzConverter_HuffmanCoder, DecodingDoesNotAcceptWrongSignature)
+TEST_F(Converter_HuffmanCoder, DecodingDoesNotAcceptWrongSignature)
 {
     EXPECT_FALSE(decoder.decompress(compressedSpan));
 }
 
-TEST_F(THzConverter_HuffmanCoder, DecodingDoesNotAcceptBufferTooSmallForTable)
+TEST_F(Converter_HuffmanCoder, DecodingDoesNotAcceptBufferTooSmallForTable)
 {
     Huffman::CodeHeader header{};
     header.signature = Huffman::CodeSignature;
@@ -139,7 +139,7 @@ TEST_F(THzConverter_HuffmanCoder, DecodingDoesNotAcceptBufferTooSmallForTable)
     EXPECT_FALSE(decoder.decompress(compressedSpan.subspan(0, 64)));
 }
 
-TEST_F(THzConverter_HuffmanCoder, DecodingDoesNotAcceptBufferTooSmallForCompressedData)
+TEST_F(Converter_HuffmanCoder, DecodingDoesNotAcceptBufferTooSmallForCompressedData)
 {
     loadInput();
 
@@ -157,7 +157,7 @@ TEST_F(THzConverter_HuffmanCoder, DecodingDoesNotAcceptBufferTooSmallForCompress
     EXPECT_FALSE(decoder.decompress(compressedSpan.subspan(0U, compressedSize - 1U)));
 }
 
-TEST_F(THzConverter_HuffmanCoder, DecodingRecreatesEncodedData)
+TEST_F(Converter_HuffmanCoder, DecodingRecreatesEncodedData)
 {
     loadInput();
 
@@ -182,7 +182,7 @@ TEST_F(THzConverter_HuffmanCoder, DecodingRecreatesEncodedData)
     EXPECT_EQ(decoder.collectDecompressedData(decompressedSpan), 0U);
 }
 
-TEST_F(THzConverter_HuffmanCoder, DecodingRecreatesEncodedDataBytewise)
+TEST_F(Converter_HuffmanCoder, DecodingRecreatesEncodedDataBytewise)
 {
     loadInput();
 
@@ -205,7 +205,7 @@ TEST_F(THzConverter_HuffmanCoder, DecodingRecreatesEncodedDataBytewise)
     }
 }
 
-TEST_F(THzConverter_HuffmanCoder, EncodingEdgeCase)
+TEST_F(Converter_HuffmanCoder, EncodingEdgeCase)
 {
     // create the data
     uncompressedSpan = uncompressedSpan.subspan(0U, 1146U);

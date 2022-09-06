@@ -9,7 +9,7 @@
 
 namespace Terrahertz::Huffman {
 
-/// @brief Name provider for the logging project.
+/// @brief Name provider for the Huffman project.
 struct HuffmanProject
 {
     static constexpr char const *name() noexcept { return "THzCommon.Converter.Huffman"; }

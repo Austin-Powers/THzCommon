@@ -1,6 +1,8 @@
 set(PROJECTNAME THzCommon.Converter)
 
 add_library(${PROJECTNAME} STATIC
+	Base64.cpp
+	Base64.h
 	HuffmanCoder.cpp
 	HuffmanCoder.h
 	HuffmanCommons.cpp
