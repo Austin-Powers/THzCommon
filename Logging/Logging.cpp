@@ -61,6 +61,10 @@ void Logger::setFilepath(std::string const &filepath) noexcept
 
 std::uint16_t Logger::maxProjectNameLength() const noexcept { return _maxProjectNameLength; }
 
+bool Logger::logSourceLocation() const noexcept { return _logSourceLocation; }
+
+bool &Logger::logSourceLocation() noexcept { return _logSourceLocation; }
+
 void Logger::logString(std::string const &text) noexcept
 {
     std::unique_lock lock{_loggerMutex};

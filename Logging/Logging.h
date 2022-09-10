@@ -6,6 +6,7 @@
 #include <fstream>
 #include <gsl/gsl>
 #include <mutex>
+#include <source_location>
 #include <string>
 #include <string_view>
 
@@ -95,24 +96,28 @@ public:
     /// @tparam TLevel The level of the log message.
     /// @tparam TProject The proejct for which to log the message.
     /// @param message The message to log.
+    /// @param loc The source_location the logMessage is called from.
     template <LogLevel TLevel, Project TProject>
-    void log(std::string const &message) noexcept;
+    void log(std::string const &message, std::source_location const loc = std::source_location::current()) noexcept;
 
     /// @brief Logs a message to console and log file.
     ///
     /// @tparam TLevel The level of the log message.
     /// @tparam TProject The proejct for which to log the message.
     /// @param message The message to log.
+    /// @param loc The source_location the logMessage is called from.
     template <LogLevel TLevel, Project TProject>
-    void log(std::string_view const &message) noexcept;
+    void log(std::string_view const    &message,
+             std::source_location const loc = std::source_location::current()) noexcept;
 
     /// @brief Logs a message to console and log file.
     ///
     /// @tparam TLevel The level of the log message.
     /// @tparam TProject The proejct for which to log the message.
     /// @param message The message to log.
+    /// @param loc The source_location the logMessage is called from.
     template <LogLevel TLevel, Project TProject>
-    void log(gsl::czstring const message) noexcept;
+    void log(gsl::czstring const message, std::source_location const loc = std::source_location::current()) noexcept;
 
     /// @brief Provides access to the maximum LogLevel.
     ///
@@ -145,6 +150,16 @@ public:
     template <Project TProject>
     void addProject() noexcept;
 
+    /// @brief Returns the flag signalling if the source_location should be logged as well.
+    ///
+    /// @return The flag signalling if the source_location should be logged as well.
+    bool logSourceLocation() const noexcept;
+
+    /// @brief Returns a reference to the flag signalling if the source_location should be logged as well.
+    ///
+    /// @return A reference to the flag signalling if the source_location should be logged as well.
+    bool &logSourceLocation() noexcept;
+
 private:
     /// @brief Logs a text to console and file if present.
     ///
@@ -156,6 +171,9 @@ private:
 
     /// @brief Maximum level of log messages actually written to console and file.
     LogLevel _maxLevel{LogLevel::Error};
+
+    /// @brief Flag signalling if the source_location should be logged as well.
+    bool _logSourceLocation{};
 
     /// @brief The maximum length of the project names.
     std::uint16_t _maxProjectNameLength{};
@@ -172,24 +190,28 @@ private:
 /// @tparam TLevel The level of the log message.
 /// @tparam TProject The proejct for which to log the message.
 /// @param message The message to log.
+/// @param loc The source_location the logMessage is called from.
 template <LogLevel TLevel, Project TProject>
-void logMessage(std::string const &message) noexcept;
+void logMessage(std::string const &message, std::source_location const loc = std::source_location::current()) noexcept;
 
 /// @brief Logs a message to console and log file.
 ///
 /// @tparam TLevel The level of the log message.
 /// @tparam TProject The proejct for which to log the message.
 /// @param message The message to log.
+/// @param loc The source_location the logMessage is called from.
 template <LogLevel TLevel, Project TProject>
-void logMessage(std::string_view const &message) noexcept;
+void logMessage(std::string_view const    &message,
+                std::source_location const loc = std::source_location::current()) noexcept;
 
 /// @brief Logs a message to console and log file.
 ///
 /// @tparam TLevel The level of the log message.
 /// @tparam TProject The proejct for which to log the message.
 /// @param message The message to log.
+/// @param loc The source_location the logMessage is called from.
 template <LogLevel TLevel, Project TProject>
-void logMessage(gsl::czstring const message) noexcept;
+void logMessage(gsl::czstring const message, std::source_location const loc = std::source_location::current()) noexcept;
 
 /// @brief Adds a project so the global logger can readjust the maxProjectNameLength.
 ///

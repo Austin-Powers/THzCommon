@@ -8,19 +8,19 @@
 namespace Terrahertz {
 
 template <LogLevel TLevel, Project TProject>
-void Logger::log(std::string const &message) noexcept
+void Logger::log(std::string const &message, std::source_location const loc) noexcept
 {
-    log<TLevel, TProject>(message.data());
+    log<TLevel, TProject>(message.data(), loc);
 }
 
 template <LogLevel TLevel, Project TProject>
-void Logger::log(std::string_view const &message) noexcept
+void Logger::log(std::string_view const &message, std::source_location const loc) noexcept
 {
-    log<TLevel, TProject>(message.data());
+    log<TLevel, TProject>(message.data(), loc);
 }
 
 template <LogLevel TLevel, Project TProject>
-void Logger::log(gsl::czstring const message) noexcept
+void Logger::log(gsl::czstring const message, std::source_location const loc) noexcept
 {
     constexpr size_t fixedLineContentLength = sizeof "1970-01-01 00:00:00:000 E  ";
 
@@ -48,6 +48,17 @@ void Logger::log(gsl::czstring const message) noexcept
         buffer[fixedLineContentLength - 1 + _maxProjectNameLength] = '\0';
 
         std::string text{buffer.data()};
+        if (_logSourceLocation)
+        {
+            text += loc.file_name();
+            text += '(';
+            text += std::to_string(loc.line());
+            text += ':';
+            text += std::to_string(loc.column());
+            text += ") ";
+            text += loc.function_name();
+            text += ": ";
+        }
         text += message;
         logString(text);
     }
@@ -69,21 +80,21 @@ void Logger::addProject() noexcept
 }
 
 template <LogLevel TLevel, Project TProject>
-void logMessage(std::string const &message) noexcept
+void logMessage(std::string const &message, std::source_location const loc) noexcept
 {
-    Logger::globalInstance().log<TLevel, TProject>(message);
+    Logger::globalInstance().log<TLevel, TProject>(message, loc);
 }
 
 template <LogLevel TLevel, Project TProject>
-void logMessage(std::string_view const &message) noexcept
+void logMessage(std::string_view const &message, std::source_location const loc) noexcept
 {
-    Logger::globalInstance().log<TLevel, TProject>(message);
+    Logger::globalInstance().log<TLevel, TProject>(message, loc);
 }
 
 template <LogLevel TLevel, Project TProject>
-void logMessage(gsl::czstring const message) noexcept
+void logMessage(gsl::czstring const message, std::source_location const loc) noexcept
 {
-    Logger::globalInstance().log<TLevel, TProject>(message);
+    Logger::globalInstance().log<TLevel, TProject>(message, loc);
 }
 
 template <Project TProject>
