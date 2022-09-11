@@ -6,16 +6,14 @@
 namespace Terrahertz {
 
 /// @brief A point in 2 dimensional space.
-///
-/// @remarks The y-axis of the coodrinate system is flipped so it better works on the screen.
 class Point
 {
 public:
     /// @brief X coordinate
-    int32_t x{0};
+    std::int32_t x{0};
 
     /// @brief Y coordinate
-    int32_t y{0};
+    std::int32_t y{0};
 
     /// @brief Adds two points and returns the result.
     ///
@@ -67,7 +65,7 @@ public:
     ///
     /// @param scalar The scalar to multiply with.
     /// @returns A new instance containing the result.
-    [[nodiscard]] inline Point operator*(int32_t const scalar) const noexcept
+    [[nodiscard]] inline Point operator*(std::int32_t const scalar) const noexcept
     {
         Point p;
         p.x = this->x * scalar;
@@ -79,7 +77,7 @@ public:
     ///
     /// @param scalar The scalar to multiply with.
     /// @returns A reference to this instance.
-    inline Point operator*=(int32_t const scalar) noexcept
+    inline Point operator*=(std::int32_t const scalar) noexcept
     {
         x *= scalar;
         y *= scalar;
@@ -90,7 +88,7 @@ public:
     ///
     /// @param other The divisor.
     /// @returns A new instance containing the result.
-    [[nodiscard]] inline Point operator/(int32_t const divisor) const noexcept
+    [[nodiscard]] inline Point operator/(std::int32_t const divisor) const noexcept
     {
         Point p;
         p.x = this->x / divisor;
@@ -102,7 +100,7 @@ public:
     ///
     /// @param other The divisor.
     /// @returns A reference to this instance.
-    inline Point operator/=(int32_t const divisor) noexcept
+    inline Point operator/=(std::int32_t const divisor) noexcept
     {
         x /= divisor;
         y /= divisor;

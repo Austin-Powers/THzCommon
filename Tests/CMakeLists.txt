@@ -1,15 +1,17 @@
 set(PROJECTNAME THzCommon.Tests)
 
 add_executable(${PROJECTNAME}
+	Converter/Base64.cpp
 	Converter/HuffmanCoder.cpp
 	Converter/HuffmanCommons.cpp
 	Logging.cpp
 	Math/InRange.cpp
 	Math/MinMax.cpp
 	Math/Point.cpp
+	Math/Rectangle.cpp
 	Utility/BitBuffer.cpp
 	Utility/FStreamHelpers.cpp
- )
+)
 
 target_include_directories(${PROJECTNAME} PUBLIC
 	${PROJECT_SOURCE_DIR}
