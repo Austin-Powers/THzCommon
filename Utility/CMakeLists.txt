@@ -3,6 +3,8 @@ set(PROJECTNAME THzCommon.Utility)
 add_library(${PROJECTNAME} STATIC
 	BitBuffer.cpp
 	BitBuffer.h
+	ByteOrder.cpp
+	ByteOrder.h
 	Concepts.hpp
 	FStreamHelpers.h
 	SpanHelpers.h

@@ -10,8 +10,8 @@ add_executable(${PROJECTNAME}
 	Math/Point.cpp
 	Math/Rectangle.cpp
 	Utility/BitBuffer.cpp
-	Utility/FStreamHelpers.cpp
-)
+	Utility/ByteOrder.cpp
+	Utility/FStreamHelpers.cpp)
 
 target_include_directories(${PROJECTNAME} PUBLIC
 	${PROJECT_SOURCE_DIR}
