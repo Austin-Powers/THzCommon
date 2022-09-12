@@ -1,7 +1,7 @@
 #ifndef THZ_COMMON_LOGGING_LOGGING_HPP
 #define THZ_COMMON_LOGGING_LOGGING_HPP
 
-#include "Logging.h"
+#include "logging.h"
 
 #include <array>
 

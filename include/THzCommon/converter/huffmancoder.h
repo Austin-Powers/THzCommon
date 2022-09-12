@@ -2,7 +2,7 @@
 #define THZ_COMMON_CONVERTER_HUFFMANCODER_H
 
 #include "HuffmanCommons.h"
-#include "Utility/BitBuffer.h"
+#include "THzCommon/utility/bitbuffer.h"
 
 #include <cstdint>
 #include <gsl/gsl>

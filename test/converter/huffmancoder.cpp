@@ -1,7 +1,7 @@
-#include "Converter/HuffmanCoder.h"
+#include "THzCommon/converter/huffmancoder.h"
 
-#include "Utility/FStreamHelpers.h"
-#include "Utility/SpanHelpers.h"
+#include "THzCommon/utility/fstreamhelpers.h"
+#include "THzCommon/utility/spanhelpers.h"
 
 #include <algorithm>
 #include <array>

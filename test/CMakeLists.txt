@@ -1,32 +1,30 @@
 set(PROJECTNAME THzCommon.Tests)
 
 add_executable(${PROJECTNAME}
-	Converter/Base64.cpp
-	Converter/HuffmanCoder.cpp
-	Converter/HuffmanCommons.cpp
-	Logging.cpp
-	Math/InRange.cpp
-	Math/MinMax.cpp
-	Math/Point.cpp
-	Math/Rectangle.cpp
-	Utility/BitBuffer.cpp
-	Utility/ByteOrder.cpp
-	Utility/FStreamHelpers.cpp)
+	converter/base64.cpp
+	converter/huffmancoder.cpp
+	converter/huffmancommons.cpp
+	logging.cpp
+	math/inrange.cpp
+	math/minmax.cpp
+	math/point.cpp
+	math/rectangle.cpp
+	utility/bitbuffer.cpp
+	utility/byteorder.cpp
+	utility/fstreamhelpers.cpp
+)
 
 target_include_directories(${PROJECTNAME} PUBLIC
 	${PROJECT_SOURCE_DIR}
 )
 
 target_link_libraries(${PROJECTNAME} PUBLIC
-	THzCommon.Converter
-	THzCommon.Logging
-	THzCommon.Math
-	THzCommon.Utility
+	THzCommon
 	gtest_main
 )
 
 target_compile_definitions(${PROJECTNAME} PRIVATE
-	HUFFMANTESTFILEPATH="${PROJECT_SOURCE_DIR}/Tests/Converter/HuffmanCoder.cpp"
+	HUFFMANTESTFILEPATH="${PROJECT_SOURCE_DIR}/test/converter/huffmancoder.cpp"
 )
 
 include(GoogleTest)

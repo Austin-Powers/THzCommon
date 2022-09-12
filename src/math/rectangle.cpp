@@ -1,6 +1,6 @@
-#include "Rectangle.h"
+#include "THzCommon/math/rectangle.h"
 
-#include "MinMax.h"
+#include "THzCommon/math/minmax.h"
 
 #include <algorithm>
 

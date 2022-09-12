@@ -1,4 +1,4 @@
-#include "Utility/ByteOrder.h"
+#include "THzCommon/utility/byteorder.h"
 
 #include <cstdint>
 #include <gtest/gtest.h>

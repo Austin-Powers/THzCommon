@@ -1,7 +1,7 @@
 #ifndef THZ_COMMON_UTILITY_SPANHELPERS_H
 #define THZ_COMMON_UTILITY_SPANHELPERS_H
 
-#include "Concepts.hpp"
+#include "concepts.h"
 
 #include <bit>
 #include <cstring>

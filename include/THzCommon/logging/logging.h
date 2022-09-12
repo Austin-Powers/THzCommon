@@ -222,6 +222,6 @@ void addProjectName() noexcept;
 } // namespace Terrahertz
 
 // include template implementation
-#include "Logging.hpp"
+#include "logging.hpp"
 
 #endif // !THZ_COMMON_LOGGING_LOGGING_H

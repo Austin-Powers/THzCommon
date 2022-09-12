@@ -1,8 +1,8 @@
-#include "HuffmanCommons.h"
+#include "THzCommon\converter\huffmancommons.h"
 
-#include "Logging/Logging.h"
-#include "Structures/Stack.h"
-#include "Utility/SpanHelpers.h"
+#include "THzCommon\logging\logging.h"
+#include "THzCommon\structures\stack.h"
+#include "THzCommon\utility\spanhelpers.h"
 
 #include <algorithm>
 

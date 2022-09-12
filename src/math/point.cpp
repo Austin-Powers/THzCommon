@@ -1,7 +1,7 @@
 #ifndef THZ_GEOMETRY_POINT_HPP
 #define THZ_GEOMETRY_POINT_HPP
 
-#include "Point.h"
+#include "THzCommon/math/point.h"
 
 #include <cmath>
 

@@ -1,9 +1,9 @@
-#include "HuffmanCoder.h"
+#include "THzCommon/converter/huffmancoder.h"
 
-#include "Logging/Logging.h"
-#include "Math/MinMax.h"
-#include "Structures/Stack.h"
-#include "Utility/SpanHelpers.h"
+#include "THzCommon/logging/logging.h"
+#include "THzCommon/math/minmax.h"
+#include "THzCommon/structures/stack.h"
+#include "THzCommon/utility/spanhelpers.h"
 
 #include <bit>
 #include <cstring>

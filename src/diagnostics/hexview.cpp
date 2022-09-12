@@ -1,4 +1,4 @@
-#include "HexView.h"
+#include "THzCommon/diagnostics/hexview.h"
 
 #include <iostream>
 
@@ -55,10 +55,10 @@ void HexView::print(gsl::span<uint8_t const> data) noexcept
                 number >>= 4;
             }
         }
-        auto const byte = data[offset];
+        auto const byte                               = data[offset];
         lineSpan[(index > 7 ? 11 : 10) + (index * 3)] = hexConversionTable[(byte >> 4) & 0xF];
         lineSpan[(index > 7 ? 12 : 11) + (index * 3)] = hexConversionTable[byte & 0xF];
-        textSpan[index] = conversionTable[byte];
+        textSpan[index]                               = conversionTable[byte];
 
         if (index == 0xF)
         {

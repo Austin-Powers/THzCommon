@@ -1,4 +1,4 @@
-#include "Logging.h"
+#include "THzCommon/logging/logging.h"
 
 #include <chrono>
 #include <iostream>

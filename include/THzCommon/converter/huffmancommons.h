@@ -1,7 +1,7 @@
 #ifndef THZ_COMMON_CONVERTER_HUFFMANCOMMONS_H
 #define THZ_COMMON_CONVERTER_HUFFMANCOMMONS_H
 
-#include "Utility/BitBuffer.h"
+#include "THzCommon/utility/bitbuffer.h"
 
 #include <array>
 #include <cstdint>

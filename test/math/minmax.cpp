@@ -1,4 +1,4 @@
-#include "Math/MinMax.h"
+#include "THzCommon/math/minmax.h"
 
 #include <gtest/gtest.h>
 

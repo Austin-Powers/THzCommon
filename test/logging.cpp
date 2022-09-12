@@ -1,4 +1,4 @@
-#include "Logging/Logging.h"
+#include "THzCommon/logging/logging.h"
 
 #include <cstdio>
 #include <gtest/gtest.h>

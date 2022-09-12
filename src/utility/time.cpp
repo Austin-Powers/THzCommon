@@ -1,4 +1,4 @@
-#include "Time.h"
+#include "THzCommon/utility/time.h"
 
 namespace Terrahertz {
 

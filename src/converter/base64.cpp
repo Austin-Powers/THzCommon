@@ -1,7 +1,7 @@
-#include "Base64.h"
+#include "THzCommon/converter/base64.h"
 
-#include "Logging/Logging.h"
-#include "Utility/SpanHelpers.h"
+#include "THzCommon/logging/logging.h"
+#include "THzCommon/utility/spanhelpers.h"
 
 namespace Terrahertz::Base64 {
 

@@ -1,6 +1,6 @@
-#include "BitBuffer.h"
+#include "THzCommon/utility/bitbuffer.h"
 
-#include "Logging/Logging.h"
+#include "THzCommon/logging/logging.h"
 
 #include <cstring>
 
