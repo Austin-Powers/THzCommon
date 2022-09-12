@@ -6,6 +6,8 @@ add_library(${PROJECTNAME} STATIC
 	Logging.hpp
 )
 
+target_include_directories(${PROJECTNAME} INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/")
+
 target_link_libraries(${PROJECTNAME} PUBLIC
 	Microsoft.GSL::GSL
 )
