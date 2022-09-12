@@ -9,10 +9,11 @@ add_executable(${PROJECTNAME}
 	math/minmax.cpp
 	math/point.cpp
 	math/rectangle.cpp
+	structures/stack.cpp
 	utility/bitbuffer.cpp
 	utility/byteorder.cpp
 	utility/fstreamhelpers.cpp
-)
+ )
 
 target_include_directories(${PROJECTNAME} PUBLIC
 	${PROJECT_SOURCE_DIR}

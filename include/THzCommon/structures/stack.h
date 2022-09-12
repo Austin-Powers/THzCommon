@@ -1,12 +1,14 @@
 #ifndef THZ_COMMON_STRUCTURES_STACK_H
 #define THZ_COMMON_STRUCTURES_STACK_H
 
+#include "THzCommon/utility/spanhelpers.h"
+
 #include <array>
 #include <gsl/span>
 
 namespace Terrahertz {
 
-/// @brief Template implementation of a stack.
+/// @brief Template implementation of a static sized stack.
 ///
 /// @tparam TValueType The type of values stored in the stack.
 /// @tparam TBufferSize The size of the stack.
@@ -78,18 +80,12 @@ public:
     /// @brief Returns a span of the currently filled part of the stack.
     ///
     /// @return A Span of the currently filled part of the stack.
-    gsl::span<TValueType const> data() const noexcept
-    {
-        return gsl::span<TValueType const>{_buffer.data(), static_cast<ptrdiff_t>(filled())};
-    }
+    gsl::span<TValueType const> data() const noexcept { return toSpan<TValueType const>(_buffer.data(), _filled); }
 
     /// @brief Returns a span of the currently filled part of the stack.
     ///
     /// @return A Span of the currently filled part of the stack.
-    gsl::span<TValueType> data() noexcept
-    {
-        return gsl::span<TValueType>{_buffer.data(), static_cast<ptrdiff_t>(filled())};
-    }
+    gsl::span<TValueType> data() noexcept { return toSpan<TValueType>(_buffer.data(), _filled); }
 
     /// @brief Returns a pointer to the top element of the Stack.
     ///
