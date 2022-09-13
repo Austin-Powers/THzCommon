@@ -1,7 +1,6 @@
 #include "THzCommon/math/rectangle.h"
 
-#include "THzCommon/math/minmax.h"
-
+#include <algorithm>
 #include <array>
 #include <gtest/gtest.h>
 
@@ -71,10 +70,10 @@ TEST_F(Math_Rectangle, ConstructionUsingPoints)
 
     auto const createAndCheckRectangle = [](Point const &a, Point const &b) noexcept {
         Rectangle  r{a, b};
-        auto const expectedX      = minimum(a.x, b.x);
-        auto const expectedY      = minimum(a.y, b.y);
-        auto const expectedWidth  = maximum(a.x, b.x) - expectedX;
-        auto const expectedHeight = maximum(a.y, b.y) - expectedY;
+        auto const expectedX      = std::min(a.x, b.x);
+        auto const expectedY      = std::min(a.y, b.y);
+        auto const expectedWidth  = std::max(a.x, b.x) - expectedX;
+        auto const expectedHeight = std::max(a.y, b.y) - expectedY;
         EXPECT_EQ(r.upperLeftPoint.x, expectedX);
         EXPECT_EQ(r.upperLeftPoint.y, expectedY);
         EXPECT_EQ(r.width, expectedWidth);

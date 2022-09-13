@@ -1,8 +1,8 @@
 #ifndef THZ_COMMON_CONVERTER_HUFFMANCODER_H
 #define THZ_COMMON_CONVERTER_HUFFMANCODER_H
 
-#include "HuffmanCommons.h"
 #include "THzCommon/utility/bitbuffer.h"
+#include "huffmancommons.h"
 
 #include <cstdint>
 #include <gsl/gsl>

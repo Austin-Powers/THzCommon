@@ -1,7 +1,5 @@
 #include "THzCommon/math/rectangle.h"
 
-#include "THzCommon/math/minmax.h"
-
 #include <algorithm>
 
 namespace Terrahertz {
@@ -23,11 +21,11 @@ Rectangle::Rectangle(Point const pUpperLeftPoint, std::uint32_t const pWidth, st
 
 Rectangle::Rectangle(Point const a, Point const b) noexcept
 {
-    upperLeftPoint.x = minimum(a.x, b.x);
-    upperLeftPoint.y = minimum(a.y, b.y);
+    upperLeftPoint.x = std::min(a.x, b.x);
+    upperLeftPoint.y = std::min(a.y, b.y);
 
-    width  = static_cast<std::uint32_t>(maximum(a.x, b.x) - upperLeftPoint.x);
-    height = static_cast<std::uint32_t>(maximum(a.y, b.y) - upperLeftPoint.y);
+    width  = static_cast<std::uint32_t>(std::max(a.x, b.x) - upperLeftPoint.x);
+    height = static_cast<std::uint32_t>(std::max(a.y, b.y) - upperLeftPoint.y);
 }
 
 uint32_t Rectangle::area() const noexcept { return width * height; }
@@ -47,16 +45,16 @@ Rectangle Rectangle::intersection(Rectangle const &other) const noexcept
         return {};
     }
 
-    std::int32_t const x = maximum(upperLeftPoint.x, other.upperLeftPoint.x);
-    std::int32_t const y = maximum(upperLeftPoint.y, other.upperLeftPoint.y);
-    std::int32_t const w = minimum(upperLeftPoint.x + width, other.upperLeftPoint.x + other.width) - x;
-    std::int32_t const h = minimum(upperLeftPoint.y + height, other.upperLeftPoint.y + other.height) - y;
+    std::int32_t const x = std::max(upperLeftPoint.x, other.upperLeftPoint.x);
+    std::int32_t const y = std::max(upperLeftPoint.y, other.upperLeftPoint.y);
+    std::int32_t const w = std::min(upperLeftPoint.x + width, other.upperLeftPoint.x + other.width) - x;
+    std::int32_t const h = std::min(upperLeftPoint.y + height, other.upperLeftPoint.y + other.height) - y;
 
     Rectangle intersectionRect{};
     intersectionRect.upperLeftPoint.x = x;
     intersectionRect.upperLeftPoint.y = y;
-    intersectionRect.width            = static_cast<uint32_t>(maximum(0, w));
-    intersectionRect.height           = static_cast<uint32_t>(maximum(0, h));
+    intersectionRect.width            = static_cast<uint32_t>(std::max(0, w));
+    intersectionRect.height           = static_cast<uint32_t>(std::max(0, h));
     return intersectionRect;
 }
 
@@ -68,7 +66,7 @@ void Rectangle::shiftEdge(Direction const direction, std::int32_t value) noexcep
     {
         std::int32_t const maxShift = (direction == Direction::Up || direction == Direction::Down) ? height : width;
 
-        value = maximum(value, -maxShift);
+        value = std::max(value, -maxShift);
     }
 
     switch (direction)

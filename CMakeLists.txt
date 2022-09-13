@@ -47,11 +47,11 @@ add_library(${PROJECT_NAME} STATIC
 	include/THzCommon/logging/logging.hpp
 	include/THzCommon/math/constants.h
 	include/THzCommon/math/inrange.h
-	include/THzCommon/math/minmax.h
 	include/THzCommon/math/point.h
 	include/THzCommon/math/rectangle.h
 	include/THzCommon/memory/imemorypool.h
 	include/THzCommon/memory/imemorywrapper.h
+	include/THzCommon/structures/queue.h
 	include/THzCommon/structures/stack.h
 	include/THzCommon/utility/bitbuffer.h
 	include/THzCommon/utility/byteorder.h

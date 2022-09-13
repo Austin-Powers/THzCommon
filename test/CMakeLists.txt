@@ -6,14 +6,14 @@ add_executable(${PROJECTNAME}
 	converter/huffmancommons.cpp
 	logging.cpp
 	math/inrange.cpp
-	math/minmax.cpp
 	math/point.cpp
 	math/rectangle.cpp
+	structures/queue.cpp
 	structures/stack.cpp
 	utility/bitbuffer.cpp
 	utility/byteorder.cpp
 	utility/fstreamhelpers.cpp
- )
+)
 
 target_include_directories(${PROJECTNAME} PUBLIC
 	${PROJECT_SOURCE_DIR}

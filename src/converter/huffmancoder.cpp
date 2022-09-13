@@ -1,7 +1,6 @@
 #include "THzCommon/converter/huffmancoder.h"
 
 #include "THzCommon/logging/logging.h"
-#include "THzCommon/math/minmax.h"
 #include "THzCommon/structures/stack.h"
 #include "THzCommon/utility/spanhelpers.h"
 
