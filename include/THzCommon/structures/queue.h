@@ -1,13 +1,15 @@
 #ifndef THZ_COMMON_STRUCTURES_QUEUE_H
 #define THZ_COMMON_STRUCTURES_QUEUE_H
 
+#include "THzCommon/utility/spanhelpers.h"
+
 #include <array>
 #include <gsl/span>
 #include <iostream>
 
 namespace Terrahertz {
 
-/// @brief Template implementation of a queue.
+/// @brief Template implementation of a static sized queue.
 ///
 /// @tparam TValueType The type of values stored in the queue.
 /// @tparam TBufferSize The size of the queue.
@@ -43,8 +45,8 @@ public:
         if (_pushPosition < _buffer.size())
         {
             _buffer[_pushPosition] = value;
+            ++_pushPosition;
         }
-        ++_pushPosition;
     }
 
     /// @brief Pops a certain amount of values at the front of the queue.
@@ -81,16 +83,13 @@ public:
     /// @return A Span of the currently filled part of the queue.
     gsl::span<TValueType const> data() const noexcept
     {
-        return gsl::span<TValueType const>{_buffer.data() + _popPosition, static_cast<ptrdiff_t>(filled())};
+        return toSpan<TValueType const>(_buffer.data() + _popPosition, filled());
     }
 
     /// @brief Returns a span of the currently filled part of the queue.
     ///
     /// @return A Span of the currently filled part of the queue.
-    gsl::span<TValueType> data() noexcept
-    {
-        return gsl::span<TValueType>{_buffer.data() + _popPosition, static_cast<ptrdiff_t>(filled())};
-    }
+    gsl::span<TValueType> data() noexcept { return toSpan<TValueType>(_buffer.data() + _popPosition, filled()); }
 
 private:
     /// @brief The position in the buffer to pop the next value from.

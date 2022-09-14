@@ -56,7 +56,7 @@ TEST_F(Structures_Stack, PushElements)
     }
 }
 
-TEST_F(Structures_Stack, PushWhenFull)
+TEST_F(Structures_Stack, PushWhileFull)
 {
     fillStack();
     EXPECT_TRUE(sut.full());
