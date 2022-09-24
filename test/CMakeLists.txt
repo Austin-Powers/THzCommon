@@ -8,6 +8,7 @@ add_executable(${PROJECTNAME}
 	math/inrange.cpp
 	math/point.cpp
 	math/rectangle.cpp
+	structures/octree.cpp
 	structures/queue.cpp
 	structures/stack.cpp
 	utility/bitbuffer.cpp
