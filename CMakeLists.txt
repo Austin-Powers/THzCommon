@@ -50,7 +50,6 @@ add_library(${PROJECT_NAME} STATIC
 	include/THzCommon/math/point.h
 	include/THzCommon/math/rectangle.h
 	include/THzCommon/memory/imemorypool.h
-	include/THzCommon/memory/imemorywrapper.h
 	include/THzCommon/structures/octree.h
 	include/THzCommon/structures/queue.h
 	include/THzCommon/structures/stack.h
