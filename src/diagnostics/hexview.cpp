@@ -1,5 +1,6 @@
 #include "THzCommon/diagnostics/hexview.h"
 
+#include <cstring>
 #include <iostream>
 
 namespace Terrahertz {
