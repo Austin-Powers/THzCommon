@@ -28,7 +28,11 @@ void Logger::log(gsl::czstring const message, std::source_location const loc) no
     {
         auto const time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
         struct tm  tmTime;
+#if _WIN32
         gmtime_s(&tmTime, &time);
+#else
+        gmtime_r(&time, &tmTime);
+#endif
         auto const millis = static_cast<uint16_t>(time % 1000);
 
         std::array<char, fixedLineContentLength + ProjectNameLengthLimit> buffer{};
