@@ -1,6 +1,3 @@
-#ifndef THZ_GEOMETRY_POINT_HPP
-#define THZ_GEOMETRY_POINT_HPP
-
 #include "THzCommon/math/point.h"
 
 #include <cmath>
@@ -15,5 +12,3 @@ double Point::distance(Point const &to) const noexcept
 }
 
 } // namespace Terrahertz
-
-#endif THZ_GEOMETRY_POINT_HPP
