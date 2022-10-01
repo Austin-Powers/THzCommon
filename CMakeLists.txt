@@ -74,5 +74,6 @@ if(THZ_COMMON_IS_ROOT)
 	# Not needed here as there will be no parent project, but its good to remember this command
 	set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 	FetchContent_MakeAvailable(googletest)
+	enable_testing()
 	add_subdirectory(test)
 endif()

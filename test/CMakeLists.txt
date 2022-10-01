@@ -30,3 +30,5 @@ target_compile_definitions(${PROJECTNAME} PRIVATE
 
 include(GoogleTest)
 gtest_discover_tests(${PROJECTNAME})
+
+add_test(NAME ${PROJECTNAME} COMMAND ${PROJECTNAME})
