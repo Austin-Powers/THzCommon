@@ -59,7 +59,7 @@ template <Container TContainerType>
     {
         return 0;
     }
-    auto const valueTypeSize = sizeof(TContainerType::value_type);
+    auto const valueTypeSize = sizeof(typename TContainerType::value_type);
     auto const bytesToRead   = valueTypeSize * container.size();
     return stream.read(std::bit_cast<char *>(container.data()), bytesToRead).gcount() / valueTypeSize;
 }
