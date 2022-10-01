@@ -27,7 +27,8 @@ void writeToStream(std::ofstream &stream, TType const &data) noexcept
 template <Container TContainerType>
 void writeToStream(std::ofstream &stream, TContainerType const &container) noexcept
 {
-    stream.write(std::bit_cast<char const *>(container.data()), sizeof(TContainerType::value_type) * container.size());
+    stream.write(std::bit_cast<char const *>(container.data()),
+                 sizeof(typename TContainerType::value_type) * container.size());
 }
 
 /// @brief Function wrapping the read method of the ifstream to make it more easy to use.
