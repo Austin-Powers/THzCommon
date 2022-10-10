@@ -35,6 +35,18 @@ template <typename TSpanType, Container TContainerType>
     return gsl::span<TSpanType>{std::bit_cast<TSpanType *>(container.data()), static_cast<size_t>(container.size())};
 }
 
+/// @brief Explicitly creates a gsl::span from a given container.
+///
+/// @tparam TSpanType The value_type of the span.
+/// @tparam TContainerType The type of container to create the span from.
+/// @param container The container to create the span from.
+/// @return The span of the container.
+template <typename TSpanType, Container TContainerType>
+[[nodiscard]] inline gsl::span<TSpanType const> toSpan(TContainerType const &container) noexcept
+{
+    return gsl::span<TSpanType>{std::bit_cast<TSpanType *>(container.data()), static_cast<size_t>(container.size())};
+}
+
 /// @brief Writes the given instance to the given buffer.
 ///
 /// @tparam TBufferDataType The type of data used by the buffer (has to be one byte wide).
