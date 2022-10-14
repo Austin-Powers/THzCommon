@@ -10,8 +10,8 @@ namespace Terrahertz {
 template <typename TContainerType>
 concept Container = requires(TContainerType container)
 {
-    typename TContainerType::value_type;
-    {container.data()} -> std::same_as<typename TContainerType::value_type *>;
+    typename TContainerType::pointer;
+    {container.data()} -> std::same_as<typename TContainerType::pointer>;
     {container.size()} -> std::integral;
 };
 // clang-format on
