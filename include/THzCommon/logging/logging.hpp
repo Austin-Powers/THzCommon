@@ -29,9 +29,9 @@ void Logger::log(gsl::czstring const message, std::source_location const loc) no
         auto const time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
         struct tm  tmTime;
 #if _WIN32
-        gmtime_s(&tmTime, &time);
+        localtime_s(&tmTime, &time);
 #else
-        gmtime_r(&time, &tmTime);
+        localtime_r(&time, &tmTime);
 #endif
         auto const millis = static_cast<uint16_t>(time % 1000);
 
@@ -40,7 +40,7 @@ void Logger::log(gsl::czstring const message, std::source_location const loc) no
                  buffer.size(),
                  "%04u-%02u-%02u %02u:%02u:%02u:%03u %c %-s ",
                  tmTime.tm_year + 1900,
-                 tmTime.tm_mon,
+                 tmTime.tm_mon + 1,
                  tmTime.tm_mday,
                  tmTime.tm_hour,
                  tmTime.tm_min,
