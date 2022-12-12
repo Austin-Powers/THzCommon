@@ -46,7 +46,7 @@ public:
     template <typename... TParamTypes>
     inline void init(TParamTypes &&...params) noexcept
     {
-        static_assert(sizeof(TImplType) == TImplSize, "TImplSize too small for TImplType");
+        static_assert(sizeof(TImplType) == TImplSize, "TImplSize does not match the size of TImplType");
         _pointer = new (_buffer.data()) TImplType(std::forward<TParamTypes>(params)...);
     }
 
