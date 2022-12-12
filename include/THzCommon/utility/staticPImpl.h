@@ -2,6 +2,7 @@
 #define THZ_COMMON_UTILITY_STATICPIMPL_H
 
 #include <array>
+#include <cstddef>
 #include <cstdint>
 
 namespace Terrahertz {
