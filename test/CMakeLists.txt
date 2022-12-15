@@ -13,7 +13,7 @@ add_executable(${PROJECTNAME}
 	structures/stack.cpp
 	utility/bitbuffer.cpp
 	utility/byteorder.cpp
-	utility/fstreamhelpers.cpp "utility/sptesthelper.h" "utility/sptesthelper.cpp" "utility/staticPImpl.cpp")
+	utility/fstreamhelpers.cpp "utility/sptesthelper.h" "utility/sptesthelper.cpp" "utility/staticPImpl.cpp" "utility/flipBuffer.cpp")
 
 target_include_directories(${PROJECTNAME} PUBLIC
 	${PROJECT_SOURCE_DIR}

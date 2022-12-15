@@ -56,10 +56,12 @@ add_library(${PROJECT_NAME} STATIC
 	include/THzCommon/utility/bitbuffer.h
 	include/THzCommon/utility/byteorder.h
 	include/THzCommon/utility/concepts.h
+	include/THzCommon/utility/flipBuffer.h
 	include/THzCommon/utility/fstreamhelpers.h
 	include/THzCommon/utility/spanhelpers.h
+	include/THzCommon/utility/staticPImpl.h
 	include/THzCommon/utility/time.h
- "include/THzCommon/utility/staticPImpl.h")
+)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
 	${PROJECT_SOURCE_DIR}/include
