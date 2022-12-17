@@ -45,6 +45,7 @@ add_library(${PROJECT_NAME} STATIC
 	include/THzCommon/diagnostics/stopwatch.h
 	include/THzCommon/logging/logging.h
 	include/THzCommon/logging/logging.hpp
+	include/THzCommon/math/bilinearInterpolation.h
 	include/THzCommon/math/constants.h
 	include/THzCommon/math/inrange.h
 	include/THzCommon/math/point.h

@@ -5,6 +5,7 @@ add_executable(${PROJECTNAME}
 	converter/huffmancoder.cpp
 	converter/huffmancommons.cpp
 	logging.cpp
+	math/bilinearInterpolation.cpp
 	math/inrange.cpp
 	math/point.cpp
 	math/rectangle.cpp
@@ -13,7 +14,13 @@ add_executable(${PROJECTNAME}
 	structures/stack.cpp
 	utility/bitbuffer.cpp
 	utility/byteorder.cpp
-	utility/fstreamhelpers.cpp "utility/sptesthelper.h" "utility/sptesthelper.cpp" "utility/staticPImpl.cpp" "utility/flipBuffer.cpp")
+	utility/flipBuffer.cpp
+	utility/fstreamhelpers.cpp
+	utility/spanhelpers.cpp
+	utility/sptesthelper.cpp
+	utility/sptesthelper.h
+	utility/staticPImpl.cpp
+)
 
 target_include_directories(${PROJECTNAME} PUBLIC
 	${PROJECT_SOURCE_DIR}
