@@ -115,7 +115,7 @@ public:
     {
         // string_view may not be zero terminated
         std::array<char, 128U> buffer{};
-        std::memcpy(buffer.data(), message.data(), std::min(buffer.size(), message.size());
+        std::memcpy(buffer.data(), message.data(), std::min(buffer.size(), message.size()));
         log<TLevel, TProject>(buffer.data(), loc);
     }
 
