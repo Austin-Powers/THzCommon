@@ -1,5 +1,5 @@
-#ifndef THZ_COMMON_MATH_CONSTANTS_H
-#define THZ_COMMON_MATH_CONSTANTS_H
+#ifndef THZ_COMMON_MATH_CONSTANTS_HPP
+#define THZ_COMMON_MATH_CONSTANTS_HPP
 
 #include <cstdint>
 
@@ -73,4 +73,4 @@ constexpr Direction turnLeft(Direction d) noexcept
 
 } // namespace Terrahertz
 
-#endif // !THZ_COMMON_MATH_CONSTANTS_H
+#endif // !THZ_COMMON_MATH_CONSTANTS_HPP

@@ -1,5 +1,5 @@
-#ifndef THZ_COMMON_UTILITY_FLIPBUFFER_H
-#define THZ_COMMON_UTILITY_FLIPBUFFER_H
+#ifndef THZ_COMMON_UTILITY_FLIPBUFFER_HPP
+#define THZ_COMMON_UTILITY_FLIPBUFFER_HPP
 
 #include "THzCommon/math/rectangle.hpp"
 
@@ -40,4 +40,4 @@ bool flipBufferHorizontally(gsl::span<TValueType> buffer, Rectangle const &dimen
 
 } // namespace Terrahertz
 
-#endif // !THZ_COMMON_UTILITY_FLIPBUFFER_H
+#endif // !THZ_COMMON_UTILITY_FLIPBUFFER_HPP

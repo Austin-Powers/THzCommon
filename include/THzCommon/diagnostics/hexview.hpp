@@ -1,5 +1,5 @@
-#ifndef THZ_COMMON_ANALYTICS_HEXVIEW_H
-#define THZ_COMMON_ANALYTICS_HEXVIEW_H
+#ifndef THZ_COMMON_ANALYTICS_HEXVIEW_HPP
+#define THZ_COMMON_ANALYTICS_HEXVIEW_HPP
 
 #include <cstdint>
 #include <gsl/span>
@@ -27,4 +27,4 @@ private:
 } // namespace Diagnostics
 } // namespace Terrahertz
 
-#endif // !THZ_COMMON_ANALYTICS_HEXVIEW_H
+#endif // !THZ_COMMON_ANALYTICS_HEXVIEW_HPP

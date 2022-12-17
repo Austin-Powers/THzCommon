@@ -1,5 +1,5 @@
-#ifndef THZ_COMMON_UTILITY_STATICPIMPL_H
-#define THZ_COMMON_UTILITY_STATICPIMPL_H
+#ifndef THZ_COMMON_UTILITY_STATICPIMPL_HPP
+#define THZ_COMMON_UTILITY_STATICPIMPL_HPP
 
 #include <array>
 #include <cstddef>
@@ -70,4 +70,4 @@ private:
 
 } // namespace Terrahertz
 
-#endif // !THZ_COMMON_UTILITY_STATICPIMPL_H
+#endif // !THZ_COMMON_UTILITY_STATICPIMPL_HPP

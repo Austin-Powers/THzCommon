@@ -1,5 +1,5 @@
-#ifndef THZ_COMMON_LOGGING_LOGGING_HPP
-#define THZ_COMMON_LOGGING_LOGGING_HPP
+#ifndef THZ_COMMON_LOGGING_LOGGING_HPPPP
+#define THZ_COMMON_LOGGING_LOGGING_HPPPP
 
 #include <array>
 #include <concepts>
@@ -301,4 +301,4 @@ void addProjectName() noexcept
 
 } // namespace Terrahertz
 
-#endif // !THZ_COMMON_LOGGING_LOGGING_HPP
+#endif // !THZ_COMMON_LOGGING_LOGGING_HPPPP

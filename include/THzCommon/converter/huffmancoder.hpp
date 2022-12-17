@@ -1,5 +1,5 @@
-#ifndef THZ_COMMON_CONVERTER_HUFFMANCODER_H
-#define THZ_COMMON_CONVERTER_HUFFMANCODER_H
+#ifndef THZ_COMMON_CONVERTER_HUFFMANCODER_HPP
+#define THZ_COMMON_CONVERTER_HUFFMANCODER_HPP
 
 #include "THzCommon/utility/bitbuffer.hpp"
 #include "huffmancommons.hpp"
@@ -86,4 +86,4 @@ private:
 
 } // namespace Terrahertz::Huffman
 
-#endif // !THZ_COMMON_CONVERTER_HUFFMANCODER_H
+#endif // !THZ_COMMON_CONVERTER_HUFFMANCODER_HPP

@@ -1,5 +1,5 @@
-#ifndef THZ_COMMON_STRUCTURES_OCTREE_H
-#define THZ_COMMON_STRUCTURES_OCTREE_H
+#ifndef THZ_COMMON_STRUCTURES_OCTREE_HPP
+#define THZ_COMMON_STRUCTURES_OCTREE_HPP
 
 #include <cstdint>
 #include <gsl/span>
@@ -356,4 +356,4 @@ private:
 
 } // namespace Terrahertz
 
-#endif // !THZ_COMMON_STRUCTURES_OCTREE_H
+#endif // !THZ_COMMON_STRUCTURES_OCTREE_HPP

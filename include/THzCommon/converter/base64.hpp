@@ -1,5 +1,5 @@
-#ifndef THZ_COMMON_CONVERTER_BASE64_H
-#define THZ_COMMON_CONVERTER_BASE64_H
+#ifndef THZ_COMMON_CONVERTER_BASE64_HPP
+#define THZ_COMMON_CONVERTER_BASE64_HPP
 
 #include <cstdint>
 #include <gsl/span>
@@ -36,4 +36,4 @@ gsl::span<std::uint8_t> decode(gsl::span<char const> const input, gsl::span<std:
 
 } // namespace Terrahertz::Base64
 
-#endif // !THZ_COMMON_CONVERTER_BASE64_H
+#endif // !THZ_COMMON_CONVERTER_BASE64_HPP

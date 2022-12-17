@@ -1,5 +1,5 @@
-#ifndef THZ_COMMON_UTILITY_TIME_H
-#define THZ_COMMON_UTILITY_TIME_H
+#ifndef THZ_COMMON_UTILITY_TIME_HPP
+#define THZ_COMMON_UTILITY_TIME_HPP
 
 #include <chrono>
 #include <string>
@@ -22,4 +22,4 @@ std::string currentTimestampString() noexcept;
 
 } // namespace Terrahertz
 
-#endif // !THZ_COMMON_UTILITY_TIME_H
+#endif // !THZ_COMMON_UTILITY_TIME_HPP

@@ -1,5 +1,5 @@
-#ifndef THZ_COMMON_MATH_RECTANGLE_H
-#define THZ_COMMON_MATH_RECTANGLE_H
+#ifndef THZ_COMMON_MATH_RECTANGLE_HPP
+#define THZ_COMMON_MATH_RECTANGLE_HPP
 
 #include "constants.hpp"
 #include "point.hpp"
@@ -119,4 +119,4 @@ public:
 
 } // namespace Terrahertz
 
-#endif // !THZ_COMMON_MATH_RECTANGLE_H
+#endif // !THZ_COMMON_MATH_RECTANGLE_HPP

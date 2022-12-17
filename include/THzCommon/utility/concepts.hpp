@@ -1,5 +1,5 @@
-#ifndef THZ_COMMON_UTILITY_CONCEPTS_HPP
-#define THZ_COMMON_UTILITY_CONCEPTS_HPP
+#ifndef THZ_COMMON_UTILITY_CONCEPTS_HPPPP
+#define THZ_COMMON_UTILITY_CONCEPTS_HPPPP
 
 #include <concepts>
 
@@ -18,4 +18,4 @@ concept Container = requires(TContainerType container)
 
 } // namespace Terrahertz
 
-#endif // !THZ_COMMON_UTILITY_CONCEPTS_HPP
+#endif // !THZ_COMMON_UTILITY_CONCEPTS_HPPPP

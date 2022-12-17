@@ -1,5 +1,5 @@
-#ifndef THZ_COMMON_UTILITY_BITBUFFER_H
-#define THZ_COMMON_UTILITY_BITBUFFER_H
+#ifndef THZ_COMMON_UTILITY_BITBUFFER_HPP
+#define THZ_COMMON_UTILITY_BITBUFFER_HPP
 
 #include <cstdint>
 #include <gsl/gsl>
@@ -94,4 +94,4 @@ private:
 
 } // namespace Terrahertz
 
-#endif // !THZ_COMMON_UTILITY_BITBUFFER_H
+#endif // !THZ_COMMON_UTILITY_BITBUFFER_HPP

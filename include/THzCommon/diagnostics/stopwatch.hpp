@@ -1,5 +1,5 @@
-#ifndef THZ_COMMON_ANALYTICS_STOPWATCH_H
-#define THZ_COMMON_ANALYTICS_STOPWATCH_H
+#ifndef THZ_COMMON_ANALYTICS_STOPWATCH_HPP
+#define THZ_COMMON_ANALYTICS_STOPWATCH_HPP
 
 #include "THzCommon/utility/time.hpp"
 
@@ -32,4 +32,4 @@ private:
 
 } // namespace Terrahertz
 
-#endif // !THZ_COMMON_ANALYTICS_STOPWATCH_H
+#endif // !THZ_COMMON_ANALYTICS_STOPWATCH_HPP

@@ -1,5 +1,5 @@
-#ifndef THZ_COMMON_STRUCTURES_STACK_H
-#define THZ_COMMON_STRUCTURES_STACK_H
+#ifndef THZ_COMMON_STRUCTURES_STACK_HPP
+#define THZ_COMMON_STRUCTURES_STACK_HPP
 
 #include "THzCommon/utility/spanhelpers.hpp"
 
@@ -107,4 +107,4 @@ private:
 
 } // namespace Terrahertz
 
-#endif // !THZ_COMMON_STRUCTURES_STACK_H
+#endif // !THZ_COMMON_STRUCTURES_STACK_HPP

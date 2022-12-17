@@ -1,5 +1,5 @@
-#ifndef THZ_COMMON_UTILITY_BYTEORDER_H
-#define THZ_COMMON_UTILITY_BYTEORDER_H
+#ifndef THZ_COMMON_UTILITY_BYTEORDER_HPP
+#define THZ_COMMON_UTILITY_BYTEORDER_HPP
 
 #include <cstdint>
 
@@ -13,4 +13,4 @@ std::uint32_t flipByteOrder(std::uint32_t input) noexcept;
 
 } // namespace Terrahertz
 
-#endif // !THZ_COMMON_UTILITY_BYTEORDER_H
+#endif // !THZ_COMMON_UTILITY_BYTEORDER_HPP
