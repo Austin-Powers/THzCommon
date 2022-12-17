@@ -134,6 +134,8 @@ TEST_F(Logging_Logger, MessagesLoggedToFile)
     checkLine(" W THzCommon.LoggingTests TraceWarning");
     checkLine(" I THzCommon.LoggingTests TraceInfo");
     checkLine(" T THzCommon.LoggingTests TraceTrace");
+
+    checkLine(" W THzCommon.Logging Given project name exceeds ProjectNameLengthLimit");
     checkLine(" I THzCommon.LoggingTests TestProject");
     checkLine(" I THzCommon.LoggingTestsWithExtremlyLongNameForReg LongTestProject");
 }

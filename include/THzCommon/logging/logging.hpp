@@ -210,7 +210,7 @@ public:
         if (length > ProjectNameLengthLimit)
         {
             _maxProjectNameLength = ProjectNameLengthLimit;
-            logMessage<LogLevel::Warning, LoggingProject>("Given project name exceeds ProjectNameLengthLimit");
+            log<LogLevel::Warning, LoggingProject>("Given project name exceeds ProjectNameLengthLimit");
         }
         else if (_maxProjectNameLength < length)
         {
@@ -235,7 +235,7 @@ private:
     void logString(std::string const &text) noexcept;
 
     /// @brief Mutex to lock the output.
-    std::mutex _loggerMutex{};
+    std::recursive_mutex _loggerMutex{};
 
     /// @brief Maximum level of log messages actually written to console and file.
     LogLevel _maxLevel{LogLevel::Error};
