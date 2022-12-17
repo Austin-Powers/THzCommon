@@ -43,7 +43,7 @@ add_library(${PROJECT_NAME} STATIC
 	include/THzCommon/converter/huffmancommons.hpp
 	include/THzCommon/diagnostics/hexview.hpp
 	include/THzCommon/diagnostics/stopwatch.hpp
-	include/THzCommon/logging/logging.h
+	
 	include/THzCommon/logging/logging.hpp
 	include/THzCommon/math/bilinearInterpolation.hpp
 	include/THzCommon/math/constants.hpp

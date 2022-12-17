@@ -18,7 +18,7 @@ add_executable(${PROJECTNAME}
 	utility/fstreamhelpers.cpp
 	utility/spanhelpers.cpp
 	utility/sptesthelper.cpp
-	utility/sptesthelper.h
+	utility/sptesthelper.hpp
 	utility/staticPImpl.cpp
 )
 
