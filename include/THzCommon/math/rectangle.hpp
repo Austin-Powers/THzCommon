@@ -1,8 +1,8 @@
 #ifndef THZ_COMMON_MATH_RECTANGLE_H
 #define THZ_COMMON_MATH_RECTANGLE_H
 
-#include "constants.h"
-#include "point.h"
+#include "constants.hpp"
+#include "point.hpp"
 
 namespace Terrahertz {
 

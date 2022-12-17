@@ -1,7 +1,7 @@
-#include "THzCommon/utility/flipBuffer.h"
+#include "THzCommon/utility/flipBuffer.hpp"
 
-#include "THzCommon/math/rectangle.h"
-#include "THzCommon/utility/spanhelpers.h"
+#include "THzCommon/math/rectangle.hpp"
+#include "THzCommon/utility/spanhelpers.hpp"
 
 #include <array>
 #include <cstdint>

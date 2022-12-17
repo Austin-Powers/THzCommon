@@ -1,7 +1,7 @@
 #ifndef THZ_COMMON_UTILITY_FLIPBUFFER_H
 #define THZ_COMMON_UTILITY_FLIPBUFFER_H
 
-#include "THzCommon/math/rectangle.h"
+#include "THzCommon/math/rectangle.hpp"
 
 #include <gsl/gsl>
 

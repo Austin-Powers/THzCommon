@@ -1,7 +1,7 @@
 #ifndef THZ_COMMON_STRUCTURES_STACK_H
 #define THZ_COMMON_STRUCTURES_STACK_H
 
-#include "THzCommon/utility/spanhelpers.h"
+#include "THzCommon/utility/spanhelpers.hpp"
 
 #include <array>
 #include <gsl/span>

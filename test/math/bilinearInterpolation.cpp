@@ -1,7 +1,7 @@
-#include "THzCommon/math/bilinearInterpolation.h"
+#include "THzCommon/math/bilinearInterpolation.hpp"
 
-#include <THzCommon/math/rectangle.h>
-#include <THzCommon/utility/spanhelpers.h>
+#include <THzCommon/math/rectangle.hpp>
+#include <THzCommon/utility/spanhelpers.hpp>
 #include <array>
 #include <cstdint>
 #include <gtest/gtest.h>

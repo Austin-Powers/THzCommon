@@ -1,4 +1,4 @@
-#include "sptesthelper.h"
+#include "sptesthelper.hpp"
 
 namespace Terrahertz::UnitTests {
 

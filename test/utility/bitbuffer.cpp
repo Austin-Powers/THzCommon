@@ -1,4 +1,4 @@
-#include "THzCommon/utility/bitbuffer.h"
+#include "THzCommon/utility/bitbuffer.hpp"
 
 #include <array>
 #include <cstdint>

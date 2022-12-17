@@ -1,4 +1,4 @@
-#include "THzCommon/structures/queue.h"
+#include "THzCommon/structures/queue.hpp"
 
 #include <cstdint>
 #include <gtest/gtest.h>

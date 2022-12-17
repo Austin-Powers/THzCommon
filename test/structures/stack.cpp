@@ -1,4 +1,4 @@
-#include "THzCommon/structures/stack.h"
+#include "THzCommon/structures/stack.hpp"
 
 #include <cstdint>
 #include <gtest/gtest.h>

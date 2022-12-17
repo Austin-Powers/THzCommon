@@ -1,4 +1,4 @@
-#include "THzCommon/utility/fstreamhelpers.h"
+#include "THzCommon/utility/fstreamhelpers.hpp"
 
 #include <array>
 #include <cstdio>

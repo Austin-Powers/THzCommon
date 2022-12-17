@@ -1,7 +1,7 @@
 #ifndef THZ_COMMON_UTILITY_FSTREAMHELPERS_H
 #define THZ_COMMON_UTILITY_FSTREAMHELPERS_H
 
-#include "concepts.h"
+#include "concepts.hpp"
 
 #include <bit>
 #include <fstream>

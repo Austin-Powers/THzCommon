@@ -1,6 +1,6 @@
-#include "THzCommon/converter/base64.h"
+#include "THzCommon/converter/base64.hpp"
 
-#include "THzCommon/utility/spanhelpers.h"
+#include "THzCommon/utility/spanhelpers.hpp"
 
 #include <array>
 #include <cstring>

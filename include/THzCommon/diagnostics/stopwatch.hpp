@@ -1,7 +1,7 @@
 #ifndef THZ_COMMON_ANALYTICS_STOPWATCH_H
 #define THZ_COMMON_ANALYTICS_STOPWATCH_H
 
-#include "THzCommon/utility/time.h"
+#include "THzCommon/utility/time.hpp"
 
 #include <chrono>
 #include <cstdint>

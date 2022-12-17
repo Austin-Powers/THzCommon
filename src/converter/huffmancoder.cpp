@@ -1,8 +1,8 @@
-#include "THzCommon/converter/huffmancoder.h"
+#include "THzCommon/converter/huffmancoder.hpp"
 
-#include "THzCommon/logging/logging.h"
-#include "THzCommon/structures/stack.h"
-#include "THzCommon/utility/spanhelpers.h"
+#include "THzCommon/logging/logging.hpp"
+#include "THzCommon/structures/stack.hpp"
+#include "THzCommon/utility/spanhelpers.hpp"
 
 #include <bit>
 #include <cstring>

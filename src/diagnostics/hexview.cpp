@@ -1,4 +1,4 @@
-#include "THzCommon/diagnostics/hexview.h"
+#include "THzCommon/diagnostics/hexview.hpp"
 
 #include <cstring>
 #include <iostream>

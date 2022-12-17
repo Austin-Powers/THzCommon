@@ -1,4 +1,4 @@
-#include "THzCommon/math/rectangle.h"
+#include "THzCommon/math/rectangle.hpp"
 
 #include <algorithm>
 #include <array>

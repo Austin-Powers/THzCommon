@@ -1,4 +1,4 @@
-#include "THzCommon/structures/octree.h"
+#include "THzCommon/structures/octree.hpp"
 
 #include <cstdint>
 #include <gtest/gtest.h>

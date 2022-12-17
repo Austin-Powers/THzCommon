@@ -1,4 +1,4 @@
-#include "THzCommon/diagnostics/stopwatch.h"
+#include "THzCommon/diagnostics/stopwatch.hpp"
 
 #include <iostream>
 

@@ -1,4 +1,4 @@
-#include "THzCommon/utility/staticPImpl.h"
+#include "THzCommon/utility/staticPImpl.hpp"
 
 #include <cstdint>
 

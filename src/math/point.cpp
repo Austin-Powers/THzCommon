@@ -1,4 +1,4 @@
-#include "THzCommon/math/point.h"
+#include "THzCommon/math/point.hpp"
 
 #include <cmath>
 

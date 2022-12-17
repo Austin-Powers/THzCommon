@@ -1,6 +1,6 @@
-#include "THzCommon/converter/huffmancoder.h"
-#include "THzCommon/structures/stack.h"
-#include "THzCommon/utility/bitbuffer.h"
+#include "THzCommon/converter/huffmancoder.hpp"
+#include "THzCommon/structures/stack.hpp"
+#include "THzCommon/utility/bitbuffer.hpp"
 
 #include <array>
 #include <gtest/gtest.h>

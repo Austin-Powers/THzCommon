@@ -1,4 +1,4 @@
-#include "THzCommon/utility/spanhelpers.h"
+#include "THzCommon/utility/spanhelpers.hpp"
 
 #include <array>
 #include <cstdint>

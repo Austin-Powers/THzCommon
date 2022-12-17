@@ -1,8 +1,8 @@
 #ifndef THZ_COMMON_MATH_BILINEARINTERPOLATION_H
 #define THZ_COMMON_MATH_BILINEARINTERPOLATION_H
 
-#include "inrange.h"
-#include "rectangle.h"
+#include "inrange.hpp"
+#include "rectangle.hpp"
 
 #include <array>
 #include <gsl/gsl>

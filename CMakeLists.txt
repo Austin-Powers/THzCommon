@@ -38,30 +38,30 @@ add_library(${PROJECT_NAME} STATIC
 	src/utility/byteorder.cpp
 	src/utility/time.cpp
 
-	include/THzCommon/converter/base64.h
-	include/THzCommon/converter/huffmancoder.h
-	include/THzCommon/converter/huffmancommons.h
-	include/THzCommon/diagnostics/hexview.h
-	include/THzCommon/diagnostics/stopwatch.h
+	include/THzCommon/converter/base64.hpp
+	include/THzCommon/converter/huffmancoder.hpp
+	include/THzCommon/converter/huffmancommons.hpp
+	include/THzCommon/diagnostics/hexview.hpp
+	include/THzCommon/diagnostics/stopwatch.hpp
 	include/THzCommon/logging/logging.h
 	include/THzCommon/logging/logging.hpp
-	include/THzCommon/math/bilinearInterpolation.h
-	include/THzCommon/math/constants.h
-	include/THzCommon/math/inrange.h
-	include/THzCommon/math/point.h
-	include/THzCommon/math/rectangle.h
-	include/THzCommon/memory/imemorypool.h
-	include/THzCommon/structures/octree.h
-	include/THzCommon/structures/queue.h
-	include/THzCommon/structures/stack.h
-	include/THzCommon/utility/bitbuffer.h
-	include/THzCommon/utility/byteorder.h
-	include/THzCommon/utility/concepts.h
-	include/THzCommon/utility/flipBuffer.h
-	include/THzCommon/utility/fstreamhelpers.h
-	include/THzCommon/utility/spanhelpers.h
-	include/THzCommon/utility/staticPImpl.h
-	include/THzCommon/utility/time.h
+	include/THzCommon/math/bilinearInterpolation.hpp
+	include/THzCommon/math/constants.hpp
+	include/THzCommon/math/inrange.hpp
+	include/THzCommon/math/point.hpp
+	include/THzCommon/math/rectangle.hpp
+	include/THzCommon/memory/imemorypool.hpp
+	include/THzCommon/structures/octree.hpp
+	include/THzCommon/structures/queue.hpp
+	include/THzCommon/structures/stack.hpp
+	include/THzCommon/utility/bitbuffer.hpp
+	include/THzCommon/utility/byteorder.hpp
+	include/THzCommon/utility/concepts.hpp
+	include/THzCommon/utility/flipBuffer.hpp
+	include/THzCommon/utility/fstreamhelpers.hpp
+	include/THzCommon/utility/spanhelpers.hpp
+	include/THzCommon/utility/staticPImpl.hpp
+	include/THzCommon/utility/time.hpp
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC

@@ -1,6 +1,6 @@
-#include "THzCommon/utility/staticPImpl.h"
+#include "THzCommon/utility/staticPImpl.hpp"
 
-#include "sptesthelper.h"
+#include "sptesthelper.hpp"
 
 #include <gtest/gtest.h>
 

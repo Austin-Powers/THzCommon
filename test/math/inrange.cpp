@@ -1,4 +1,4 @@
-#include "THzCommon/math/inrange.h"
+#include "THzCommon/math/inrange.hpp"
 
 #include <gtest/gtest.h>
 
