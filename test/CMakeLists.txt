@@ -7,6 +7,7 @@ add_executable(${PROJECTNAME}
 	logging.cpp
 	math/bilinearInterpolation.cpp
 	math/inrange.cpp
+	math/matrix.cpp
 	math/point.cpp
 	math/rectangle.cpp
 	structures/octree.cpp
