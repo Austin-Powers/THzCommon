@@ -105,6 +105,30 @@ public:
         return copy;
     }
 
+    /// @brief Multiplies this matrix with the given matrix and returns the resulting matrix.
+    ///
+    /// @tparam OColumns The Columns of the other matrix.
+    /// @param other The other matrix to multiply this matrix with.
+    /// @return The resulting matrix.
+    template <size_t OColumns>
+    auto operator*(Matrix<TValueType, OColumns, TColumns> const &other) const noexcept
+        -> Matrix<TValueType, OColumns, TRows>
+    {
+        Matrix<TValueType, OColumns, TRows> result{};
+        for (auto row = 0U; row < TRows; ++row)
+        {
+            for (auto column = 0U; column < OColumns; ++column)
+            {
+                auto &cell = result(column, row);
+                for (auto index = 0U; index < TColumns; ++index)
+                {
+                    cell += operator()(index, row) * other(column, index);
+                }
+            }
+        }
+        return result;
+    }
+
 private:
     /// @brief The content of the matrix.
     std::array<TValueType, TColumns * TRows> _data{};
