@@ -1,10 +1,19 @@
 #ifndef THZ_COMMON_MATH_MATRIX_HPP
 #define THZ_COMMON_MATH_MATRIX_HPP
 
+#include "THzCommon/logging/logging.hpp"
+
 #include <array>
 #include <cstddef>
+#include <initializer_list>
 
 namespace Terrahertz {
+
+/// @brief Name provider for the THzCommon.Math.Matrix project.
+struct MatrixProject
+{
+    static constexpr char const *name() noexcept { return "THzCommon.Math.Matrix"; }
+};
 
 /// @brief Represents a Matrix.
 ///
@@ -30,6 +39,23 @@ public:
 
     /// @brief Default initialzes a new Matrix.
     Matrix() noexcept = default;
+
+    Matrix(std::initializer_list<TValueType> const &initializerList) noexcept
+    {
+        // as aggregate initialization is not applicable here we just copy by hand
+        auto iter = _data.begin();
+        for (auto const &entry : initializerList)
+        {
+            (*iter) = entry;
+            ++iter;
+            if (iter == _data.end())
+            {
+                logMessage<LogLevel::Warning, MatrixProject>(
+                    "std::initializer_list has more entries than the matrix, cutting excess");
+                break;
+            }
+        }
+    }
 
     /// @brief Returns the value at the given position of the matrix.
     ///
