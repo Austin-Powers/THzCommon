@@ -6,6 +6,14 @@
 namespace Terrahertz {
 
 // clang-format off
+
+/// @brief Concept of a type that can be multiplied by another type and returns a result in its type.
+template <typename TFactorA, typename TFactorB>
+concept MultiplyableBy = requires(TFactorA a, TFactorB b)
+{
+    {a * b} -> std::same_as<TFactorA>;
+};
+
 /// @brief Concept of a container a span can be created from.
 template <typename TContainerType>
 concept Container = requires(TContainerType container)

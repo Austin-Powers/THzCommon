@@ -2,6 +2,7 @@
 #define THZ_COMMON_MATH_MATRIX_HPP
 
 #include "THzCommon/logging/logging.hpp"
+#include "THzCommon/utility/concepts.hpp"
 
 #include <array>
 #include <cstddef>
@@ -26,6 +27,9 @@ class Matrix
 public:
     /// @brief Shortcut to the value type of this matrix.
     using value_type = TValueType;
+
+    /// @brief Shortcut to the type of this matrix.
+    using MyType = Matrix<TValueType, TColumns, TRows>;
 
     /// @brief Returns the number of columns of this matrix.
     ///
@@ -72,6 +76,34 @@ public:
     /// @return The value.
     /// @remark This operator does not check if the position is valid.
     [[nodiscard]] TValueType &operator()(size_t x, size_t y) noexcept { return _data[x + (y * TColumns)]; }
+
+    /// @brief Multiplies this matrix with the given scalar.
+    ///
+    /// @tparam TScalar The type of the scalar to multiply with.
+    /// @param scalar The scalar to multiply with.
+    /// @return Reference to this matrix.
+    template <MultiplyableBy<TValueType> TScalar>
+    MyType &operator*=(TScalar const &scalar) noexcept
+    {
+        for (auto &cell : _data)
+        {
+            cell *= scalar;
+        }
+        return *this;
+    }
+
+    /// @brief Multiplies this matrix with the given scalar and returns the result.
+    ///
+    /// @tparam TScalar The type of the scalar to multiply with.
+    /// @param scalar The scalar to multiply with.
+    /// @return The result of the multiplication.
+    template <MultiplyableBy<TValueType> TScalar>
+    [[nodiscard]] MyType operator*(TScalar const &scalar) const noexcept
+    {
+        auto copy = *this;
+        copy *= scalar;
+        return copy;
+    }
 
 private:
     /// @brief The content of the matrix.
