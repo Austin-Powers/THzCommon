@@ -31,6 +31,9 @@ public:
     /// @brief Shortcut to the type of this matrix.
     using MyType = Matrix<TValueType, TColumns, TRows>;
 
+    /// @brief Shortcut to the storage type of this matrix.
+    using StorageType = std::array<TValueType, TColumns * TRows>;
+
     /// @brief Returns the number of columns of this matrix.
     ///
     /// @return The number of columns of this matrix.
@@ -129,9 +132,14 @@ public:
         return result;
     }
 
+    /// @brief Conversion operator to std::array.
+    ///
+    /// @return The matrix converted to a std::array.
+    operator StorageType() const noexcept { return _data; }
+
 private:
     /// @brief The content of the matrix.
-    std::array<TValueType, TColumns * TRows> _data{};
+    StorageType _data{};
 };
 
 } // namespace Terrahertz

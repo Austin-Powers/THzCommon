@@ -98,10 +98,20 @@ TEST_F(Math_Matrix, MultiplyByMatrix)
     Matrix<double, 1U, 4U> b{1.0, 2.0, 3.0, 4.0};
 
     auto const c = a * b;
-    EXPECT_NEAR(c(0, 0), 0.3, epsilon);
-    EXPECT_NEAR(c(0, 1), 0.7, epsilon);
-    EXPECT_NEAR(c(0, 2), 1.1, epsilon);
-    EXPECT_NEAR(c(0, 3), 1.5, epsilon);
+    EXPECT_NEAR(c(0U, 0U), 0.3, epsilon);
+    EXPECT_NEAR(c(0U, 1U), 0.7, epsilon);
+    EXPECT_NEAR(c(0U, 2U), 1.1, epsilon);
+    EXPECT_NEAR(c(0U, 3U), 1.5, epsilon);
+}
+
+TEST_F(Math_Matrix, ConversionToArray)
+{
+    Matrix<double, 1U, 4U> const        sut{1.0, 2.0, 3.0, 4.0};
+    Matrix<double, 1U, 4U>::StorageType arr = sut;
+    for (auto i = 0U; i < sut.rows(); ++i)
+    {
+        EXPECT_EQ(arr[i], sut(0U, i));
+    }
 }
 
 } // namespace Terrahertz::UnitTests
