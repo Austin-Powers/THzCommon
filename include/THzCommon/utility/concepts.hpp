@@ -7,12 +7,28 @@ namespace Terrahertz {
 
 // clang-format off
 
-/// @brief Concept of a type that can be multiplied by another type and returns a result in its type.
+/// @brief Concept of a type that can be multiplied by another type.
 template <typename TFactorA, typename TFactorB>
 concept MultiplyableBy = requires(TFactorA a, TFactorB b)
 {
-    {a * b} -> std::same_as<TFactorA>;
+    {a * b};
 };
+
+/// @brief Deduces the return type of the multiplication of the two given types.
+/// 
+/// @tparam TFactorA The type of factor A.
+/// @tparam TFactorB The type of factor A.
+template<typename TFactorA, typename TFactorB>
+struct MultiplicationResult
+{
+    static_assert(MultiplyableBy<TFactorA, TFactorB>, "Factors cannot be multiplied");
+
+    using type = decltype(std::declval<TFactorA>() * std::declval<TFactorB>());
+};
+
+/// @brief Shortcut to MultiplicationResult::type
+template<typename TFactorA, typename TFactorB>
+using MultiplicationResult_t = typename MultiplicationResult<TFactorA, TFactorB>::type;
 
 /// @brief Concept of a container a span can be created from.
 template <typename TContainerType>

@@ -7,6 +7,7 @@
 #include <array>
 #include <cstddef>
 #include <initializer_list>
+#include <type_traits>
 
 namespace Terrahertz {
 
@@ -113,11 +114,11 @@ public:
     /// @tparam OColumns The Columns of the other matrix.
     /// @param other The other matrix to multiply this matrix with.
     /// @return The resulting matrix.
-    template <size_t OColumns>
-    auto operator*(Matrix<TValueType, OColumns, TColumns> const &other) const noexcept
-        -> Matrix<TValueType, OColumns, TRows>
+    template <typename OValueType, size_t OColumns>
+    auto operator*(Matrix<OValueType, OColumns, TColumns> const &other) const noexcept
+        -> Matrix<MultiplicationResult_t<TValueType, OValueType>, OColumns, TRows>
     {
-        Matrix<TValueType, OColumns, TRows> result{};
+        Matrix<MultiplicationResult_t<TValueType, OValueType>, OColumns, TRows> result{};
         for (auto row = 0U; row < TRows; ++row)
         {
             for (auto column = 0U; column < OColumns; ++column)

@@ -95,7 +95,7 @@ TEST_F(Math_Matrix, MultiplyByMatrix)
 {
     Matrix<double, 4U, 4U> a{
         0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.10, 0.11, 0.12, 0.13, 0.14, 0.15, 0.16};
-    Matrix<double, 1U, 4U> b{1.0, 2.0, 3.0, 4.0};
+    Matrix<int, 1U, 4U> b{1, 2, 3, 4};
 
     auto const c = a * b;
     EXPECT_NEAR(c(0U, 0U), 0.3, epsilon);
