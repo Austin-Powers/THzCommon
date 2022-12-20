@@ -42,13 +42,19 @@ TEST_F(Math_BilinearInterpolation, InterpolateRejectsIllegalCoordinates)
     }
 }
 
-/* TEST_F(Math_BilinearInterpolation, InterpolationCorrect)
+TEST_F(Math_BilinearInterpolation, InterpolationCorrect)
 {
     double result{};
 
+    auto const lowerIndex = [](double const v, std::uint32_t const dimension) noexcept -> std::uint32_t {
+        auto const dim = dimension - 1U;
+        auto const v0  = static_cast<std::uint32_t>(v * dim);
+        return (v0 == dim) ? v0 - 1U : v0;
+    };
     auto const q = [this](std::int32_t x, std::int32_t y) noexcept -> double {
         return grid[static_cast<std::size_t>(y * dimensions.width) + x];
     };
+
     auto const size    = 42U;
     auto const epsilon = 1.0e-8;
     for (auto yPos = 0U; yPos < size; ++yPos)
@@ -59,31 +65,37 @@ TEST_F(Math_BilinearInterpolation, InterpolateRejectsIllegalCoordinates)
             auto const y = static_cast<double>(yPos) / size;
             EXPECT_TRUE(sut.interpolate(x, y, result));
 
-            auto const x0Int = static_cast<std::int32_t>(x * 4);
-            auto const y0Int = static_cast<std::int32_t>(y * 4);
+            auto const x0Int = lowerIndex(x, dimensions.width);
+            auto const y0Int = lowerIndex(y, dimensions.height);
             auto const x1Int = x0Int + 1;
             auto const y1Int = y0Int + 1;
-            ASSERT_LT(x1Int, dimensions.width);
-            ASSERT_LT(y1Int, dimensions.height);
-            auto const x0 = static_cast<double>(x0Int) / dimensions.width;
-            auto const x1 = static_cast<double>(x1Int) / dimensions.width;
-            auto const y0 = static_cast<double>(y0Int) / dimensions.height;
-            auto const y1 = static_cast<double>(y1Int) / dimensions.height;
+
+            // we need to subtract one because we are addressing the areas between the points not the points themselves
+            auto const x0 = static_cast<double>(x0Int) / (dimensions.width - 1U);
+            auto const x1 = static_cast<double>(x1Int) / (dimensions.width - 1U);
+            auto const y0 = static_cast<double>(y0Int) / (dimensions.height - 1U);
+            auto const y1 = static_cast<double>(y1Int) / (dimensions.height - 1U);
+
+            auto const q00 = q(x0Int, y0Int);
+            auto const q10 = q(x1Int, y0Int);
+            auto const q01 = q(x0Int, y1Int);
+            auto const q11 = q(x1Int, y1Int);
 
             auto const xDiff = x1 - x0;
             auto const yDiff = y1 - y0;
-            auto const qx0   = (x1 - x) / xDiff;
-            auto const qx1   = (x - x0) / xDiff;
-            auto const qy0   = (y1 - y) / yDiff;
-            auto const qy1   = (y - y0) / yDiff;
 
-            auto const fy0 = (qx0 * q(x0Int, y0Int)) + (qx1 * q(x1Int, y0Int));
-            auto const fy1 = (qx0 * q(x0Int, y1Int)) + (qx1 * q(x1Int, y1Int));
+            auto const qx0 = (x1 - x) / xDiff;
+            auto const qx1 = (x - x0) / xDiff;
+            auto const qy0 = (y1 - y) / yDiff;
+            auto const qy1 = (y - y0) / yDiff;
+
+            auto const fy0 = (qx0 * q00) + (qx1 * q10);
+            auto const fy1 = (qx0 * q01) + (qx1 * q11);
             auto const f   = (qy0 * fy0) + (qy1 * fy1);
 
-            ASSERT_NEAR(result, f, epsilon);
+            EXPECT_NEAR(result, f, epsilon);
         }
     }
-} /**/
+}
 
 } // namespace Terrahertz::UnitTests

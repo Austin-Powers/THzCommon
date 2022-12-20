@@ -2,6 +2,7 @@
 #define THZ_COMMON_MATH_BILINEARINTERPOLATION_HPP
 
 #include "inrange.hpp"
+#include "matrix.hpp"
 #include "rectangle.hpp"
 
 #include <array>
@@ -23,7 +24,12 @@ public:
     ///
     /// @param grid The grid of values to interpolate on.
     /// @param dimensions The dimensions of the grid.
-    BilinearInterpolation(gsl::span<TValueType const> const grid, Rectangle dimensions) noexcept {}
+    BilinearInterpolation(gsl::span<TValueType const> const grid, Rectangle dimensions) noexcept
+        : _grid{grid}, _dimensions{dimensions}
+    {
+        // this will make sure the update is triggered on the first run
+        _boundaries[0U] = 1.1;
+    }
 
     /// @brief Interpolates the value at the given relative position.
     ///
@@ -52,18 +58,38 @@ private:
     /// @param y The y-position for the coefficients.
     void updateCoefficients(double x, double y) noexcept
     {
-        // calculate new boundaries
         auto const lowerIndex = [](double const v, std::uint32_t const dimension) noexcept -> std::uint32_t {
             auto const dim = dimension - 1U;
             auto const v0  = static_cast<std::uint32_t>(v * dim);
             return (v0 == dim) ? v0 - 1U : v0;
         };
+        auto const valueAt = [this](size_t const x, size_t const y) noexcept -> TValueType {
+            return _grid[x + (_dimensions.width * y)];
+        };
+
+        // calculate new boundaries
         auto const x0Int = lowerIndex(x, _dimensions.width);
         auto const y0Int = lowerIndex(y, _dimensions.height);
         auto const x1Int = x0Int + 1U;
         auto const y1Int = y0Int + 1U;
+        // we need to subtract one because we are addressing the areas between the points not the points themselves
+        _boundaries[0U] = static_cast<double>(x0Int) / (_dimensions.width - 1U);
+        _boundaries[1U] = static_cast<double>(x1Int) / (_dimensions.width - 1U);
+        _boundaries[2U] = static_cast<double>(y0Int) / (_dimensions.height - 1U);
+        _boundaries[3U] = static_cast<double>(y1Int) / (_dimensions.height - 1U);
 
         // calculate new coefficients
+        auto const &x0 = _boundaries[0U];
+        auto const &x1 = _boundaries[1U];
+        auto const &y0 = _boundaries[2U];
+        auto const &y1 = _boundaries[3U];
+
+        Matrix<double, 4U, 4U> const transformationMatrix{
+            x1 * y1, -x1 * y0, -x0 * y1, x0 * y0, -y1, y0, y1, -y0, -x1, x1, x0, -x0, 1.0, -1.0, -1.0, 1.0};
+        Matrix<TValueType, 1U, 4U> const valueVector{
+            valueAt(x0Int, y0Int), valueAt(x0Int, y1Int), valueAt(x1Int, y0Int), valueAt(x1Int, y1Int)};
+        auto const scalingFactor = 1.0 / ((x1 - x0) * (y1 - y0));
+        _coefficients            = (transformationMatrix * valueVector) * scalingFactor;
     }
 
     /// @brief The grid of values to interpolate on.
@@ -80,7 +106,7 @@ private:
     /// @brief The coefficients of the interpolation.
     ///
     /// @remarks [a00, a10, a01, a11]
-    std::array<double, 4U> _coefficients{};
+    std::array<TValueType, 4U> _coefficients{};
 };
 
 } // namespace Terrahertz
