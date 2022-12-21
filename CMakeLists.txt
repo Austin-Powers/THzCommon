@@ -59,6 +59,7 @@ add_library(${PROJECT_NAME} STATIC
 	include/THzCommon/utility/concepts.hpp
 	include/THzCommon/utility/flipBuffer.hpp
 	include/THzCommon/utility/fstreamhelpers.hpp
+	include/THzCommon/utility/lineSequencer.hpp
 	include/THzCommon/utility/spanhelpers.hpp
 	include/THzCommon/utility/staticPImpl.hpp
 	include/THzCommon/utility/time.hpp

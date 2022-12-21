@@ -17,6 +17,7 @@ add_executable(${PROJECTNAME}
 	utility/byteorder.cpp
 	utility/flipBuffer.cpp
 	utility/fstreamhelpers.cpp
+	utility/lineSequencer.cpp
 	utility/spanhelpers.cpp
 	utility/sptesthelper.cpp
 	utility/sptesthelper.hpp
