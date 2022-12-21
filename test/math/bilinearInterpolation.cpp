@@ -16,8 +16,14 @@ struct Math_BilinearInterpolation : public testing::Test
 
     Rectangle const dimensions{4U, 4U};
 
-    BilinearInterpolation<double> sut{toSpan<double const>(grid), dimensions};
+    BilinearInterpolation<double> sut = *BilinearInterpolation<double>::create(toSpan<double const>(grid), dimensions);
 };
+
+TEST_F(Math_BilinearInterpolation, CreateReturnsEmptyOptionalIfValueDontFit)
+{
+    auto const instance = BilinearInterpolation<double>::create(toSpan<double const>(grid), Rectangle{2, 2});
+    EXPECT_FALSE(instance);
+}
 
 TEST_F(Math_BilinearInterpolation, InterpolateRejectsIllegalCoordinates)
 {

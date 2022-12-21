@@ -7,6 +7,7 @@
 
 #include <array>
 #include <gsl/gsl>
+#include <optional>
 
 namespace Terrahertz {
 
@@ -17,19 +18,23 @@ template <typename TValueType>
 class BilinearInterpolation
 {
 public:
-    /// @brief Default initializes a new BilinearInterpolation.
-    BilinearInterpolation() noexcept = default;
-
-    /// @brief Initializes a new BilinearInterpolation using the given grid of values.
+    /// @brief Creates a BilinearInterpolation instance if the grid.size() of the dimensions.area().
     ///
     /// @param grid The grid of values to interpolate on.
     /// @param dimensions The dimensions of the grid.
-    BilinearInterpolation(gsl::span<TValueType const> const grid, Rectangle dimensions) noexcept
-        : _grid{grid}, _dimensions{dimensions}
+    /// @return The created instance, if the values fit each other.
+    static std::optional<BilinearInterpolation> create(gsl::span<TValueType const> const grid,
+                                                       Rectangle const                  &dimensions) noexcept
     {
-        // this will make sure the update is triggered on the first run
-        _boundaries[0U] = 1.1;
+        if (dimensions.area() == grid.size())
+        {
+            return BilinearInterpolation{grid, dimensions};
+        }
+        return {};
     }
+
+    /// @brief Default initializes a new BilinearInterpolation.
+    BilinearInterpolation() noexcept = default;
 
     /// @brief Interpolates the value at the given relative position.
     ///
@@ -52,6 +57,17 @@ public:
     }
 
 private:
+    /// @brief Initializes a new BilinearInterpolation using the given grid of values.
+    ///
+    /// @param grid The grid of values to interpolate on.
+    /// @param dimensions The dimensions of the grid.
+    BilinearInterpolation(gsl::span<TValueType const> const grid, Rectangle const &dimensions) noexcept
+        : _grid{grid}, _dimensions{dimensions}
+    {
+        // this will make sure the update is triggered on the first run
+        _boundaries[0U] = 1.1;
+    }
+
     /// @brief Updates the coefficients for the interpolation for the given coordinates.
     ///
     /// @param x The x-position for the coefficients.
