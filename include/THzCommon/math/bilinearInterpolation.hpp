@@ -24,8 +24,8 @@ public:
     /// @param dimensions The dimensions of the grid.
     /// @return The created instance, if the values are valid.
     /// @remarks width and height need to be over 1 and dimensions.area() must match grid.size().
-    static std::optional<BilinearInterpolation> create(gsl::span<TValueType const> const grid,
-                                                       Rectangle const                  &dimensions) noexcept
+    [[nodiscard]] static std::optional<BilinearInterpolation> create(gsl::span<TValueType const> const grid,
+                                                                     Rectangle const &dimensions) noexcept
     {
         if ((dimensions.area() == grid.size()) && (dimensions.width > 1U) && (dimensions.height > 1U))
         {
