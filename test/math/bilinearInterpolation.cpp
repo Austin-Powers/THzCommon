@@ -25,6 +25,14 @@ TEST_F(Math_BilinearInterpolation, CreateReturnsEmptyOptionalIfValueDontFit)
     EXPECT_FALSE(instance);
 }
 
+TEST_F(Math_BilinearInterpolation, DimensionsTooSmall)
+{
+    auto const instanceW = BilinearInterpolation<double>::create(toSpan<double const>(grid), Rectangle{1, 2});
+    EXPECT_FALSE(instanceW);
+    auto const instanceH = BilinearInterpolation<double>::create(toSpan<double const>(grid), Rectangle{2, 1});
+    EXPECT_FALSE(instanceH);
+}
+
 TEST_F(Math_BilinearInterpolation, InterpolateRejectsIllegalCoordinates)
 {
     double const           expectedResult{1.337};

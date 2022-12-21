@@ -18,15 +18,16 @@ template <typename TValueType>
 class BilinearInterpolation
 {
 public:
-    /// @brief Creates a BilinearInterpolation instance if the grid.size() of the dimensions.area().
+    /// @brief Creates a BilinearInterpolation instance if it can work with the given values.
     ///
     /// @param grid The grid of values to interpolate on.
     /// @param dimensions The dimensions of the grid.
-    /// @return The created instance, if the values fit each other.
+    /// @return The created instance, if the values are valid.
+    /// @remarks width and height need to be over 1 and dimensions.area() must match grid.size().
     static std::optional<BilinearInterpolation> create(gsl::span<TValueType const> const grid,
                                                        Rectangle const                  &dimensions) noexcept
     {
-        if (dimensions.area() == grid.size())
+        if ((dimensions.area() == grid.size()) && (dimensions.width > 1U) && (dimensions.height > 1U))
         {
             return BilinearInterpolation{grid, dimensions};
         }
