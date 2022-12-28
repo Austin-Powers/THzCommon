@@ -36,6 +36,7 @@ add_library(${PROJECT_NAME} STATIC
 	src/math/rectangle.cpp
 	src/utility/bitbuffer.cpp
 	src/utility/byteorder.cpp
+	src/utility/range2D.cpp
 	src/utility/time.cpp
 
 	include/THzCommon/converter/base64.hpp
@@ -60,6 +61,7 @@ add_library(${PROJECT_NAME} STATIC
 	include/THzCommon/utility/flipBuffer.hpp
 	include/THzCommon/utility/fstreamhelpers.hpp
 	include/THzCommon/utility/lineSequencer.hpp
+	include/THzCommon/utility/range2D.hpp
 	include/THzCommon/utility/spanhelpers.hpp
 	include/THzCommon/utility/staticPImpl.hpp
 	include/THzCommon/utility/time.hpp

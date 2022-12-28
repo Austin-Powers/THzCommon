@@ -18,6 +18,7 @@ add_executable(${PROJECTNAME}
 	utility/flipBuffer.cpp
 	utility/fstreamhelpers.cpp
 	utility/lineSequencer.cpp
+	utility/range2D.cpp
 	utility/spanhelpers.cpp
 	utility/sptesthelper.cpp
 	utility/sptesthelper.hpp
