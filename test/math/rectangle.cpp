@@ -192,4 +192,10 @@ TEST_F(Math_Rectangle, ShiftEdge)
     checkShift(Direction::Left, -25, 30, 10, 0U, 20U);
 }
 
+TEST_F(Math_Rectangle, RangeCreatedCorrectly)
+{
+    Rectangle const sut{10, 10, 20U, 20U};
+    EXPECT_EQ((*sut.range().end()).index, sut.area());
+}
+
 } // namespace Terrahertz::UnitTests

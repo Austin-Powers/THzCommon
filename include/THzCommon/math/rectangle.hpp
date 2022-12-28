@@ -1,6 +1,7 @@
 #ifndef THZ_COMMON_MATH_RECTANGLE_HPP
 #define THZ_COMMON_MATH_RECTANGLE_HPP
 
+#include "THzCommon/utility/range2D.hpp"
 #include "constants.hpp"
 #include "point.hpp"
 
@@ -68,29 +69,29 @@ public:
     /// @brief Calculates the area of the rectangle.
     ///
     /// @returns The area of this rectangle.
-    uint32_t area() const noexcept;
+    [[nodiscard]] uint32_t area() const noexcept;
 
     /// @brief Calculates the center point of the rectangle.
     ///
     /// @returns The center point of the rectangle.
-    Point center() const noexcept;
+    [[nodiscard]] Point center() const noexcept;
 
     /// @brief Calculates the lower right point of the rectangle.
     ///
     /// @returns The lower right point of the rectangle.
-    Point lowerRightPoint() const noexcept;
+    [[nodiscard]] Point lowerRightPoint() const noexcept;
 
     /// @brief Calculates the intersection rectangle of this rectangle and another one.
     ///
     /// @param other The other rectangle to intersect with.
     /// @returns The rectangle representing the intersectional area.
-    Rectangle intersection(Rectangle const &other) const noexcept;
+    [[nodiscard]] Rectangle intersection(Rectangle const &other) const noexcept;
 
     /// @brief Checks if the given rectangle is enclosed by this rectangle.
     ///
     /// @param other The other rectangle to check.
     /// @return True if this rectangle encloses the given one, false otherwise.
-    bool encloses(Rectangle const &other) const noexcept;
+    [[nodiscard]] bool encloses(Rectangle const &other) const noexcept;
 
     /// @brief Shifts one edge of this rectangle.
     ///
@@ -102,7 +103,7 @@ public:
     ///
     /// @param other The other rectangle.
     /// @returns True if the rectangles are equal, false otherwise.
-    bool operator==(Rectangle const &other) const noexcept
+    [[nodiscard]] bool operator==(Rectangle const &other) const noexcept
     {
         return upperLeftPoint == other.upperLeftPoint && width == other.width && height == other.height;
     }
@@ -111,10 +112,15 @@ public:
     ///
     /// @param other The other rectangle.
     /// @returns True if the rectangles are not equal, false otherwise.
-    bool operator!=(Rectangle const &other) const noexcept
+    [[nodiscard]] bool operator!=(Rectangle const &other) const noexcept
     {
         return upperLeftPoint != other.upperLeftPoint || width != other.width || height != other.height;
     }
+
+    /// @brief Creates a Range2D object to iterate of a buffer of the size of the rectangle.
+    ///
+    /// @return A Range2D object to iterate of a buffer of the size of the rectangle.
+    [[nodiscard]] Range2D range() const noexcept;
 };
 
 } // namespace Terrahertz

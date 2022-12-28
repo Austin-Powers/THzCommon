@@ -88,4 +88,6 @@ void Rectangle::shiftEdge(Direction const direction, std::int32_t value) noexcep
     }
 }
 
+Range2D Rectangle::range() const noexcept { return Range2D{width, height}; }
+
 } // namespace Terrahertz
