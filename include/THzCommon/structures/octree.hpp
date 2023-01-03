@@ -106,20 +106,7 @@ public:
         _touched = true;
         if (!_children.empty())
         {
-            auto index = 0U;
-            if (e.x >= _centerX)
-            {
-                index |= 0x1;
-            }
-            if (e.y >= _centerY)
-            {
-                index |= 0x2;
-            }
-            if (e.z >= _centerZ)
-            {
-                index |= 0x4;
-            }
-            _children[index].addEntry(e);
+            _children[positionToIndex(e.x, e.y, e.z)].addEntry(e);
         }
         else
         {
@@ -322,7 +309,102 @@ public:
         return _totalEntries;
     }
 
+    /// @brief Finds the closest entry to the given coordinates.
+    ///
+    /// @param x The x coordinate of the position.
+    /// @param y The y coordinate of the position.
+    /// @param z The z coordinate of the position.
+    /// @return A pointer to the entry, or nullptr if there is no entry.
+    Entry const *closestEntryTo(TCoordinateType x,
+                                TCoordinateType y,
+                                TCoordinateType z,
+                                size_t          closestDistanceSq = std::numeric_limits<size_t>::max()) const noexcept
+    {
+
+        Entry const *closestEntry = nullptr;
+
+        auto const distanceSqOneAxis = [](TCoordinateType a, TCoordinateType b) noexcept -> TCoordinateType {
+            auto const i = (a > b) ? (a - b) : (b - a);
+            return i * i;
+        };
+        auto const distanceSq = [&](Entry const *e) noexcept -> TSizeType {
+            return distanceSqOneAxis(x, e->x) + distanceSqOneAxis(y, e->y) + distanceSqOneAxis(z, e->z);
+        };
+        auto const updateClosestEntry = [&](Entry const *e) noexcept {
+            if (e != nullptr)
+            {
+                auto const dSqEntry = distanceSq(e);
+                if (closestDistanceSq > dSqEntry)
+                {
+                    closestEntry      = e;
+                    closestDistanceSq = dSqEntry;
+                }
+            }
+        };
+
+        // assuming the node was setup correctly all entries should be inside its volume
+        // we can skip a node if no point inside its volume is closer than the already found entry
+        auto const halfSize   = _size / 2U;
+        auto const nearOnAxis = [&](TCoordinateType center, TCoordinateType p) noexcept -> TCoordinateType {
+            if (p < (center - halfSize))
+            {
+                return center - halfSize;
+            }
+            if (p > (center + halfSize))
+            {
+                return center + halfSize;
+            }
+            return center;
+        };
+        Entry corner{nearOnAxis(_centerX, x), nearOnAxis(_centerY, y), nearOnAxis(_centerZ, z), {}};
+        if (distanceSq(&corner) > closestDistanceSq)
+        {
+            return nullptr;
+        }
+
+        for (auto const &entry : _entries)
+        {
+            updateClosestEntry(&entry);
+        }
+        if (!_children.empty())
+        {
+            // start with the node closest to the given position
+            updateClosestEntry(_children[positionToIndex(x, y, z)].closestEntryTo(x, y, z, closestDistanceSq));
+            // check all other children
+            // the check at the start should prevent overhead if there is already a closer entry
+            for (auto const &child : _children)
+            {
+                updateClosestEntry(child.closestEntryTo(x, y, z, closestDistanceSq));
+            }
+        }
+        return closestEntry;
+    }
+
 private:
+    /// @brief Turns the given position into an index in the _children vector.
+    ///
+    /// @param x The position on the X-axis.
+    /// @param y The position on the Y-axis.
+    /// @param z The position on the Z-axis.
+    /// @return The index corresponding to the position.
+    std::uint_fast8_t positionToIndex(TCoordinateType x, TCoordinateType y, TCoordinateType z) const noexcept
+    {
+        std::uint_fast8_t index = 0U;
+        if (x >= _centerX)
+        {
+            index |= 0x1;
+        }
+        if (y >= _centerY)
+        {
+            index |= 0x2;
+        }
+        if (z >= _centerZ)
+        {
+            index |= 0x4;
+        }
+        return index;
+    }
+
     /// @brief The geometric center of the node on the x-axis.
     TCoordinateType _centerX{};
 
