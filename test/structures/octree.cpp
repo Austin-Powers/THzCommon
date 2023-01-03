@@ -44,7 +44,6 @@ TEST_F(Structures_Octree, DefaultConstruction)
         auto const nodesLayer = tree.getNodes(i);
         EXPECT_EQ(nodesLayer.size(), (i == 0 ? 1U : 0U));
     }
-    EXPECT_EQ(tree.closestEntryTo({}, {}, {}), nullptr);
 }
 
 TEST_F(Structures_Octree, ParameterConstruction)
@@ -131,39 +130,6 @@ TEST_F(Structures_Octree, AnalyzeEntries)
     };
     sut.analyzeEntries(lambda);
     EXPECT_EQ(count, sut.totalEntries());
-}
-
-TEST_F(Structures_Octree, ClosestEntryToReturnsClosestEntryOfUnsplitNode)
-{
-    sut.addEntry(32U, 48U, 24U, 10);
-    sut.addEntry(132U, 148U, 124U, 11);
-    sut.addEntry(64U, 97U, 234U, 12);
-    auto const result = sut.closestEntryTo(35U, 60U, 100U);
-    ASSERT_NE(result, nullptr);
-    EXPECT_EQ(result->value, 10U);
-}
-
-TEST_F(Structures_Octree, ClosestEntryToReturnsClosestEntryOfSplitNode)
-{
-    sut.addEntry(32U, 48U, 24U, 10);
-    sut.addEntry(32U, 50U, 24U, 11);
-    sut.addEntry(64U, 97U, 23U, 12);
-    sut.addEntry(60U, 76U, 33U, 13);
-    sut.addEntry(134U, 17U, 43U, 14);
-    auto result = sut.closestEntryTo(35U, 60U, 40U);
-    ASSERT_NE(result, nullptr);
-    EXPECT_EQ(result->value, 11U);
-
-    result = sut.closestEntryTo(135U, 160U, 140U);
-    ASSERT_NE(result, nullptr);
-    EXPECT_EQ(result->value, 12U);
-}
-
-TEST_F(Structures_Octree, ClosestEntryToReturnsNullptrIfCloserEntryAlreadyHasBeenFound)
-{
-    sut.reset(32U, 32U, 32U, 64U, 4U, 8U);
-    sut.addEntry(63U, 63U, 63U, 10);
-    EXPECT_EQ(sut.closestEntryTo(128U, 128U, 128U, 4096U), nullptr);
 }
 
 } // namespace Terrahertz::UnitTests
