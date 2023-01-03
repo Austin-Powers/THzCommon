@@ -1,6 +1,7 @@
 #ifndef THZ_COMMON_STRUCTURES_OCTREE_HPP
 #define THZ_COMMON_STRUCTURES_OCTREE_HPP
 
+#include <cstddef>
 #include <cstdint>
 #include <gsl/span>
 #include <type_traits>
