@@ -7,8 +7,11 @@ Range2D::Position::operator size_t() const noexcept { return index; }
 Range2D::Iterator::Iterator(std::uint32_t const width, size_t const startIndex) noexcept : _width{width}
 {
     _index.index = startIndex;
-    _index.x     = static_cast<std::uint32_t>(startIndex % _width);
-    _index.y     = static_cast<std::uint32_t>(startIndex / _width);
+    if (_width != 0U)
+    {
+        _index.x = static_cast<std::uint32_t>(startIndex % _width);
+        _index.y = static_cast<std::uint32_t>(startIndex / _width);
+    }
 }
 
 Range2D::Iterator::value_type Range2D::Iterator::operator*() const noexcept { return _index; }

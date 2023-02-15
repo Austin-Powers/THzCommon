@@ -115,4 +115,6 @@ TEST_F(Utility_Range2D, UsableInForEachLoop)
     }
 }
 
+TEST_F(Utility_Range2D, ConstructionWithWidthZeroDoesNotThrow) { Range2D::Iterator sut{0U, 0U}; }
+
 } // namespace Terrahertz::UnitTests
