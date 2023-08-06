@@ -65,6 +65,7 @@ add_library(${PROJECT_NAME} STATIC
 	include/THzCommon/utility/spanhelpers.hpp
 	include/THzCommon/utility/staticPImpl.hpp
 	include/THzCommon/utility/time.hpp
+	include/THzCommon/utility/workerThread.hpp
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
