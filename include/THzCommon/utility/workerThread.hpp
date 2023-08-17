@@ -7,7 +7,7 @@
 struct WorkerThread
 {
     /// @brief Shortcut to the mutex used by this class.
-    using Mutex = std::mutex;
+    using Mutex = std::recursive_mutex;
 
     /// @brief Shortcut to the unique_lock used by this class.
     using UniqueLock = std::unique_lock<Mutex>;
@@ -19,7 +19,7 @@ struct WorkerThread
     std::atomic_bool shutdownFlag{false};
 
     /// @brief The mutex of the thread.
-    std::mutex mutex{};
+    Mutex mutex{};
 
     /// @brief The condition variable to wake up the thread.
     std::condition_variable wakeUp{};
