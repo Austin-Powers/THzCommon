@@ -7,7 +7,7 @@
 struct WorkerThread
 {
     /// @brief Shortcut to the mutex used by this class.
-    using Mutex = std::recursive_mutex;
+    using Mutex = std::mutex;
 
     /// @brief Shortcut to the unique_lock used by this class.
     using UniqueLock = std::unique_lock<Mutex>;
