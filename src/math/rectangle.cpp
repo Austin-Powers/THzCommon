@@ -60,6 +60,12 @@ Rectangle Rectangle::intersection(Rectangle const &other) const noexcept
 
 bool Rectangle::encloses(Rectangle const &other) const noexcept { return intersection(other) == other; }
 
+bool Rectangle::encloses(Point const &point) const noexcept
+{
+    return (point.x >= upperLeftPoint.x) && (point.y >= upperLeftPoint.y) && (point.x <= (upperLeftPoint.x + width)) &&
+           (point.y <= (upperLeftPoint.y + height));
+}
+
 void Rectangle::shiftEdge(Direction const direction, std::int32_t value) noexcept
 {
     if (value < 0)

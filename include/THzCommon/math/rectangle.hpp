@@ -93,6 +93,12 @@ public:
     /// @return True if this rectangle encloses the given one, false otherwise.
     [[nodiscard]] bool encloses(Rectangle const &other) const noexcept;
 
+    /// @brief Checks if the given point is enclosed by this rectangle.
+    ///
+    /// @param other The point to check.
+    /// @return True if this rectangle encloses the given point, false otherwise.
+    [[nodiscard]] bool encloses(Point const &point) const noexcept;
+
     /// @brief Shifts one edge of this rectangle.
     ///
     /// @param direction The direction the edge is facing.

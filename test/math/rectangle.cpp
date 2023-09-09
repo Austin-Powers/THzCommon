@@ -145,7 +145,7 @@ TEST_F(Math_Rectangle, Intersection)
     EXPECT_EQ(r1.intersection(r3), r1);
 }
 
-TEST_F(Math_Rectangle, Encloses)
+TEST_F(Math_Rectangle, EnclosesRectangle)
 {
 
     EXPECT_TRUE(r0.encloses(r0));
@@ -153,6 +153,24 @@ TEST_F(Math_Rectangle, Encloses)
     Rectangle const r2{-1, -1, 4U, 4U};
     EXPECT_TRUE(r2.encloses(r1));
     EXPECT_FALSE(r1.encloses(r2));
+}
+
+TEST_F(Math_Rectangle, EnclosesPoint)
+{
+    EXPECT_TRUE(r0.encloses(r0.upperLeftPoint));
+    EXPECT_TRUE(r0.encloses(r0.lowerRightPoint()));
+    auto point = r0.upperLeftPoint;
+    point.x -= 1;
+    EXPECT_FALSE(r0.encloses(point));
+    point = r0.upperLeftPoint;
+    point.y -= 1;
+    EXPECT_FALSE(r0.encloses(point));
+    point = r0.lowerRightPoint();
+    point.x += 1;
+    EXPECT_FALSE(r0.encloses(point));
+    point = r0.lowerRightPoint();
+    point.y += 1;
+    EXPECT_FALSE(r0.encloses(point));
 }
 
 TEST_F(Math_Rectangle, ShiftEdge)
