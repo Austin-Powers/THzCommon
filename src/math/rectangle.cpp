@@ -62,8 +62,9 @@ bool Rectangle::encloses(Rectangle const &other) const noexcept { return interse
 
 bool Rectangle::encloses(Point const &point) const noexcept
 {
-    return (point.x >= upperLeftPoint.x) && (point.y >= upperLeftPoint.y) && (point.x <= (upperLeftPoint.x + width)) &&
-           (point.y <= (upperLeftPoint.y + height));
+    return (point.x >= upperLeftPoint.x) && (point.y >= upperLeftPoint.y) &&
+           (point.x <= (upperLeftPoint.x + static_cast<std::int32_t>(width))) &&
+           (point.y <= (upperLeftPoint.y + static_cast<std::int32_t>(height)));
 }
 
 void Rectangle::shiftEdge(Direction const direction, std::int32_t value) noexcept
