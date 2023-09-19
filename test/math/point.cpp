@@ -98,4 +98,17 @@ TEST_F(Math_Point, Distance)
     EXPECT_NEAR(a.distance(b), std::sqrt(18), epsilon);
 }
 
+TEST_F(Math_Point, Direction)
+{
+    Point const center{0, 0};
+    for (auto x = -1; x < 2; ++x)
+    {
+        for (auto y = -1; y < 2; ++y)
+        {
+            Point const other{2, 0};
+            EXPECT_EQ(center.direction(other), std::atan2(other.y - center.y, other.x - center.x));
+        }
+    }
+}
+
 } // namespace Terrahertz::UnitTests

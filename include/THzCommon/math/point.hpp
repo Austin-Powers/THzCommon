@@ -124,6 +124,12 @@ public:
     /// @param to The point the distance to is calculated.
     /// @returns The distance between this point and the other point.
     double distance(Point const &to) const noexcept;
+
+    /// @brief Calculates the angle between the x-axis and the line pointing to the other point.
+    ///
+    /// @param to The other point.
+    /// @return The angle [rad].
+    double direction(Point const &to) const noexcept;
 };
 
 } // namespace Terrahertz
