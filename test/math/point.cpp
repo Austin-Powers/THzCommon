@@ -105,8 +105,25 @@ TEST_F(Math_Point, Direction)
     {
         for (auto y = -1; y < 2; ++y)
         {
-            Point const other{2, 0};
+            Point const other{x, y};
             EXPECT_EQ(center.direction(other), std::atan2(other.y - center.y, other.x - center.x));
+        }
+    }
+}
+
+TEST_F(Math_Point, AngularShift)
+{
+    Point center{1, 1};
+    for (auto x = -5; x < 6; ++x)
+    {
+        for (auto y = -5; y < 6; ++y)
+        {
+            Point const other{x, y};
+            auto const  direction = center.direction(other);
+            auto const  distance  = center.distance(other);
+            auto const  shifted   = center.angularShift(direction, distance);
+            EXPECT_EQ(shifted.x, other.x) << "X: " << x << " Y: " << y;
+            EXPECT_EQ(shifted.y, other.y) << "X: " << x << " Y: " << y;
         }
     }
 }

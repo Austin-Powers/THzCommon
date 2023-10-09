@@ -9,11 +9,14 @@ namespace Terrahertz {
 class Point
 {
 public:
+    /// @brief The numerical type of the coordinates.
+    using Coordinate = std::int32_t;
+
     /// @brief X coordinate
-    std::int32_t x{0};
+    Coordinate x{0};
 
     /// @brief Y coordinate
-    std::int32_t y{0};
+    Coordinate y{0};
 
     /// @brief Adds two points and returns the result.
     ///
@@ -111,25 +114,32 @@ public:
     ///
     /// @param other The other point.
     /// @returns True if the points are equal, false otherwise.
-    bool operator==(Point const &other) const noexcept { return x == other.x && y == other.y; }
+    [[nodiscard]] inline bool operator==(Point const &other) const noexcept { return x == other.x && y == other.y; }
 
     /// @brief Check if this point not equals an other point.
     ///
     /// @param other The other point.
     /// @returns True if the points are not equal, false otherwise.
-    bool operator!=(Point const &other) const noexcept { return x != other.x || y != other.y; }
+    [[nodiscard]] inline bool operator!=(Point const &other) const noexcept { return x != other.x || y != other.y; }
 
     /// @brief Calculates the distance from this Point to another Point.
     ///
     /// @param to The point the distance to is calculated.
     /// @returns The distance between this point and the other point.
-    double distance(Point const &to) const noexcept;
+    [[nodiscard]] double distance(Point const &to) const noexcept;
 
     /// @brief Calculates the angle between the x-axis and the line pointing to the other point.
     ///
     /// @param to The other point.
     /// @return The angle [rad].
-    double direction(Point const &to) const noexcept;
+    [[nodiscard]] double direction(Point const &to) const noexcept;
+
+    /// @brief Shifts the point by the given distance in the given direction.
+    ///
+    /// @param direction The direction the shift is performed in [rad].
+    /// @param distance The distance of the shift.
+    /// @return The new point.
+    [[nodiscard]] Point angularShift(double const direction, double const distance) const noexcept;
 };
 
 } // namespace Terrahertz

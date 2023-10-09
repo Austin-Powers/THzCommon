@@ -18,4 +18,10 @@ double Point::direction(Point const &to) const noexcept
     return std::atan2(yDistance, xDistance);
 }
 
+Point Point::angularShift(double const direction, double const distance) const noexcept
+{
+    return {x + static_cast<Coordinate>(std::round(std::cos(direction) * distance)),
+            y + static_cast<Coordinate>(std::round(std::sin(direction) * distance))};
+}
+
 } // namespace Terrahertz
