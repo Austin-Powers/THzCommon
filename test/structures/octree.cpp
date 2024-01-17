@@ -6,7 +6,7 @@
 
 namespace Terrahertz::UnitTests {
 
-struct Structures_Octree : public testing::Test
+struct StructuresOctree : public testing::Test
 {
     using TestOctreeType = Octree<std::uint16_t, std::uint32_t, std::int32_t>;
 
@@ -32,7 +32,7 @@ struct Structures_Octree : public testing::Test
     }
 };
 
-TEST_F(Structures_Octree, DefaultConstruction)
+TEST_F(StructuresOctree, DefaultConstruction)
 {
     TestOctreeType tree{};
     checkTree(tree, {}, {}, {}, {}, {}, {}, 0U);
@@ -46,7 +46,7 @@ TEST_F(Structures_Octree, DefaultConstruction)
     }
 }
 
-TEST_F(Structures_Octree, ParameterConstruction)
+TEST_F(StructuresOctree, ParameterConstruction)
 {
     TestOctreeType tree{127U, 128U, 126U, 255U, 4U, 8U};
     checkTree(tree, 127U, 128U, 126U, 255U, 4U, 8U, 0U);
@@ -60,7 +60,7 @@ TEST_F(Structures_Octree, ParameterConstruction)
     }
 }
 
-TEST_F(Structures_Octree, AddSingleEntry)
+TEST_F(StructuresOctree, AddSingleEntry)
 {
     sut.addEntry(20U, 20U, 20U, 123U);
     EXPECT_EQ(sut.totalEntries(), 1U);
@@ -74,7 +74,7 @@ TEST_F(Structures_Octree, AddSingleEntry)
     }
 }
 
-TEST_F(Structures_Octree, NodeIsSplitCorrectly)
+TEST_F(StructuresOctree, NodeIsSplitCorrectly)
 {
     for (auto i = 0U; i < 4U; ++i)
     {
@@ -98,7 +98,7 @@ TEST_F(Structures_Octree, NodeIsSplitCorrectly)
     checkTree(*nodes[8], 192U, 192U, 192U, 128U, 4U, 7U, 1U);
 }
 
-TEST_F(Structures_Octree, Reset)
+TEST_F(StructuresOctree, Reset)
 {
     {
         TestOctreeType tree{};
@@ -114,7 +114,7 @@ TEST_F(Structures_Octree, Reset)
     }
 }
 
-TEST_F(Structures_Octree, AnalyzeEntries)
+TEST_F(StructuresOctree, AnalyzeEntries)
 {
     for (auto i = 20U; i < 80; ++i)
     {

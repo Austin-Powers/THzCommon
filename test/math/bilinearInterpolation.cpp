@@ -9,7 +9,7 @@
 
 namespace Terrahertz::UnitTests {
 
-struct Math_BilinearInterpolation : public testing::Test
+struct MathBilinearInterpolation : public testing::Test
 {
     std::array<double, 16U> const grid{
         1.0, 0.75, 0.5, 0.25, 0.5, 0.25, 1.0, 0.75, 0.0, 0.25, 0.25, 0.25, 1.0, 0.75, 0.5, 0.25};
@@ -19,13 +19,13 @@ struct Math_BilinearInterpolation : public testing::Test
     BilinearInterpolation<double> sut = *BilinearInterpolation<double>::create(toSpan<double const>(grid), dimensions);
 };
 
-TEST_F(Math_BilinearInterpolation, CreateReturnsEmptyOptionalIfValueDontFit)
+TEST_F(MathBilinearInterpolation, CreateReturnsEmptyOptionalIfValueDontFit)
 {
     auto const instance = BilinearInterpolation<double>::create(toSpan<double const>(grid), Rectangle{2, 2});
     EXPECT_FALSE(instance);
 }
 
-TEST_F(Math_BilinearInterpolation, DimensionsTooSmall)
+TEST_F(MathBilinearInterpolation, DimensionsTooSmall)
 {
     auto const instanceW = BilinearInterpolation<double>::create(toSpan<double const>(grid), Rectangle{1, 2});
     EXPECT_FALSE(instanceW);
@@ -33,7 +33,7 @@ TEST_F(Math_BilinearInterpolation, DimensionsTooSmall)
     EXPECT_FALSE(instanceH);
 }
 
-TEST_F(Math_BilinearInterpolation, InterpolateRejectsIllegalCoordinates)
+TEST_F(MathBilinearInterpolation, InterpolateRejectsIllegalCoordinates)
 {
     double const           expectedResult{1.337};
     double                 result{expectedResult};
@@ -56,7 +56,7 @@ TEST_F(Math_BilinearInterpolation, InterpolateRejectsIllegalCoordinates)
     }
 }
 
-TEST_F(Math_BilinearInterpolation, InterpolationCorrect)
+TEST_F(MathBilinearInterpolation, InterpolationCorrect)
 {
     double result{};
 

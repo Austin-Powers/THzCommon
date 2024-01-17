@@ -4,10 +4,10 @@
 
 namespace Terrahertz::UnitTests {
 
-struct Math_InRange : public testing::Test
+struct MathInRange : public testing::Test
 {};
 
-TEST_F(Math_InRange, ValidRangeChecksOneType)
+TEST_F(MathInRange, ValidRangeChecksOneType)
 {
     EXPECT_FALSE(inRange(-11, -10, 10));
     EXPECT_TRUE(inRange(-10, -10, 10));
@@ -16,7 +16,7 @@ TEST_F(Math_InRange, ValidRangeChecksOneType)
     EXPECT_FALSE(inRange(11, -10, 10));
 }
 
-TEST_F(Math_InRange, ValidRangeChecksMultipleTypes)
+TEST_F(MathInRange, ValidRangeChecksMultipleTypes)
 {
     EXPECT_FALSE(inRange(-11.0, -10, 10));
     EXPECT_TRUE(inRange(-10.0, -10, 10));
@@ -25,7 +25,7 @@ TEST_F(Math_InRange, ValidRangeChecksMultipleTypes)
     EXPECT_FALSE(inRange(11.0, -10, 10));
 }
 
-TEST_F(Math_InRange, SwappingMinGreaterMaxReturnsFalse)
+TEST_F(MathInRange, SwappingMinGreaterMaxReturnsFalse)
 {
     EXPECT_FALSE(inRange(-11.0, 10, -10));
     EXPECT_FALSE(inRange(0.0, 10, -10));

@@ -8,7 +8,7 @@
 
 namespace Terrahertz::UnitTests {
 
-struct Converter_Base64 : public testing::Test
+struct ConverterBase64 : public testing::Test
 {
     static constexpr char TestData[] = "You're only unproductive by the standards of the world we lived in two months "
                                        "ago and that world is gone now\n";
@@ -40,7 +40,7 @@ struct Converter_Base64 : public testing::Test
     }
 };
 
-TEST_F(Converter_Base64, EncodedSize)
+TEST_F(ConverterBase64, EncodedSize)
 {
     for (auto i = 0U; i < 16U; ++i)
     {
@@ -48,7 +48,7 @@ TEST_F(Converter_Base64, EncodedSize)
     }
 }
 
-TEST_F(Converter_Base64, DecodedSize)
+TEST_F(ConverterBase64, DecodedSize)
 {
     for (auto i = 0U; i < 16U; ++i)
     {
@@ -56,7 +56,7 @@ TEST_F(Converter_Base64, DecodedSize)
     }
 }
 
-TEST_F(Converter_Base64, EncodingReturnsEmptySpanIfNoDataWasGiven)
+TEST_F(ConverterBase64, EncodingReturnsEmptySpanIfNoDataWasGiven)
 {
     gsl::span<std::uint8_t> emptySpan{};
 
@@ -64,7 +64,7 @@ TEST_F(Converter_Base64, EncodingReturnsEmptySpanIfNoDataWasGiven)
     EXPECT_TRUE(result.empty());
 }
 
-TEST_F(Converter_Base64, EncodingReturnsEmptySpanIfTooSmall)
+TEST_F(ConverterBase64, EncodingReturnsEmptySpanIfTooSmall)
 {
     initRawData();
     auto const smallEncodedDataSpan = encodedDataSpan.subspan(0, Base64::encodedSize(rawDataSpan.size()) - 1U);
@@ -72,7 +72,7 @@ TEST_F(Converter_Base64, EncodingReturnsEmptySpanIfTooSmall)
     EXPECT_TRUE(result.empty());
 }
 
-TEST_F(Converter_Base64, EncodingReturnsCorrectResult)
+TEST_F(ConverterBase64, EncodingReturnsCorrectResult)
 {
     initRawData();
     auto const buffer                 = Base64::encode(rawDataSpan, encodedDataSpan);
@@ -84,7 +84,7 @@ TEST_F(Converter_Base64, EncodingReturnsCorrectResult)
     }
 }
 
-TEST_F(Converter_Base64, DecodingReturnsEmptySpanIfNoDataWasGiven)
+TEST_F(ConverterBase64, DecodingReturnsEmptySpanIfNoDataWasGiven)
 {
     gsl::span<char> emptySpan{};
 
@@ -92,7 +92,7 @@ TEST_F(Converter_Base64, DecodingReturnsEmptySpanIfNoDataWasGiven)
     EXPECT_TRUE(result.empty());
 }
 
-TEST_F(Converter_Base64, DecodingReturnsEmptySpanIfOutputIsTooSmall)
+TEST_F(ConverterBase64, DecodingReturnsEmptySpanIfOutputIsTooSmall)
 {
     initEncodedData();
     auto const smallDecodedDataSpan = rawDataSpan.subspan(0, Base64::decodedSize(encodedDataSpan.size()) - 1U);
@@ -100,7 +100,7 @@ TEST_F(Converter_Base64, DecodingReturnsEmptySpanIfOutputIsTooSmall)
     EXPECT_TRUE(result.empty());
 }
 
-TEST_F(Converter_Base64, DecodingReturnsEmptySpanIfInputHasIllegalSymbols)
+TEST_F(ConverterBase64, DecodingReturnsEmptySpanIfInputHasIllegalSymbols)
 {
     initEncodedData();
     encodedData[32U]  = '#';
@@ -108,7 +108,7 @@ TEST_F(Converter_Base64, DecodingReturnsEmptySpanIfInputHasIllegalSymbols)
     EXPECT_TRUE(result.empty());
 }
 
-TEST_F(Converter_Base64, DecodingReturnsEmptySpanIfInputHasEqualSignInTheMiddle)
+TEST_F(ConverterBase64, DecodingReturnsEmptySpanIfInputHasEqualSignInTheMiddle)
 {
     initEncodedData();
     encodedData[32U]  = '=';
@@ -116,7 +116,7 @@ TEST_F(Converter_Base64, DecodingReturnsEmptySpanIfInputHasEqualSignInTheMiddle)
     EXPECT_TRUE(result.empty());
 }
 
-TEST_F(Converter_Base64, DecodingReturnsEmptySpanIfInputLengthIsNotAMultipleOfFour)
+TEST_F(ConverterBase64, DecodingReturnsEmptySpanIfInputLengthIsNotAMultipleOfFour)
 {
     initEncodedData();
     auto const illSizedSpan = encodedDataSpan.subspan(0U, encodedDataSpan.size() - 1U);
@@ -124,7 +124,7 @@ TEST_F(Converter_Base64, DecodingReturnsEmptySpanIfInputLengthIsNotAMultipleOfFo
     EXPECT_TRUE(result.empty());
 }
 
-TEST_F(Converter_Base64, DecodingReturnsCorrectResult)
+TEST_F(ConverterBase64, DecodingReturnsCorrectResult)
 {
     initEncodedData();
     auto const buffer                 = Base64::decode(encodedDataSpan, rawDataSpan);
@@ -136,7 +136,7 @@ TEST_F(Converter_Base64, DecodingReturnsCorrectResult)
     }
 }
 
-TEST_F(Converter_Base64, DecodingRecreatesEncodedDataInDifferentLengths)
+TEST_F(ConverterBase64, DecodingRecreatesEncodedDataInDifferentLengths)
 {
     auto const checkRecreation = [&](char const *const data) noexcept {
         auto const dataLength = std::strlen(data);

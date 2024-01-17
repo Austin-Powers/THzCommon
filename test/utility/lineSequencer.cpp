@@ -7,13 +7,13 @@
 
 namespace Terrahertz::UnitTests {
 
-struct Utility_LineSequencer : public testing::Test
+struct UtilityLineSequencer : public testing::Test
 {
     std::array<double, 40U> arr{};
     gsl::span<double>       span{toSpan<double>(arr)};
 };
 
-TEST_F(Utility_LineSequencer, CreationFailsIfBufferSizeIsNotAMultipleOfWidth)
+TEST_F(UtilityLineSequencer, CreationFailsIfBufferSizeIsNotAMultipleOfWidth)
 {
     auto sut = LineSequencer<double>::create(span, 3U);
     EXPECT_FALSE(sut);
@@ -23,7 +23,7 @@ TEST_F(Utility_LineSequencer, CreationFailsIfBufferSizeIsNotAMultipleOfWidth)
     EXPECT_FALSE(sut);
 }
 
-TEST_F(Utility_LineSequencer, SequencingBufferBackwards)
+TEST_F(UtilityLineSequencer, SequencingBufferBackwards)
 {
     auto const lineWidth = 10U;
 
@@ -43,7 +43,7 @@ TEST_F(Utility_LineSequencer, SequencingBufferBackwards)
     EXPECT_EQ(lineCount, span.size() / lineWidth);
 }
 
-TEST_F(Utility_LineSequencer, SequencingBufferForwards)
+TEST_F(UtilityLineSequencer, SequencingBufferForwards)
 {
     auto const lineWidth = 10U;
 

@@ -9,17 +9,17 @@
 
 namespace Terrahertz::UnitTests {
 
-struct Utility_FlipBuffer : public testing::Test
+struct UtilityFlipBuffer : public testing::Test
 {};
 
-TEST_F(Utility_FlipBuffer, BufferDimensionsMismatch)
+TEST_F(UtilityFlipBuffer, BufferDimensionsMismatch)
 {
     std::array<std::int32_t, 10U> buffer{};
     Rectangle const               dimensions{5U, 5U};
     EXPECT_FALSE(flipBufferHorizontally(toSpan<std::int32_t>(buffer), dimensions));
 }
 
-TEST_F(Utility_FlipBuffer, FlipHorizontallyWithEvenNumberOfRows)
+TEST_F(UtilityFlipBuffer, FlipHorizontallyWithEvenNumberOfRows)
 {
     // 01 02 03 04    13 14 15 16
     // 05 06 07 08 -> 09 10 11 12
@@ -50,7 +50,7 @@ TEST_F(Utility_FlipBuffer, FlipHorizontallyWithEvenNumberOfRows)
     }
 }
 
-TEST_F(Utility_FlipBuffer, FlipHorizontallyWithOddNumberOfRows)
+TEST_F(UtilityFlipBuffer, FlipHorizontallyWithOddNumberOfRows)
 {
     // 01 02 03 04 05    21 22 23 24 25
     // 06 07 08 09 10    16 17 18 19 20

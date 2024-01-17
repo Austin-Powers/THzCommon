@@ -7,13 +7,13 @@
 
 namespace Terrahertz::UnitTests {
 
-struct Utility_Range2D : public testing::Test
+struct UtilityRange2D : public testing::Test
 {
     // check that Range2D::Iterator meets the requirements for a forward iterator
     static_assert(std::forward_iterator<Range2D::Iterator>, "Range2D::Iterator is not a forward_iterator");
 };
 
-TEST_F(Utility_Range2D, PositionToIndexConversionCorrect)
+TEST_F(UtilityRange2D, PositionToIndexConversionCorrect)
 {
     Range2D::Position sut{};
 
@@ -25,7 +25,7 @@ TEST_F(Utility_Range2D, PositionToIndexConversionCorrect)
     }
 }
 
-TEST_F(Utility_Range2D, IteratorDefaultValuesCorrect)
+TEST_F(UtilityRange2D, IteratorDefaultValuesCorrect)
 {
     Range2D::Iterator sut{};
     EXPECT_EQ((*sut).index, size_t{});
@@ -33,7 +33,7 @@ TEST_F(Utility_Range2D, IteratorDefaultValuesCorrect)
     EXPECT_EQ((*sut).y, std::uint32_t{});
 }
 
-TEST_F(Utility_Range2D, IteratorConstructorCorrect)
+TEST_F(UtilityRange2D, IteratorConstructorCorrect)
 {
     std::uint32_t const width{24U};
     {
@@ -52,7 +52,7 @@ TEST_F(Utility_Range2D, IteratorConstructorCorrect)
     }
 }
 
-TEST_F(Utility_Range2D, EqualityOperatorCorrect)
+TEST_F(UtilityRange2D, EqualityOperatorCorrect)
 {
     std::uint32_t const width{24U};
     size_t const        index{32U};
@@ -69,7 +69,7 @@ TEST_F(Utility_Range2D, EqualityOperatorCorrect)
     EXPECT_NE(iter2, iter3);
 }
 
-TEST_F(Utility_Range2D, IncrementationCorrect)
+TEST_F(UtilityRange2D, IncrementationCorrect)
 {
     std::uint32_t const width{3U};
     Range2D::Iterator   sut{width};
@@ -89,7 +89,7 @@ TEST_F(Utility_Range2D, IncrementationCorrect)
     }
 }
 
-TEST_F(Utility_Range2D, BeginAndEndReturnCorrectIterators)
+TEST_F(UtilityRange2D, BeginAndEndReturnCorrectIterators)
 {
     std::uint32_t     width{16U};
     std::uint32_t     height{9U};
@@ -100,7 +100,7 @@ TEST_F(Utility_Range2D, BeginAndEndReturnCorrectIterators)
     EXPECT_EQ(sut.end(), expectedEnd);
 }
 
-TEST_F(Utility_Range2D, UsableInForEachLoop)
+TEST_F(UtilityRange2D, UsableInForEachLoop)
 {
     std::uint32_t width{16U};
     std::uint32_t height{9U};
@@ -115,6 +115,6 @@ TEST_F(Utility_Range2D, UsableInForEachLoop)
     }
 }
 
-TEST_F(Utility_Range2D, ConstructionWithWidthZeroDoesNotThrow) { Range2D::Iterator sut{0U, 0U}; }
+TEST_F(UtilityRange2D, ConstructionWithWidthZeroDoesNotThrow) { Range2D::Iterator sut{0U, 0U}; }
 
 } // namespace Terrahertz::UnitTests

@@ -6,16 +6,16 @@
 
 namespace Terrahertz::UnitTests {
 
-struct Utility_StaticPImpl : public testing::Test
+struct UtilityStaticPImpl : public testing::Test
 {};
 
-TEST_F(Utility_StaticPImpl, DefaultInitialization)
+TEST_F(UtilityStaticPImpl, DefaultInitialization)
 {
     DefaultInitTestHelper helper{};
     EXPECT_EQ(helper.foo(), -128);
 }
 
-TEST_F(Utility_StaticPImpl, InitializationWithParameters)
+TEST_F(UtilityStaticPImpl, InitializationWithParameters)
 {
     StaticPImplTestHelper helper{22};
     EXPECT_EQ(helper.getNumber(), 22);

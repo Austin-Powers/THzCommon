@@ -5,7 +5,7 @@
 
 namespace Terrahertz::UnitTests {
 
-struct Structures_Stack : public testing::Test
+struct StructuresStack : public testing::Test
 {
     using TestStack = Stack<std::uint32_t, 8U>;
 
@@ -20,7 +20,7 @@ struct Structures_Stack : public testing::Test
     }
 };
 
-TEST_F(Structures_Stack, StackEmptyOnConstruction)
+TEST_F(StructuresStack, StackEmptyOnConstruction)
 {
     EXPECT_FALSE(sut.full());
     EXPECT_EQ(sut.filled(), 0U);
@@ -28,7 +28,7 @@ TEST_F(Structures_Stack, StackEmptyOnConstruction)
     EXPECT_EQ(sut.top(), nullptr);
 }
 
-TEST_F(Structures_Stack, PushElements)
+TEST_F(StructuresStack, PushElements)
 {
     sut.push(23U);
     {
@@ -56,7 +56,7 @@ TEST_F(Structures_Stack, PushElements)
     }
 }
 
-TEST_F(Structures_Stack, PushWhileFull)
+TEST_F(StructuresStack, PushWhileFull)
 {
     fillStack();
     EXPECT_TRUE(sut.full());
@@ -67,7 +67,7 @@ TEST_F(Structures_Stack, PushWhileFull)
     EXPECT_EQ(sut.filled(), sut.size());
 }
 
-TEST_F(Structures_Stack, Pop)
+TEST_F(StructuresStack, Pop)
 {
     sut.push(1U);
     sut.push(2U);
@@ -80,7 +80,7 @@ TEST_F(Structures_Stack, Pop)
     EXPECT_EQ(sut.filled(), 0U);
 }
 
-TEST_F(Structures_Stack, PopOnFullStack)
+TEST_F(StructuresStack, PopOnFullStack)
 {
     fillStack();
     sut.push(12U);
@@ -88,14 +88,14 @@ TEST_F(Structures_Stack, PopOnFullStack)
     EXPECT_FALSE(sut.full());
 }
 
-TEST_F(Structures_Stack, PopTill)
+TEST_F(StructuresStack, PopTill)
 {
     fillStack();
     sut.popTill(5U);
     EXPECT_EQ(sut.filled(), 5U);
 }
 
-TEST_F(Structures_Stack, Clear)
+TEST_F(StructuresStack, Clear)
 {
     fillStack();
     sut.clear();

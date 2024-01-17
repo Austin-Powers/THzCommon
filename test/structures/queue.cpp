@@ -5,7 +5,7 @@
 
 namespace Terrahertz::UnitTests {
 
-struct Structures_Queue : public testing::Test
+struct StructuresQueue : public testing::Test
 {
     using TestQueue = Queue<std::uint32_t, 8U>;
 
@@ -20,14 +20,14 @@ struct Structures_Queue : public testing::Test
     }
 };
 
-TEST_F(Structures_Queue, QueueEmptyOnConstruction)
+TEST_F(StructuresQueue, QueueEmptyOnConstruction)
 {
     EXPECT_TRUE(sut.empty());
     EXPECT_EQ(sut.filled(), 0U);
     EXPECT_TRUE(sut.data().empty());
 }
 
-TEST_F(Structures_Queue, PushElements)
+TEST_F(StructuresQueue, PushElements)
 {
     sut.push(23U);
     {
@@ -48,7 +48,7 @@ TEST_F(Structures_Queue, PushElements)
     }
 }
 
-TEST_F(Structures_Queue, PushWhileFull)
+TEST_F(StructuresQueue, PushWhileFull)
 {
     fillQueue();
     EXPECT_EQ(sut.filled(), sut.size());
@@ -60,7 +60,7 @@ TEST_F(Structures_Queue, PushWhileFull)
     }
 }
 
-TEST_F(Structures_Queue, Pop)
+TEST_F(StructuresQueue, Pop)
 {
     sut.push(1U);
     sut.push(2U);
@@ -75,7 +75,7 @@ TEST_F(Structures_Queue, Pop)
     EXPECT_EQ(data[2U], 5U);
 }
 
-TEST_F(Structures_Queue, PopOnFullQueue)
+TEST_F(StructuresQueue, PopOnFullQueue)
 {
     fillQueue();
     sut.push(1U);
@@ -84,7 +84,7 @@ TEST_F(Structures_Queue, PopOnFullQueue)
     EXPECT_EQ(sut.data().size(), sut.size() - 1U);
 }
 
-TEST_F(Structures_Queue, PopMoreThanIsInTheQueue)
+TEST_F(StructuresQueue, PopMoreThanIsInTheQueue)
 {
     sut.push(1U);
     sut.push(2U);

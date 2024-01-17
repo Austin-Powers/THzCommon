@@ -6,12 +6,12 @@
 
 namespace Terrahertz::UnitTests {
 
-struct Math_Rectangle : public testing::Test
+struct MathRectangle : public testing::Test
 {
     Rectangle const r0{};
 };
 
-TEST_F(Math_Rectangle, ConstructionUsingWidthAndHeight)
+TEST_F(MathRectangle, ConstructionUsingWidthAndHeight)
 {
     Rectangle rwh{1024U, 768U};
     EXPECT_EQ(rwh.upperLeftPoint.x, 0);
@@ -26,7 +26,7 @@ TEST_F(Math_Rectangle, ConstructionUsingWidthAndHeight)
     EXPECT_EQ(rpwh.height, 37U);
 }
 
-TEST_F(Math_Rectangle, Comparison)
+TEST_F(MathRectangle, Comparison)
 {
     {
         Rectangle a{20U, 16U};
@@ -55,7 +55,7 @@ TEST_F(Math_Rectangle, Comparison)
     }
 }
 
-TEST_F(Math_Rectangle, ConstructionUsingPoints)
+TEST_F(MathRectangle, ConstructionUsingPoints)
 {
     // p[5] p[6] p[7]
     // p[4]  a   p[0]
@@ -87,7 +87,7 @@ TEST_F(Math_Rectangle, ConstructionUsingPoints)
     }
 }
 
-TEST_F(Math_Rectangle, Area)
+TEST_F(MathRectangle, Area)
 {
     auto const checkArea = [](Rectangle const &r) noexcept { EXPECT_EQ(r.area(), r.width * r.height); };
     checkArea(Rectangle{0U, 0U});
@@ -96,7 +96,7 @@ TEST_F(Math_Rectangle, Area)
     checkArea(Rectangle{128U, 128U});
 }
 
-TEST_F(Math_Rectangle, LowerRightPoint)
+TEST_F(MathRectangle, LowerRightPoint)
 {
     EXPECT_EQ(r0.upperLeftPoint, r0.lowerRightPoint());
     Rectangle const r1{4U, 4U};
@@ -104,7 +104,7 @@ TEST_F(Math_Rectangle, LowerRightPoint)
     EXPECT_EQ(r1.upperLeftPoint.y + r1.height, r1.lowerRightPoint().y);
 }
 
-TEST_F(Math_Rectangle, Center)
+TEST_F(MathRectangle, Center)
 {
     EXPECT_EQ(r0.center(), Point{});
     Rectangle const r1{3U, 3U};
@@ -113,7 +113,7 @@ TEST_F(Math_Rectangle, Center)
     EXPECT_EQ(r2.center(), Point(2, 2));
 }
 
-TEST_F(Math_Rectangle, Intersection)
+TEST_F(MathRectangle, Intersection)
 {
     // intersection with self returns self
     EXPECT_EQ(r0.intersection(r0), r0);
@@ -145,7 +145,7 @@ TEST_F(Math_Rectangle, Intersection)
     EXPECT_EQ(r1.intersection(r3), r1);
 }
 
-TEST_F(Math_Rectangle, EnclosesRectangle)
+TEST_F(MathRectangle, EnclosesRectangle)
 {
 
     EXPECT_TRUE(r0.encloses(r0));
@@ -155,7 +155,7 @@ TEST_F(Math_Rectangle, EnclosesRectangle)
     EXPECT_FALSE(r1.encloses(r2));
 }
 
-TEST_F(Math_Rectangle, EnclosesPoint)
+TEST_F(MathRectangle, EnclosesPoint)
 {
     EXPECT_TRUE(r0.encloses(r0.upperLeftPoint));
     EXPECT_TRUE(r0.encloses(r0.lowerRightPoint()));
@@ -173,7 +173,7 @@ TEST_F(Math_Rectangle, EnclosesPoint)
     EXPECT_FALSE(r0.encloses(point));
 }
 
-TEST_F(Math_Rectangle, ShiftEdge)
+TEST_F(MathRectangle, ShiftEdge)
 {
     Rectangle const base{10, 10, 20U, 20U};
 
@@ -210,7 +210,7 @@ TEST_F(Math_Rectangle, ShiftEdge)
     checkShift(Direction::Left, -25, 30, 10, 0U, 20U);
 }
 
-TEST_F(Math_Rectangle, RangeCreatedCorrectly)
+TEST_F(MathRectangle, RangeCreatedCorrectly)
 {
     Rectangle const sut{10, 10, 20U, 20U};
     EXPECT_EQ((*sut.range().end()).index, sut.area());

@@ -5,10 +5,10 @@
 
 namespace Terrahertz::UnitTests {
 
-struct Math_Point : public testing::Test
+struct MathPoint : public testing::Test
 {};
 
-TEST_F(Math_Point, Equals)
+TEST_F(MathPoint, Equals)
 {
     Point const a{0, 0};
     Point const b{1, 1};
@@ -19,7 +19,7 @@ TEST_F(Math_Point, Equals)
     EXPECT_EQ(b, c);
 }
 
-TEST_F(Math_Point, Addition)
+TEST_F(MathPoint, Addition)
 {
     Point const a{0, 0};
     Point       b{-2, 2};
@@ -32,7 +32,7 @@ TEST_F(Math_Point, Addition)
     EXPECT_EQ(b, d);
 }
 
-TEST_F(Math_Point, Subtraction)
+TEST_F(MathPoint, Subtraction)
 {
     Point const a{0, 0};
     Point const b{-2, 2};
@@ -51,7 +51,7 @@ TEST_F(Math_Point, Subtraction)
     }
 }
 
-TEST_F(Math_Point, Multiplication)
+TEST_F(MathPoint, Multiplication)
 {
     Point a{-2, 2};
 
@@ -70,7 +70,7 @@ TEST_F(Math_Point, Multiplication)
     EXPECT_EQ(expectedA1, a);
 }
 
-TEST_F(Math_Point, Division)
+TEST_F(MathPoint, Division)
 {
     Point a{16, -16};
 
@@ -89,7 +89,7 @@ TEST_F(Math_Point, Division)
     EXPECT_EQ(expectedA1, a);
 }
 
-TEST_F(Math_Point, Distance)
+TEST_F(MathPoint, Distance)
 {
     auto const epsilon{1e-16};
 
@@ -98,7 +98,7 @@ TEST_F(Math_Point, Distance)
     EXPECT_NEAR(a.distance(b), std::sqrt(18), epsilon);
 }
 
-TEST_F(Math_Point, Direction)
+TEST_F(MathPoint, Direction)
 {
     Point const center{0, 0};
     for (auto x = -1; x < 2; ++x)
@@ -111,7 +111,7 @@ TEST_F(Math_Point, Direction)
     }
 }
 
-TEST_F(Math_Point, AngularShift)
+TEST_F(MathPoint, AngularShift)
 {
     Point center{1, 1};
     for (auto x = -5; x < 6; ++x)

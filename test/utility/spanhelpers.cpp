@@ -7,7 +7,7 @@
 
 namespace Terrahertz::UnitTests {
 
-struct Utility_SpanHelpers : public testing::Test
+struct UtilitySpanHelpers : public testing::Test
 {
     struct TestData
     {
@@ -25,7 +25,7 @@ struct Utility_SpanHelpers : public testing::Test
     std::array<std::uint8_t, 32U> buffer{};
 };
 
-TEST_F(Utility_SpanHelpers, ToSpanCreatesSpanFromPointerAndSize)
+TEST_F(UtilitySpanHelpers, ToSpanCreatesSpanFromPointerAndSize)
 {
     auto const uint16span = toSpan<std::uint16_t>(arr.data(), arr.size());
     EXPECT_EQ(uint16span.data(), arr.data());
@@ -36,7 +36,7 @@ TEST_F(Utility_SpanHelpers, ToSpanCreatesSpanFromPointerAndSize)
     EXPECT_EQ(int16span.size(), arr.size());
 }
 
-TEST_F(Utility_SpanHelpers, ToSpanCreatesSpanFromContainer)
+TEST_F(UtilitySpanHelpers, ToSpanCreatesSpanFromContainer)
 {
     {
         auto const uint16span = toSpan<std::uint16_t>(arr);
@@ -68,7 +68,7 @@ TEST_F(Utility_SpanHelpers, ToSpanCreatesSpanFromContainer)
     }
 }
 
-TEST_F(Utility_SpanHelpers, WriteToSpanHandlesEmptySpan)
+TEST_F(UtilitySpanHelpers, WriteToSpanHandlesEmptySpan)
 {
     TestData data{};
 
@@ -78,7 +78,7 @@ TEST_F(Utility_SpanHelpers, WriteToSpanHandlesEmptySpan)
     EXPECT_TRUE(result.empty());
 }
 
-TEST_F(Utility_SpanHelpers, WriteToSpanHandlesTooSmallSpan)
+TEST_F(UtilitySpanHelpers, WriteToSpanHandlesTooSmallSpan)
 {
     TestData   data{};
     auto       span   = gsl::span<std::uint8_t>{buffer}.subspan(0U, sizeof(TestData) - 1);
@@ -86,7 +86,7 @@ TEST_F(Utility_SpanHelpers, WriteToSpanHandlesTooSmallSpan)
     EXPECT_EQ(span, result);
 }
 
-TEST_F(Utility_SpanHelpers, WriteToSpan)
+TEST_F(UtilitySpanHelpers, WriteToSpan)
 {
     TestData data{};
     data.v0 = 0x47U;
@@ -106,7 +106,7 @@ TEST_F(Utility_SpanHelpers, WriteToSpan)
     EXPECT_EQ(buffer[sizeof(TestData)], 0U);
 }
 
-TEST_F(Utility_SpanHelpers, ReadFromTooSmallSpan)
+TEST_F(UtilitySpanHelpers, ReadFromTooSmallSpan)
 {
     TestData data{};
     data.v0 = 0x47U;
@@ -138,7 +138,7 @@ TEST_F(Utility_SpanHelpers, ReadFromTooSmallSpan)
     }
 }
 
-TEST_F(Utility_SpanHelpers, ReadFromSpan)
+TEST_F(UtilitySpanHelpers, ReadFromSpan)
 {
     TestData data{};
     data.v0 = 0x47U;
@@ -161,14 +161,14 @@ TEST_F(Utility_SpanHelpers, ReadFromSpan)
     EXPECT_EQ(data.v4, read.v4);
 }
 
-TEST_F(Utility_SpanHelpers, TrySubspanReturnsEmptySpan)
+TEST_F(UtilitySpanHelpers, TrySubspanReturnsEmptySpan)
 {
     auto const span   = gsl::span<std::uint8_t>{buffer};
     auto const result = trySubspan(span, buffer.size());
     EXPECT_TRUE(result.empty());
 }
 
-TEST_F(Utility_SpanHelpers, TrySubspanReturnsCorrectSubspan)
+TEST_F(UtilitySpanHelpers, TrySubspanReturnsCorrectSubspan)
 {
     auto const span     = gsl::span<std::uint8_t>{buffer};
     auto const length   = buffer.size() - 1U;

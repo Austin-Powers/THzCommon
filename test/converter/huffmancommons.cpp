@@ -8,7 +8,7 @@
 
 namespace Terrahertz::UnitTests {
 
-struct Converter_HuffmanCommons : public testing::Test
+struct ConverterHuffmanCommons : public testing::Test
 {
     Huffman::SymbolDistribution symbolDistribution{};
 
@@ -111,7 +111,7 @@ struct Converter_HuffmanCommons : public testing::Test
     }
 };
 
-TEST_F(Converter_HuffmanCommons, EncodingReplicatesCodesIfNoDistributionWasGiven)
+TEST_F(ConverterHuffmanCommons, EncodingReplicatesCodesIfNoDistributionWasGiven)
 {
     auto const table = std::make_unique<Huffman::CodeTable>();
 
@@ -125,7 +125,7 @@ TEST_F(Converter_HuffmanCommons, EncodingReplicatesCodesIfNoDistributionWasGiven
     }
 }
 
-TEST_F(Converter_HuffmanCommons, EncodingReplicatesCodesOnEvenDistribution)
+TEST_F(ConverterHuffmanCommons, EncodingReplicatesCodesOnEvenDistribution)
 {
     for (auto &symbol : symbolDistribution)
     {
@@ -144,7 +144,7 @@ TEST_F(Converter_HuffmanCommons, EncodingReplicatesCodesOnEvenDistribution)
     }
 }
 
-TEST_F(Converter_HuffmanCommons, EncodingRejectsSymbolsThatHadZeroInTheDistribution)
+TEST_F(ConverterHuffmanCommons, EncodingRejectsSymbolsThatHadZeroInTheDistribution)
 {
     for (auto &symbol : symbolDistribution)
     {
@@ -168,7 +168,7 @@ TEST_F(Converter_HuffmanCommons, EncodingRejectsSymbolsThatHadZeroInTheDistribut
     EXPECT_EQ(array[0], 0U);
 }
 
-TEST_F(Converter_HuffmanCommons, EncodingResultsInCorrectCodes)
+TEST_F(ConverterHuffmanCommons, EncodingResultsInCorrectCodes)
 {
     for (auto i = 0ULL; i < symbolDistribution.size(); ++i)
     {
@@ -192,7 +192,7 @@ TEST_F(Converter_HuffmanCommons, EncodingResultsInCorrectCodes)
     }
 }
 
-TEST_F(Converter_HuffmanCommons, EncodingReturnsLeftoverBitsIfBufferIsTooSmall)
+TEST_F(ConverterHuffmanCommons, EncodingReturnsLeftoverBitsIfBufferIsTooSmall)
 {
     for (auto i = 0ULL; i < symbolDistribution.size(); ++i)
     {
@@ -219,7 +219,7 @@ TEST_F(Converter_HuffmanCommons, EncodingReturnsLeftoverBitsIfBufferIsTooSmall)
     EXPECT_EQ(table->encode(writer, static_cast<std::uint8_t>(1U)), bitsPerSymbol - bits);
 }
 
-TEST_F(Converter_HuffmanCommons, EncodingOffsetWorksAsIntended)
+TEST_F(ConverterHuffmanCommons, EncodingOffsetWorksAsIntended)
 {
     for (auto i = 0ULL; i < symbolDistribution.size(); ++i)
     {
@@ -251,7 +251,7 @@ TEST_F(Converter_HuffmanCommons, EncodingOffsetWorksAsIntended)
     }
 }
 
-TEST_F(Converter_HuffmanCommons, DecodingResultsInTheOriginalSymbols)
+TEST_F(ConverterHuffmanCommons, DecodingResultsInTheOriginalSymbols)
 {
     for (auto i = 0ULL; i < symbolDistribution.size(); ++i)
     {
@@ -278,7 +278,7 @@ TEST_F(Converter_HuffmanCommons, DecodingResultsInTheOriginalSymbols)
     }
 }
 
-TEST_F(Converter_HuffmanCommons, DecodingResultsInTheOriginalSymbolsWithUnusedSymbols)
+TEST_F(ConverterHuffmanCommons, DecodingResultsInTheOriginalSymbolsWithUnusedSymbols)
 {
     for (auto i = 4ULL; i < (symbolDistribution.size() - 4U); ++i)
     {
@@ -305,7 +305,7 @@ TEST_F(Converter_HuffmanCommons, DecodingResultsInTheOriginalSymbolsWithUnusedSy
     }
 }
 
-TEST_F(Converter_HuffmanCommons, TableWritingRejectTooSmallBuffer)
+TEST_F(ConverterHuffmanCommons, TableWritingRejectTooSmallBuffer)
 {
     for (auto i = 4ULL; i < (symbolDistribution.size() - 4U); ++i)
     {
@@ -323,7 +323,7 @@ TEST_F(Converter_HuffmanCommons, TableWritingRejectTooSmallBuffer)
     }
 }
 
-TEST_F(Converter_HuffmanCommons, TableWritingResultAsExpeced)
+TEST_F(ConverterHuffmanCommons, TableWritingResultAsExpeced)
 {
     for (auto i = 4ULL; i < (symbolDistribution.size() - 4U); ++i)
     {
@@ -340,7 +340,7 @@ TEST_F(Converter_HuffmanCommons, TableWritingResultAsExpeced)
     EXPECT_EQ(remainingSpan.size(), span.size() - (size & 0xFFF));
 }
 
-TEST_F(Converter_HuffmanCommons, TableReadingRejectsCorruptData)
+TEST_F(ConverterHuffmanCommons, TableReadingRejectsCorruptData)
 {
     for (auto i = 4ULL; i < (symbolDistribution.size() - 4U); ++i)
     {
@@ -359,7 +359,7 @@ TEST_F(Converter_HuffmanCommons, TableReadingRejectsCorruptData)
     EXPECT_EQ(table2->read(span), gsl::span<std::uint8_t const>{span});
 }
 
-TEST_F(Converter_HuffmanCommons, TableReadingRecreatesStateOfTheOfTheWritingTable)
+TEST_F(ConverterHuffmanCommons, TableReadingRecreatesStateOfTheOfTheWritingTable)
 {
     for (auto i = 4ULL; i < (symbolDistribution.size() - 4U); ++i)
     {

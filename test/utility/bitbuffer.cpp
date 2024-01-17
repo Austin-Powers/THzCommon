@@ -7,7 +7,7 @@
 
 namespace Terrahertz::UnitTests {
 
-struct Utility_BitBufferReader : public testing::Test
+struct UtilityBitBufferReader : public testing::Test
 {
     std::array<std::uint8_t, 0x4U> array{0b1101'1011U, 0b1110'0101U, 0b1101'1011U, 0b1110'0101U};
 
@@ -16,7 +16,7 @@ struct Utility_BitBufferReader : public testing::Test
     BitBufferReader reader{span};
 };
 
-TEST_F(Utility_BitBufferReader, DefaultConstructedReaderCorrect)
+TEST_F(UtilityBitBufferReader, DefaultConstructedReaderCorrect)
 {
     BitBufferReader defReader{};
     EXPECT_EQ(defReader.bitsLeft(), 0U);
@@ -24,7 +24,7 @@ TEST_F(Utility_BitBufferReader, DefaultConstructedReaderCorrect)
     EXPECT_EQ(defReader.bitsLeft(), 0U);
 }
 
-TEST_F(Utility_BitBufferReader, BitsLeftCorrect)
+TEST_F(UtilityBitBufferReader, BitsLeftCorrect)
 {
     EXPECT_EQ(reader.bitsLeft(), 32U);
     auto const      span3 = span.subspan(1);
@@ -35,7 +35,7 @@ TEST_F(Utility_BitBufferReader, BitsLeftCorrect)
     EXPECT_EQ(reader2.bitsLeft(), 16U);
 }
 
-TEST_F(Utility_BitBufferReader, NextCorrect)
+TEST_F(UtilityBitBufferReader, NextCorrect)
 {
     auto bits = 32U;
 
@@ -68,7 +68,7 @@ TEST_F(Utility_BitBufferReader, NextCorrect)
     checkBitsLeft();
 }
 
-TEST_F(Utility_BitBufferReader, NextReturnsFalseWhenBufferRunsOut)
+TEST_F(UtilityBitBufferReader, NextReturnsFalseWhenBufferRunsOut)
 {
     auto const      span1 = span.subspan(3);
     BitBufferReader reader1{span1};
@@ -84,7 +84,7 @@ TEST_F(Utility_BitBufferReader, NextReturnsFalseWhenBufferRunsOut)
     EXPECT_FALSE(reader1.next());
 }
 
-struct Utility_BitBufferWriter : public testing::Test
+struct UtilityBitBufferWriter : public testing::Test
 {
     std::array<std::uint8_t, 0x4U> array{};
 
@@ -102,16 +102,16 @@ struct Utility_BitBufferWriter : public testing::Test
     }
 };
 
-TEST_F(Utility_BitBufferWriter, DefaultConstructedWriterCorrect)
+TEST_F(UtilityBitBufferWriter, DefaultConstructedWriterCorrect)
 {
     BitBufferWriter defWriter{};
     EXPECT_FALSE(defWriter.write(true));
     EXPECT_EQ(defWriter.bitsLeft(), 0U);
 }
 
-TEST_F(Utility_BitBufferWriter, NewBufferHasAllBitsLeft) { EXPECT_EQ(writer.bitsLeft(), 8U * span.size()); }
+TEST_F(UtilityBitBufferWriter, NewBufferHasAllBitsLeft) { EXPECT_EQ(writer.bitsLeft(), 8U * span.size()); }
 
-TEST_F(Utility_BitBufferWriter, WritingSingleBits)
+TEST_F(UtilityBitBufferWriter, WritingSingleBits)
 {
     array[0U] = 0x00U;
     checkWriting(true);
@@ -120,7 +120,7 @@ TEST_F(Utility_BitBufferWriter, WritingSingleBits)
     EXPECT_EQ(array[0U], 0b1010'0000U);
 }
 
-TEST_F(Utility_BitBufferWriter, WritingZerosCorrectly)
+TEST_F(UtilityBitBufferWriter, WritingZerosCorrectly)
 {
     array[0U] = 0xFFU;
     checkWriting(false);
@@ -129,7 +129,7 @@ TEST_F(Utility_BitBufferWriter, WritingZerosCorrectly)
     EXPECT_EQ(array[0U], 0b0101'1111U);
 }
 
-TEST_F(Utility_BitBufferWriter, WritingMoreThanEightBits)
+TEST_F(UtilityBitBufferWriter, WritingMoreThanEightBits)
 {
     for (auto i = 0U; i < 24U; ++i)
     {
@@ -141,14 +141,14 @@ TEST_F(Utility_BitBufferWriter, WritingMoreThanEightBits)
     EXPECT_EQ(array[3U], 0x00U);
 }
 
-TEST_F(Utility_BitBufferWriter, WritingMultipleBitsDoesNotWriteIfGivenBufferTooSmall)
+TEST_F(UtilityBitBufferWriter, WritingMultipleBitsDoesNotWriteIfGivenBufferTooSmall)
 {
     std::array<std::uint8_t, 1U> bitArray{0b1100'0011U};
     gsl::span<std::uint8_t>      bitSpan{bitArray};
     EXPECT_EQ(writer.write(bitSpan, 9U), 0U);
 }
 
-TEST_F(Utility_BitBufferWriter, WritingMuliplteBits)
+TEST_F(UtilityBitBufferWriter, WritingMuliplteBits)
 {
     std::array<std::uint8_t, 2U> bitArray{0b1100'0011U, 0b1111'1111U};
     gsl::span<std::uint8_t>      bitSpan{bitArray};
@@ -159,7 +159,7 @@ TEST_F(Utility_BitBufferWriter, WritingMuliplteBits)
     EXPECT_EQ(array[1U], 0b0001'1100U);
 }
 
-TEST_F(Utility_BitBufferWriter, WritingMoreBitsThenTheBufferCanHold)
+TEST_F(UtilityBitBufferWriter, WritingMoreBitsThenTheBufferCanHold)
 {
     std::array<std::uint8_t, 2U> bitArray{0b1100'0011U, 0b1111'1111U};
     gsl::span<std::uint8_t>      bitSpan{bitArray};
@@ -170,7 +170,7 @@ TEST_F(Utility_BitBufferWriter, WritingMoreBitsThenTheBufferCanHold)
     EXPECT_FALSE(writer.write(true));
 }
 
-TEST_F(Utility_BitBufferWriter, OffsetIsUsed)
+TEST_F(UtilityBitBufferWriter, OffsetIsUsed)
 {
     std::array<std::uint8_t, 2U> bitArray{0b1100'0011U, 0b1111'1111U};
     gsl::span<std::uint8_t>      bitSpan{bitArray};

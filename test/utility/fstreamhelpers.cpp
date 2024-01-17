@@ -9,7 +9,7 @@ namespace Terrahertz::UnitTests {
 
 static constexpr char fileName[]{"test.data"};
 
-struct Utility_FStreamHelpers : public testing::Test
+struct UtilityFStreamHelpers : public testing::Test
 {
     std::ofstream outputStream{fileName, std::ios::binary};
 
@@ -25,7 +25,7 @@ struct Utility_FStreamHelpers : public testing::Test
     }
 };
 
-TEST_F(Utility_FStreamHelpers, WritingSingleItemToStream)
+TEST_F(UtilityFStreamHelpers, WritingSingleItemToStream)
 {
     std::int32_t const iValue{-1234};
     double const       dValue{1337e-2};
@@ -44,7 +44,7 @@ TEST_F(Utility_FStreamHelpers, WritingSingleItemToStream)
     EXPECT_EQ(dValue, dLoaded);
 }
 
-TEST_F(Utility_FStreamHelpers, WritingContainerToStream)
+TEST_F(UtilityFStreamHelpers, WritingContainerToStream)
 {
     std::array<double, 4U> container{1.337, 0.815, 42.23, 47.11};
     writeToStream(outputStream, container);
@@ -61,7 +61,7 @@ TEST_F(Utility_FStreamHelpers, WritingContainerToStream)
     }
 }
 
-TEST_F(Utility_FStreamHelpers, ReadFromStreamWithClosedFile)
+TEST_F(UtilityFStreamHelpers, ReadFromStreamWithClosedFile)
 {
     std::ifstream inputStream{};
 
@@ -69,7 +69,7 @@ TEST_F(Utility_FStreamHelpers, ReadFromStreamWithClosedFile)
     EXPECT_FALSE(readFromStream(inputStream, value));
 }
 
-TEST_F(Utility_FStreamHelpers, ReadFromStreamWhileFileIsEnding)
+TEST_F(UtilityFStreamHelpers, ReadFromStreamWhileFileIsEnding)
 {
     std::uint16_t toWrite{};
     writeToStream(outputStream, toWrite);
@@ -80,7 +80,7 @@ TEST_F(Utility_FStreamHelpers, ReadFromStreamWhileFileIsEnding)
     EXPECT_FALSE(readFromStream(inputStream, toRead));
 }
 
-TEST_F(Utility_FStreamHelpers, ReadSingleItemFromStream)
+TEST_F(UtilityFStreamHelpers, ReadSingleItemFromStream)
 {
     double toWrite{13.37};
     writeToStream(outputStream, toWrite);
@@ -92,7 +92,7 @@ TEST_F(Utility_FStreamHelpers, ReadSingleItemFromStream)
     EXPECT_EQ(toWrite, toRead);
 }
 
-TEST_F(Utility_FStreamHelpers, ReadContainerFromClosedStream)
+TEST_F(UtilityFStreamHelpers, ReadContainerFromClosedStream)
 {
     std::ifstream inputStream{};
 
@@ -100,7 +100,7 @@ TEST_F(Utility_FStreamHelpers, ReadContainerFromClosedStream)
     EXPECT_EQ(readFromStream(inputStream, container), 0U);
 }
 
-TEST_F(Utility_FStreamHelpers, ReadSpanFromStreamIncomplete)
+TEST_F(UtilityFStreamHelpers, ReadSpanFromStreamIncomplete)
 {
     std::array<double, 3U> toWrite{08.15, 46.11, 42.0};
     writeToStream(outputStream, toWrite);
@@ -116,7 +116,7 @@ TEST_F(Utility_FStreamHelpers, ReadSpanFromStreamIncomplete)
     }
 }
 
-TEST_F(Utility_FStreamHelpers, ReadSpanFromStreamComplete)
+TEST_F(UtilityFStreamHelpers, ReadSpanFromStreamComplete)
 {
     std::array<double, 4U> toWrite{13.37, 08.15, 46.11, 42.0};
     writeToStream(outputStream, toWrite);
