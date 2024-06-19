@@ -1,6 +1,8 @@
 #ifndef THZ_COMMON_MEMORY_IMEMORYPOOL_HPP
 #define THZ_COMMON_MEMORY_IMEMORYPOOL_HPP
 
+#include <cstddef>
+
 namespace Terrahertz {
 
 /// @brief Interface for all memory pools.
