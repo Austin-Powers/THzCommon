@@ -5,14 +5,10 @@
 
 namespace Terrahertz {
 
-/// <summary>
-/// Pi.
-/// </summary>
+/// @brief Pi.
 constexpr double Pi{3.141592653589793238462643383};
 
-/// <summary>
-/// Pi as a float.
-/// </summary>
+/// @brief Pi as a float.
 constexpr float PiF{3.141592653589793238462643383f};
 
 /// @brief Directions for geometric operations.
