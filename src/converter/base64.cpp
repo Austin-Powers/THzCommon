@@ -11,17 +11,13 @@ struct Base64Project
     static constexpr char const *name() noexcept { return "THzCommon.Converter.Base64"; }
 };
 
-/// <summary>
-/// Maps 6 bit sequences to characters.
-/// </summary>
+/// @brief Maps 6 bit sequences to characters.
 constexpr char encodingTable[64U]{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
                                   'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f',
                                   'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
                                   'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/'};
 
-/// <summary>
-/// Maps characters to 6 bit sequences or 0xFF if the character is not used to encode data or 0x00 for '='.
-/// </summary>
+/// @brief Maps characters to 6 bit sequences or 0xFF if the character is not used to encode data or 0x00 for '='.
 constexpr std::uint8_t decodingTable[256U]{
     0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU,
     0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU,

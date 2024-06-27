@@ -10,6 +10,8 @@ add_executable(${PROJECTNAME}
 	math/matrix.cpp
 	math/point.cpp
 	math/rectangle.cpp
+	network/socketposix.cpp
+	network/socketwin32.cpp
 	structures/octree.cpp
 	structures/queue.cpp
 	structures/stack.cpp

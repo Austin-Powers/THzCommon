@@ -34,6 +34,8 @@ add_library(${PROJECT_NAME} STATIC
 	src/logging/logging.cpp
 	src/math/point.cpp
 	src/math/rectangle.cpp
+	src/network/socketposix.cpp
+	src/network/socketwin32.cpp
 	src/utility/bitbuffer.cpp
 	src/utility/byteorder.cpp
 	src/utility/range2D.cpp
@@ -52,6 +54,9 @@ add_library(${PROJECT_NAME} STATIC
 	include/THzCommon/math/point.hpp
 	include/THzCommon/math/rectangle.hpp
 	include/THzCommon/memory/imemorypool.hpp
+	include/THzCommon/network/socket.hpp
+	include/THzCommon/network/socketposix.hpp
+	include/THzCommon/network/socketwin32.hpp
 	include/THzCommon/structures/octree.hpp
 	include/THzCommon/structures/queue.hpp
 	include/THzCommon/structures/stack.hpp
@@ -75,6 +80,13 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 target_link_libraries(${PROJECT_NAME} PUBLIC
 	Microsoft.GSL::GSL
 )
+
+if(WIN32)
+	target_link_libraries(${PROJECT_NAME} PUBLIC
+	wsock32
+	ws2_32
+	)
+endif()
 
 if(THZ_COMMON_IS_ROOT)
 	# For Windows: Prevent overriding the parent project's compiler/linker settings
