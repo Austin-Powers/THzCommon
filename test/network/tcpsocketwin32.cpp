@@ -1,6 +1,6 @@
 #ifdef _WIN32
 
-#include "THzCommon/network/socketwin32.hpp"
+#include "THzCommon/network/tcpsocketwin32.hpp"
 
 #include "THzCommon/utility/workerThread.hpp"
 
@@ -91,27 +91,27 @@ WorkerThread NetworkSocketWin32::_server{};
 
 TEST_F(NetworkSocketWin32, InitDeinit)
 {
-    SocketWin32 sut{};
+    TCPSocketWin32 sut{};
     EXPECT_FALSE(sut.isConnected());
 }
 
 TEST_F(NetworkSocketWin32, ConnectingToInvalidAddressReturnsFalse)
 {
-    SocketWin32 sut{};
+    TCPSocketWin32 sut{};
     EXPECT_FALSE(sut.connectTo("127.0.0.1", 47112));
     EXPECT_FALSE(sut.isConnected());
 }
 
 TEST_F(NetworkSocketWin32, ConnectingToServerReturnsTrue)
 {
-    SocketWin32 sut{};
-    EXPECT_TRUE(sut.connectTo("127.0.0.1", 8000));
+    TCPSocketWin32 sut{};
+    EXPECT_TRUE(sut.connectTo("127.0.0.1", 47111));
     EXPECT_TRUE(sut.isConnected());
 }
 
 TEST_F(NetworkSocketWin32, CallingConnectOnAlreadyConnectedSocketReturnsFalse)
 {
-    SocketWin32 sut{};
+    TCPSocketWin32 sut{};
     EXPECT_TRUE(sut.connectTo("127.0.0.1", 47111));
     EXPECT_TRUE(sut.isConnected());
     EXPECT_FALSE(sut.connectTo("127.0.0.1", 47111));

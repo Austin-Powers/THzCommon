@@ -1,5 +1,5 @@
-#ifndef THZ_COMMON_NETWORK_SOCKETWIN32_HPP
-#define THZ_COMMON_NETWORK_SOCKETWIN32_HPP
+#ifndef THZ_COMMON_NETWORK_TCPSOCKETWIN32_HPP
+#define THZ_COMMON_NETWORK_TCPSOCKETWIN32_HPP
 
 #ifdef _WIN32
 
@@ -9,7 +9,7 @@
 namespace Terrahertz {
 
 /// @brief A network socket for Windows using TCP.
-class SocketWin32
+class TCPSocketWin32
 {
 public:
     /// @brief The socket type on Win32.
@@ -18,10 +18,10 @@ public:
     /// @brief Initializes a new Socket.
     ///
     /// @exception system_error In case WSAStartup fails.
-    SocketWin32() noexcept(false);
+    TCPSocketWin32() noexcept(false);
 
     /// @brief Finalizes this socket.
-    ~SocketWin32() noexcept;
+    ~TCPSocketWin32() noexcept;
 
     /// @brief Connects to the given address and port.
     ///
@@ -46,4 +46,4 @@ private:
 } // namespace Terrahertz
 
 #endif // !_WIN32
-#endif // !THZ_COMMON_NETWORK_SOCKETWIN32_HPP
+#endif // !THZ_COMMON_NETWORK_TCPSOCKETWIN32_HPP
