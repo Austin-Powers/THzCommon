@@ -54,6 +54,7 @@ add_library(${PROJECT_NAME} STATIC
 	include/THzCommon/math/point.hpp
 	include/THzCommon/math/rectangle.hpp
 	include/THzCommon/memory/imemorypool.hpp
+	include/THzCommon/network/native.hpp
 	include/THzCommon/network/tcpsocket.hpp
 	include/THzCommon/network/tcpsocketposix.hpp
 	include/THzCommon/network/tcpsocketwin32.hpp
@@ -82,10 +83,10 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
 )
 
 if(WIN32)
-	target_link_libraries(${PROJECT_NAME} PUBLIC
-	wsock32
-	ws2_32
-	)
+	target_sources(${PROJECT_NAME} PRIVATE src/network/native_win32.cpp)
+	target_link_libraries(${PROJECT_NAME} PUBLIC ws2_32)
+else()
+	target_sources(${PROJECT_NAME} PRIVATE src/network/native_posix.cpp)
 endif()
 
 if(THZ_COMMON_IS_ROOT)
