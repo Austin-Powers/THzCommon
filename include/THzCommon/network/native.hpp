@@ -4,6 +4,7 @@
 #include <cstdint>
 
 namespace Terrahertz {
+namespace Native {
 
 #ifdef _WIN32
 struct socket_traits
@@ -34,6 +35,7 @@ private:
     SocketApi();
 };
 
+} // namespace Native
 } // namespace Terrahertz
 
 #endif // !THZ_COMMON_NETWORK_NATIVE_HPP

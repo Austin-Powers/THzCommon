@@ -1,6 +1,7 @@
 #include "THzCommon/network/native.hpp"
 
 namespace Terrahertz {
+namespace Native {
 
 SocketApi::SocketApi() = default;
 
@@ -12,4 +13,5 @@ SocketApi const &SocketApi::instance()
     return api;
 }
 
+} // namespace Native
 } // namespace Terrahertz

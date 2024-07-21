@@ -34,6 +34,7 @@ add_library(${PROJECT_NAME} STATIC
 	src/logging/logging.cpp
 	src/math/point.cpp
 	src/math/rectangle.cpp
+	src/network/address.cpp
 	src/network/tcpsocketposix.cpp
 	src/network/tcpsocketwin32.cpp
 	src/utility/bitbuffer.cpp
@@ -54,6 +55,7 @@ add_library(${PROJECT_NAME} STATIC
 	include/THzCommon/math/point.hpp
 	include/THzCommon/math/rectangle.hpp
 	include/THzCommon/memory/imemorypool.hpp
+	include/THzCommon/network/address.hpp
 	include/THzCommon/network/native.hpp
 	include/THzCommon/network/tcpsocket.hpp
 	include/THzCommon/network/tcpsocketposix.hpp
