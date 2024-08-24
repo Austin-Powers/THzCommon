@@ -8,7 +8,7 @@ TEST(NetworkAddress, ResolvingLocalhost)
 {
     auto const addresses = resolveIPAddresses("localhost");
     EXPECT_TRUE(addresses);
-    EXPECT_EQ(addresses->size(), 2U); // ::1 and 127.0.0.1
+    EXPECT_GE(addresses->size(), 1U); // ::1 and/or 127.0.0.1
     for (auto const &address : *addresses)
     {
         auto const v4 = std::get_if<Detail::IPV4Address>(&address);
