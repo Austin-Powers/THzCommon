@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 3.14)
-cmake_policy(VERSION 3.14)
+cmake_minimum_required(VERSION 3.21)
+cmake_policy(VERSION 3.21)
 
 if(NOT DEFINED PROJECT_NAME)
 	set(THZ_COMMON_IS_ROOT True)
