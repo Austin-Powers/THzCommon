@@ -81,10 +81,10 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
 )
 
 if(WIN32)
-	target_sources(${PROJECT_NAME} PRIVATE src/network/native_win32.cpp)
+	target_sources(${PROJECT_NAME} PRIVATE src/network/common_win32.cpp)
 	target_link_libraries(${PROJECT_NAME} PUBLIC ws2_32)
 else()
-	target_sources(${PROJECT_NAME} PRIVATE src/network/native_posix.cpp)
+	target_sources(${PROJECT_NAME} PRIVATE src/network/common_posix.cpp)
 endif()
 
 if(THZ_COMMON_IS_ROOT)
