@@ -56,7 +56,7 @@ add_library(${PROJECT_NAME} STATIC
 	include/THzCommon/math/rectangle.hpp
 	include/THzCommon/memory/imemorypool.hpp
 	include/THzCommon/network/address.hpp
-	include/THzCommon/network/native.hpp
+	include/THzCommon/network/common.hpp
 	include/THzCommon/network/tcpsocket.hpp
 	include/THzCommon/network/tcpsocketposix.hpp
 	include/THzCommon/network/tcpsocketwin32.hpp

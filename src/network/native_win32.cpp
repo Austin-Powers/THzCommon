@@ -1,4 +1,4 @@
-#include "THzCommon/network/native.hpp"
+#include "THzCommon/network/common.hpp"
 
 #define WIN32_LEAN_AND_MEAN
 

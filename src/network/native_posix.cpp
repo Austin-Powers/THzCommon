@@ -1,4 +1,4 @@
-#include "THzCommon/network/native.hpp"
+#include "THzCommon/network/common.hpp"
 
 namespace Terrahertz {
 namespace Native {
