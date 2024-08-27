@@ -1,7 +1,7 @@
 #ifndef THZ_COMMON_NETWORK_ADDRESS_HPP
 #define THZ_COMMON_NETWORK_ADDRESS_HPP
 
-#include "THzCommon/network/native.hpp"
+#include "THzCommon/network/common.hpp"
 
 #include <array>
 #include <cstdint>
