@@ -11,8 +11,6 @@ add_executable(${PROJECTNAME}
 	math/point.cpp
 	math/rectangle.cpp
 	network/address.cpp
-	network/tcpsocketposix.cpp
-	network/tcpsocketwin32.cpp
 	structures/octree.cpp
 	structures/queue.cpp
 	structures/stack.cpp

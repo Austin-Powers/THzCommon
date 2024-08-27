@@ -1,17 +1,31 @@
 #ifndef THZ_COMMON_NETWORK_TCPSOCKET_HPP
 #define THZ_COMMON_NETWORK_TCPSOCKET_HPP
 
-#include "tcpsocketposix.hpp"
-#include "tcpsocketwin32.hpp"
+#include "THzCommon/network/socketbase.hpp"
 
 namespace Terrahertz {
 
-#ifdef _WIN32
-/// @brief A network socket using TCP.
-using TCPSocket = TCPSocketWin32;
-#else
-using TCPSocket = TCPSocketPosix;
-#endif // !_WIN32
+/// @brief Encapsulates necesarry code to send and receive data via Transmission Control Protocol (TCP).
+class TCPSocket : public Internal::SocketBase
+{
+    using base_t = Internal::SocketBase;
+
+public:
+    using base_t::base_t;
+    using base_t::bind;
+    using base_t::close;
+    using base_t::good;
+
+    void listen() noexcept;
+
+    void accept() noexcept;
+
+    void shutdown() noexcept;
+
+    void send() noexcept;
+
+    void receive() noexcept;
+};
 
 } // namespace Terrahertz
 
