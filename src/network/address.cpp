@@ -33,7 +33,7 @@ Terrahertz::Detail::IPV4Address convertIPAddress(in_addr const &addr) noexcept
 #if defined(_WIN32)
 #define W u.Word
 #else
-#define W __in6_u.__u6_addr16
+#define W s6_addr16
 #endif
 
 Terrahertz::Detail::IPV6Address convertIPAddress(in6_addr const &addr) noexcept
