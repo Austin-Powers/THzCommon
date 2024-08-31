@@ -1,17 +1,41 @@
-#ifndef THZ_COMMON_NETWORK_NATIVE_HPP
-#define THZ_COMMON_NETWORK_NATIVE_HPP
+#ifndef THZ_COMMON_NETWORK_COMMON_HPP
+#define THZ_COMMON_NETWORK_COMMON_HPP
 
+#include <array>
 #include <cstdint>
 
 namespace Terrahertz {
-namespace Native {
+
+/// @brief Enumerates the version of the IP protocol.
+enum class IPVersion
+{
+    V4 = 4U,
+    V6 = 6U
+};
+
+namespace Detail {
+
+template <IPVersion TIPV>
+struct IPAddress;
+
+template <>
+struct IPAddress<IPVersion::V4> final
+{
+    using type = std::array<std::uint8_t, 4U>;
+};
+using IPV4Address = IPAddress<IPVersion::V4>::type;
+
+template <>
+struct IPAddress<IPVersion::V6> final
+{
+    using type = std::array<std::uint16_t, 8U>;
+};
+using IPV6Address = IPAddress<IPVersion::V6>::type;
 
 #ifdef _WIN32
-struct socket_traits
-{};
+using SocketType = std::uint64_t;
 #else
-struct socket_traits
-{};
+using SocketType = int;
 #endif // !_WIN32
 
 /// @brief Encapsulates the native socket API.
@@ -35,7 +59,7 @@ private:
     SocketApi();
 };
 
-} // namespace Native
+} // namespace Detail
 } // namespace Terrahertz
 
-#endif // !THZ_COMMON_NETWORK_NATIVE_HPP
+#endif // !THZ_COMMON_NETWORK_COMMON_HPP

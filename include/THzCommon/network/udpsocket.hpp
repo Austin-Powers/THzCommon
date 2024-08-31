@@ -1,14 +1,18 @@
 #ifndef THZ_COMMON_NETWORK_UDPSOCKET_HPP
 #define THZ_COMMON_NETWORK_UDPSOCKET_HPP
 
-#include "THzCommon/network_new/socketbase.hpp"
+#include "THzCommon/network/address.hpp"
+#include "THzCommon/network/socketbase.hpp"
 
 namespace Terrahertz {
 
 /// @brief Encapsulates necesarry code to send and receive data via User Datagram Protocol (UDP).
-class UDPSocket : public Internal::SocketBase
+///
+/// @tparam TVersion The version of the internet protocol.
+template <IPVersion TVersion>
+class UDPSocket : public Internal::SocketBase<TVersion>
 {
-    using base_t = Internal::SocketBase;
+    using base_t = Internal::SocketBase<TVersion>;
 
 public:
     using base_t::base_t;
@@ -16,10 +20,13 @@ public:
     using base_t::close;
     using base_t::good;
 
-    void receiveFrom(Address const &address) noexcept;
+    void receiveFrom(Address<TVersion> const &address) noexcept;
 
-    void sendTo(Address const &address) noexcept;
+    void sendTo(Address<TVersion> const &address) noexcept;
 };
+
+extern template class UDPSocket<IPVersion::V4>;
+extern template class UDPSocket<IPVersion::V6>;
 
 } // namespace Terrahertz
 
