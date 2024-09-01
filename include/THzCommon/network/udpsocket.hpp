@@ -10,9 +10,9 @@ namespace Terrahertz {
 ///
 /// @tparam TVersion The version of the internet protocol.
 template <IPVersion TVersion>
-class UDPSocket : public Internal::SocketBase<TVersion>
+class UDPSocket : public Internal::SocketBase<TVersion, Protocol::UDP>
 {
-    using base_t = Internal::SocketBase<TVersion>;
+    using base_t = Internal::SocketBase<TVersion, Protocol::UDP>;
 
 public:
     using base_t::base_t;

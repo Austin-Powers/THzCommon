@@ -4,7 +4,7 @@
 
 namespace Terrahertz {
 
-std::optional<IPV_Addresses> resolveIPAddresses(std::string_view address, Detail::SocketApi const &) noexcept
+std::optional<IPV_Addresses> resolveIPAddresses(std::string_view address, Internal::SocketApi const &) noexcept
 {
     addrinfo hints{};
     hints.ai_socktype = SOCK_STREAM;
@@ -22,12 +22,12 @@ std::optional<IPV_Addresses> resolveIPAddresses(std::string_view address, Detail
         if (currentInfo->ai_family == AF_INET)
         {
             auto const address = reinterpret_cast<sockaddr_in const *>(currentInfo->ai_addr);
-            result.emplace_back(Detail::convertIPAddress(address->sin_addr));
+            result.emplace_back(Internal::convertIPAddress(address->sin_addr));
         }
         else if (currentInfo->ai_family == AF_INET6)
         {
             auto const address = reinterpret_cast<sockaddr_in6 const *>(currentInfo->ai_addr);
-            result.emplace_back(Detail::convertIPAddress(address->sin6_addr));
+            result.emplace_back(Internal::convertIPAddress(address->sin6_addr));
         }
     }
     freeaddrinfo(infoPtr);

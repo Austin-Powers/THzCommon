@@ -18,20 +18,20 @@ template <IPVersion TIPV>
 struct Address final
 {
     /// @brief The IP address of the machine.
-    Detail::IPAddress<TIPV> ipAddress;
+    Internal::IPAddress<TIPV> ipAddress;
 
     /// @brief The port of the application.
     std::uint16_t port;
 };
 
-using IPV_Addresses = std::vector<std::variant<Detail::IPV4Address, Detail::IPV6Address>>;
+using IPV_Addresses = std::vector<std::variant<Internal::IPV4Address, Internal::IPV6Address>>;
 
 /// @brief Resolves the given address to a list of suitable IP addresses.
 ///
 /// @param address The address to resolve.
 /// @return A vector of ip addresses, if successful.
 std::optional<IPV_Addresses> resolveIPAddresses(std::string_view address,
-                                                Detail::SocketApi const & = Detail::SocketApi::instance()) noexcept;
+                                                Internal::SocketApi const & = Internal::SocketApi::instance()) noexcept;
 
 } // namespace Terrahertz
 

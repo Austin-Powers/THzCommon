@@ -13,7 +13,17 @@ enum class IPVersion
     V6 = 6U
 };
 
-namespace Detail {
+/// @brief The type of protocol building on top of the internet protocol.
+enum class Protocol
+{
+    /// @brief User Datagram Protocol
+    UDP = 0U,
+
+    /// @brief Transmission Control Protocol
+    TCP = 1U
+};
+
+namespace Internal {
 
 template <IPVersion TIPV>
 struct IPAddress;
@@ -33,9 +43,9 @@ struct IPAddress<IPVersion::V6> final
 using IPV6Address = IPAddress<IPVersion::V6>::type;
 
 #ifdef _WIN32
-using SocketType = std::uint64_t;
+using SocketHandleType = std::uint64_t;
 #else
-using SocketType = int;
+using SocketHandleType = int;
 #endif // !_WIN32
 
 /// @brief Encapsulates the native socket API.
@@ -59,7 +69,7 @@ private:
     SocketApi();
 };
 
-} // namespace Detail
+} // namespace Internal
 } // namespace Terrahertz
 
 #endif // !THZ_COMMON_NETWORK_COMMON_HPP

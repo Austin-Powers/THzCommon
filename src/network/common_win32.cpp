@@ -7,7 +7,7 @@
 #include <stdexcept>
 
 namespace Terrahertz {
-namespace Detail {
+namespace Internal {
 
 SocketApi::SocketApi()
 {
@@ -27,5 +27,5 @@ SocketApi const &SocketApi::instance()
     return api;
 }
 
-} // namespace Detail
+} // namespace Internal
 } // namespace Terrahertz

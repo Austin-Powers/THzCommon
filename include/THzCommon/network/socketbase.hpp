@@ -10,12 +10,13 @@ namespace Internal {
 /// @brief Base containing shared functionality of all sockets.
 ///
 /// @tparam TVersion The version of the internet protocol.
-template <IPVersion TVersion>
+/// @tparam TProtocol The protocol on top of the internet protocol (UDP/TCP).
+template <IPVersion TVersion, Protocol TProtocol>
 class SocketBase
 {
 public:
     /// @brief Initializes a new socket.
-    SocketBase() noexcept;
+    SocketBase(SocketApi const & = SocketApi::instance()) noexcept;
 
     /// @brief No copy construction allowed.
     SocketBase(SocketBase const &) = delete;
@@ -52,11 +53,13 @@ public:
 
 private:
     /// @brief The native handle of the managed socket.
-    Detail::SocketType _handle{};
+    SocketHandleType _handle;
 };
 
-extern template class SocketBase<IPVersion::V4>;
-extern template class SocketBase<IPVersion::V6>;
+extern template class SocketBase<IPVersion::V4, Protocol::UDP>;
+extern template class SocketBase<IPVersion::V4, Protocol::TCP>;
+extern template class SocketBase<IPVersion::V6, Protocol::UDP>;
+extern template class SocketBase<IPVersion::V6, Protocol::TCP>;
 
 } // namespace Internal
 } // namespace Terrahertz

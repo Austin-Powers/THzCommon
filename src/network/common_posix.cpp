@@ -1,7 +1,7 @@
 #include "THzCommon/network/common.hpp"
 
 namespace Terrahertz {
-namespace Detail {
+namespace Internal {
 
 SocketApi::SocketApi() = default;
 
@@ -13,5 +13,5 @@ SocketApi const &SocketApi::instance()
     return api;
 }
 
-} // namespace Detail
+} // namespace Internal
 } // namespace Terrahertz
