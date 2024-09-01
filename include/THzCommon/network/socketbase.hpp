@@ -41,7 +41,8 @@ public:
     /// @brief Binds the socket to the given IPV6 address.
     ///
     /// @param to The address to bind the socket to.
-    void bind(Address<TVersion> const &to) noexcept;
+    /// @return True if socket was bound, false otherwise.
+    bool bind(Address<TVersion> const &to) noexcept;
 
     /// @brief Closes the socket.
     void close() noexcept;

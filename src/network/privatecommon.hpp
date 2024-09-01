@@ -3,9 +3,12 @@
 
 #include "THzCommon/network/common.hpp"
 
+#include <limits>
+
 #ifdef _WIN32
 
 #define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
 
 #include <WS2tcpip.h>
 #include <WinSock2.h>
@@ -42,6 +45,18 @@ inline auto constexpr ProtocolType = IPPROTO_UDP;
 
 template <>
 inline auto constexpr ProtocolType<Protocol::TCP> = IPPROTO_TCP;
+
+#if defined(_WIN32)
+struct SocketTraits final
+{
+    static SocketHandleType inline InvalidValue = std::numeric_limits<SocketHandleType>::max();
+};
+#else
+struct SocketTraits final
+{
+    static SocketHandleType inline InvalidValue = -1;
+};
+#endif
 
 inline in_addr convertIPAddress(IPV4Address const &address) noexcept
 {
