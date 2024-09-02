@@ -44,6 +44,17 @@ public:
     /// @return True if socket was bound, false otherwise.
     bool bind(Address<TVersion> const &to) noexcept;
 
+    /// @brief Sets the reuse_addr option of this socket.
+    ///
+    /// @param reuse The value reuse_addr shall be set to.
+    /// @return True if the operation was successfull, false otherwise.
+    bool setReuseAddr(bool reuse) noexcept;
+
+    /// @brief Returns the current state of the reuse_addr option of this socket.
+    ///
+    /// @return The current state of the reuse_addr option of this socket.
+    bool getReuseAddr() noexcept;
+
     /// @brief Closes the socket.
     void close() noexcept;
 

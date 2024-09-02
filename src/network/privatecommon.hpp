@@ -52,6 +52,8 @@ inline auto constexpr ProtocolType<Protocol::TCP> = IPPROTO_TCP;
 struct SocketTraits final
 {
     using SockLengthType = int;
+    using SendBufferType = char const *;
+    using RecvBufferType = char *;
 
     static SocketHandleType inline InvalidValue = std::numeric_limits<SocketHandleType>::max();
 };
@@ -59,6 +61,8 @@ struct SocketTraits final
 struct SocketTraits final
 {
     using SockLengthType = std::uint32_t;
+    using SendBufferType = void const *;
+    using RecvBufferType = void *;
 
     static SocketHandleType inline InvalidValue = -1;
 };
