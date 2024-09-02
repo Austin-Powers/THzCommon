@@ -35,7 +35,10 @@ SocketBase<TVersion, TProtocol>::~SocketBase() noexcept
 template <IPVersion TVersion, Protocol TProtocol>
 bool SocketBase<TVersion, TProtocol>::bind(Address<TVersion> const &to) noexcept
 {
-    return false;
+    auto const address = convertToSockaddrIn(to);
+    auto const result =
+        ::bind(_handle, reinterpret_cast<sockaddr const *>(&address), SocketTraits::SockLengthType{sizeof(address)});
+    return result != -1;
 }
 
 template <IPVersion TVersion, Protocol TProtocol>

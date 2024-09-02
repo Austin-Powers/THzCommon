@@ -18,7 +18,7 @@ template <IPVersion TIPV>
 struct Address final
 {
     /// @brief The IP address of the machine.
-    Internal::IPAddress<TIPV> ipAddress;
+    Internal::IPAddress<TIPV>::type ipAddress;
 
     /// @brief The port of the application.
     std::uint16_t port;

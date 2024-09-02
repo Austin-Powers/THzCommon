@@ -1,6 +1,7 @@
 #ifndef THZ_COMMON_NETWORK_PRIVATECOMMON_HPP
 #define THZ_COMMON_NETWORK_PRIVATECOMMON_HPP
 
+#include "THzCommon/network/address.hpp"
 #include "THzCommon/network/common.hpp"
 
 #include <limits>
@@ -50,11 +51,15 @@ inline auto constexpr ProtocolType<Protocol::TCP> = IPPROTO_TCP;
 #if defined(_WIN32)
 struct SocketTraits final
 {
+    using SockLengthType = int;
+
     static SocketHandleType inline InvalidValue = std::numeric_limits<SocketHandleType>::max();
 };
 #else
 struct SocketTraits final
 {
+    using SockLengthType = std::uint32_t;
+
     static SocketHandleType inline InvalidValue = -1;
 };
 #endif
@@ -70,9 +75,9 @@ inline in_addr convertIPAddress(IPV4Address const &address) noexcept
     return addr;
 }
 
-inline IPV4Address convertIPAddress(in_addr const &addr) noexcept
+inline IPV4Address convertIPAddress(in_addr const &address) noexcept
 {
-    std::uint32_t const full{ntohl(addr.s_addr)};
+    std::uint32_t const full{ntohl(address.s_addr)};
 
     return {
         static_cast<std::uint8_t>(full >> 24U),
@@ -117,6 +122,24 @@ inline IPV6Address convertIPAddress(in6_addr const &address) noexcept
 }
 
 #undef W
+
+inline sockaddr_in convertToSockaddrIn(Address<IPVersion::V4> const &address) noexcept
+{
+    sockaddr_in result{};
+    result.sin_family = AF_INET;
+    result.sin_addr   = convertIPAddress(address.ipAddress);
+    result.sin_port   = htons(address.port);
+    return result;
+}
+
+inline sockaddr_in6 convertToSockaddrIn(Address<IPVersion::V6> const &address) noexcept
+{
+    sockaddr_in6 result{};
+    result.sin6_family = AF_INET6;
+    result.sin6_addr   = convertIPAddress(address.ipAddress);
+    result.sin6_port   = htons(address.port);
+    return result;
+}
 
 } // namespace Internal
 } // namespace Terrahertz
