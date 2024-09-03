@@ -71,6 +71,7 @@ add_library(${PROJECT_NAME} STATIC
 	include/THzCommon/utility/fstreamhelpers.hpp
 	include/THzCommon/utility/lineSequencer.hpp
 	include/THzCommon/utility/range2D.hpp
+	include/THzCommon/utility/result.hpp
 	include/THzCommon/utility/spanhelpers.hpp
 	include/THzCommon/utility/staticPImpl.hpp
 	include/THzCommon/utility/time.hpp

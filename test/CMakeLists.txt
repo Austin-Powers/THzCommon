@@ -20,6 +20,7 @@ add_executable(${PROJECTNAME}
 	utility/fstreamhelpers.cpp
 	utility/lineSequencer.cpp
 	utility/range2D.cpp
+	utility/result.cpp
 	utility/spanhelpers.cpp
 	utility/sptesthelper.cpp
 	utility/sptesthelper.hpp
