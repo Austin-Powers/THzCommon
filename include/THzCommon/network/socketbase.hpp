@@ -3,6 +3,7 @@
 
 #include "THzCommon/network/address.hpp"
 #include "THzCommon/network/common.hpp"
+#include "THzCommon/utility/result.hpp"
 
 namespace Terrahertz {
 namespace Internal {
@@ -53,7 +54,7 @@ public:
     /// @brief Returns the current state of the reuse_addr option of this socket.
     ///
     /// @return The current state of the reuse_addr option of this socket.
-    bool getReuseAddr() noexcept;
+    Result<bool> getReuseAddr() noexcept;
 
     /// @brief Closes the socket.
     void close() noexcept;

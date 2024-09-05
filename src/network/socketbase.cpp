@@ -54,13 +54,17 @@ bool SocketBase<TVersion, TProtocol>::setReuseAddr(bool const reuse) noexcept
 }
 
 template <IPVersion TVersion, Protocol TProtocol>
-bool SocketBase<TVersion, TProtocol>::getReuseAddr() noexcept
+Result<bool> SocketBase<TVersion, TProtocol>::getReuseAddr() noexcept
 {
     int        reuse{};
     auto       length{static_cast<SocketTraits::SockLengthType>(sizeof(reuse))};
     auto const result = ::getsockopt(
         _handle, SOL_SOCKET, SO_REUSEADDR, reinterpret_cast<SocketTraits::RecvBufferType>(&reuse), &length);
-    return (result != -1) && reuse;
+    if (result != -1)
+    {
+        return Result<bool>::error(-1);
+    }
+    return reuse == 1;
 }
 
 template <IPVersion TVersion, Protocol TProtocol>
