@@ -4,6 +4,7 @@
 #include "THzCommon/network/address.hpp"
 #include "THzCommon/network/common.hpp"
 
+#include <cstddef>
 #include <limits>
 
 #ifdef _WIN32
@@ -27,6 +28,28 @@
 namespace Terrahertz {
 namespace Internal {
 
+#if defined(_WIN32)
+struct SocketTraits final
+{
+    using SockLengthType = int;
+    using SendBufferType = char const *;
+    using RecvBufferType = char *;
+    using BufferLength   = int;
+
+    static SocketHandleType inline InvalidValue = std::numeric_limits<SocketHandleType>::max();
+};
+#else
+struct SocketTraits final
+{
+    using SockLengthType = std::uint32_t;
+    using SendBufferType = void const *;
+    using RecvBufferType = void *;
+    using BufferLength   = std::size_t;
+
+    static SocketHandleType inline InvalidValue = -1;
+};
+#endif
+
 template <IPVersion TVersion>
 inline auto constexpr AddressFamily = AF_INET;
 
@@ -35,6 +58,9 @@ inline auto constexpr AddressFamily<IPVersion::V6> = AF_INET6;
 
 template <IPVersion TVersion>
 using SockAddr = std::conditional_t<TVersion == IPVersion::V6, sockaddr_in6, sockaddr_in>;
+
+template <IPVersion TVersion>
+inline auto SockAddrLength = static_cast<SocketTraits::SockLengthType>(sizeof(SockAddr));
 
 template <Protocol TProtocol>
 inline auto constexpr SocketType = SOCK_DGRAM;
@@ -47,26 +73,6 @@ inline auto constexpr ProtocolType = IPPROTO_UDP;
 
 template <>
 inline auto constexpr ProtocolType<Protocol::TCP> = IPPROTO_TCP;
-
-#if defined(_WIN32)
-struct SocketTraits final
-{
-    using SockLengthType = int;
-    using SendBufferType = char const *;
-    using RecvBufferType = char *;
-
-    static SocketHandleType inline InvalidValue = std::numeric_limits<SocketHandleType>::max();
-};
-#else
-struct SocketTraits final
-{
-    using SockLengthType = std::uint32_t;
-    using SendBufferType = void const *;
-    using RecvBufferType = void *;
-
-    static SocketHandleType inline InvalidValue = -1;
-};
-#endif
 
 inline in_addr convertIPAddress(IPV4Address const &address) noexcept
 {
@@ -127,7 +133,7 @@ inline IPV6Address convertIPAddress(in6_addr const &address) noexcept
 
 #undef W
 
-inline sockaddr_in convertToSockaddrIn(Address<IPVersion::V4> const &address) noexcept
+inline sockaddr_in convertSocketAddress(Address<IPVersion::V4> const &address) noexcept
 {
     sockaddr_in result{};
     result.sin_family = AF_INET;
@@ -136,13 +142,23 @@ inline sockaddr_in convertToSockaddrIn(Address<IPVersion::V4> const &address) no
     return result;
 }
 
-inline sockaddr_in6 convertToSockaddrIn(Address<IPVersion::V6> const &address) noexcept
+inline sockaddr_in6 convertSocketAddress(Address<IPVersion::V6> const &address) noexcept
 {
     sockaddr_in6 result{};
     result.sin6_family = AF_INET6;
     result.sin6_addr   = convertIPAddress(address.ipAddress);
     result.sin6_port   = htons(address.port);
     return result;
+}
+
+inline Address<IPVersion::V4> convertSocketAddress(sockaddr_in const &address) noexcept
+{
+    return {convertIPAddress(address.sin_addr), ntohs(address.sin_port)};
+}
+
+inline Address<IPVersion::V6> convertSocketAddress(sockaddr_in6 const &address) noexcept
+{
+    return {convertIPAddress(address.sin6_addr), ntohs(address.sin6_port)};
 }
 
 } // namespace Internal

@@ -64,7 +64,7 @@ public:
     /// @return True if the socket can be used, false otherwise.
     bool good() noexcept;
 
-private:
+protected:
     /// @brief The native handle of the managed socket.
     SocketHandleType _handle;
 };
