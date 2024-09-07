@@ -37,6 +37,7 @@ add_library(${PROJECT_NAME} STATIC
 	src/network/address.cpp
 	src/network/privatecommon.hpp
 	src/network/socketbase.cpp
+	src/network/tcpsocket.cpp
 	src/network/udpsocket.cpp
 	src/utility/bitbuffer.cpp
 	src/utility/byteorder.cpp

@@ -25,7 +25,6 @@ public:
     using base_t::good;
 
     /// @brief Receives data from somewhere.
-    /// Call is non blocking.
     ///
     /// @param address The address the data was received from, nullptr if address is irrelevant.
     /// @param buffer A span to put the received data into.
@@ -37,7 +36,7 @@ public:
     /// @param address The address to send the data to.
     /// @param buffer A span to read the data to send from.
     /// @return The number of transmitted bytes.
-    Result<std::size_t> sendTo(Address<TVersion> const &address, std::span<std::byte> buffer) noexcept;
+    Result<std::size_t> sendTo(Address<TVersion> const &address, std::span<std::byte const> buffer) noexcept;
 };
 
 extern template class UDPSocket<IPVersion::V4>;
