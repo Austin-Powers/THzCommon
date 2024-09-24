@@ -60,7 +60,7 @@ template <IPVersion TVersion>
 using SockAddr = std::conditional_t<TVersion == IPVersion::V6, sockaddr_in6, sockaddr_in>;
 
 template <IPVersion TVersion>
-inline auto SockAddrLength = static_cast<SocketTraits::SockLengthType>(sizeof(SockAddr));
+inline auto SockAddrLength = static_cast<SocketTraits::SockLengthType>(sizeof(SockAddr<TVersion>));
 
 template <Protocol TProtocol>
 inline auto constexpr SocketType = SOCK_DGRAM;

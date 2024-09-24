@@ -1,8 +1,12 @@
 #ifndef THZ_COMMON_UTILITY_RESULT_HPP
 #define THZ_COMMON_UTILITY_RESULT_HPP
 
-#include <corecrt.h>
+#include <cerrno>
+#include <type_traits>
 #include <variant>
+
+/// @brief The type returned by calling errno.
+using errno_t = std::remove_reference<decltype(errno)>::type;
 
 namespace Terrahertz {
 
