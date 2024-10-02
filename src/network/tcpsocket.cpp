@@ -9,37 +9,66 @@ using SockTraits = Internal::SocketTraits;
 template <IPVersion TVersion>
 bool TCPSocket<TVersion>::listen(std::uint32_t const backlog) noexcept
 {
-    return false;
+    return ::listen(this->_handle, static_cast<int>(backlog & std::numeric_limits<int>::max())) != -1;
 }
 
 template <IPVersion TVersion>
 TCPSocket<TVersion> TCPSocket<TVersion>::accept(Address<TVersion> *address) noexcept
 {
-    return TCPSocket();
+    Internal::SockAddr<TVersion> addr{};
+
+    auto addrLength = Internal::SockAddrLength<TVersion>;
+
+    auto const result = ::accept(this->_handle, reinterpret_cast<sockaddr *>(&addr), &addrLength);
+    return TCPSocket(result);
 }
 
 template <IPVersion TVersion>
 bool TCPSocket<TVersion>::connect(Address<TVersion> const &address) noexcept
 {
-    return false;
+    auto const addr = Internal::convertSocketAddress(address);
+    auto const result =
+        ::connect(this->_handle, reinterpret_cast<sockaddr const *>(&addr), Internal::SockAddrLength<TVersion>);
+    return result != -1;
 }
 
 template <IPVersion TVersion>
 bool TCPSocket<TVersion>::shutdown(int what) noexcept
 {
-    return false;
+#ifdef _WIN32
+    auto const how = SD_BOTH;
+#else
+    auto const how = SHUT_RDWR;
+#endif
+    return ::shutdown(this->_handle, how) != -1;
 }
 
 template <IPVersion TVersion>
 Result<std::span<std::byte>> TCPSocket<TVersion>::receive(std::span<std::byte> buffer) noexcept
 {
-    return {};
+    auto const result = ::recv(this->_handle,
+                               reinterpret_cast<SockTraits::RecvBufferType>(buffer.data()),
+                               static_cast<SockTraits::BufferLength>(buffer.size_bytes()),
+                               0);
+    if (result == -1)
+    {
+        return Result<std::span<std::byte>>::error(errno);
+    }
+    return buffer.first(result);
 }
 
 template <IPVersion TVersion>
 Result<std::size_t> TCPSocket<TVersion>::send(std::span<std::byte const> buffer) noexcept
 {
-    return 0;
+    auto const result = ::send(this->_handle,
+                               reinterpret_cast<SockTraits::SendBufferType>(buffer.data()),
+                               static_cast<SockTraits::BufferLength>(buffer.size_bytes()),
+                               0);
+    if (result == -1)
+    {
+        return Result<std::size_t>::error(errno);
+    }
+    return static_cast<std::size_t>(result);
 }
 
 template class TCPSocket<IPVersion::V4>;

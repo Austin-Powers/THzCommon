@@ -33,7 +33,8 @@ Result<std::span<std::byte>> UDPSocket<TVersion>::receiveFrom(Address<TVersion> 
 }
 
 template <IPVersion TVersion>
-Result<std::size_t> UDPSocket<TVersion>::sendTo(Address<TVersion> const &address, std::span<std::byte> buffer) noexcept
+Result<std::size_t> UDPSocket<TVersion>::sendTo(Address<TVersion> const   &address,
+                                                std::span<std::byte const> buffer) noexcept
 {
     auto const addr   = Internal::convertSocketAddress(address);
     auto const result = ::sendto(this->_handle,
@@ -42,7 +43,7 @@ Result<std::size_t> UDPSocket<TVersion>::sendTo(Address<TVersion> const &address
                                  0,
                                  reinterpret_cast<sockaddr const *>(&addr),
                                  Internal::SockAddrLength<TVersion>);
-    return std::size_t{};
+    return static_cast<std::size_t>(result);
 }
 
 template class UDPSocket<IPVersion::V4>;

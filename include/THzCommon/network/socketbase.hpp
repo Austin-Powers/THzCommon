@@ -65,6 +65,11 @@ public:
     bool good() noexcept;
 
 protected:
+    /// @brief Initializes a new SocketBase from an already existing handle.
+    ///
+    /// @param handle The handle to initialize the socket with.
+    inline SocketBase(SocketHandleType handle) noexcept : _handle{handle} {}
+
     /// @brief The native handle of the managed socket.
     SocketHandleType _handle;
 };
