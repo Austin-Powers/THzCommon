@@ -39,6 +39,11 @@ public:
     /// @brief Deinitializes the socket, closing it.
     virtual ~SocketBase() noexcept;
 
+    /// @brief Returns the native handle of the socket.
+    ///
+    /// @return The native handle of the socket.
+    [[nodiscard]] SocketHandleType handle() const noexcept;
+
     /// @brief Binds the socket to the given IPV6 address.
     ///
     /// @param to The address to bind the socket to.

@@ -33,6 +33,12 @@ SocketBase<TVersion, TProtocol>::~SocketBase() noexcept
 }
 
 template <IPVersion TVersion, Protocol TProtocol>
+SocketHandleType SocketBase<TVersion, TProtocol>::handle() const noexcept
+{
+    return _handle;
+}
+
+template <IPVersion TVersion, Protocol TProtocol>
 bool SocketBase<TVersion, TProtocol>::bind(Address<TVersion> const &to) noexcept
 {
     auto const address = convertSocketAddress(to);
@@ -62,7 +68,7 @@ Result<bool> SocketBase<TVersion, TProtocol>::getReuseAddr() noexcept
         _handle, SOL_SOCKET, SO_REUSEADDR, reinterpret_cast<SocketTraits::RecvBufferType>(&reuse), &length);
     if (result != -1)
     {
-        return Result<bool>::error(-1);
+        return Result<bool>::error();
     }
     return reuse == 1;
 }
@@ -72,7 +78,7 @@ void SocketBase<TVersion, TProtocol>::close() noexcept
 {
     if (_handle != SocketTraits::InvalidValue)
     {
-#if defined(_WIN32)
+#ifdef _WIN32
         ::closesocket(_handle);
 #else
         ::close(_handle);

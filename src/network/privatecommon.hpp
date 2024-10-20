@@ -28,7 +28,7 @@
 namespace Terrahertz {
 namespace Internal {
 
-#if defined(_WIN32)
+#ifdef _WIN32
 struct SocketTraits final
 {
     using SockLengthType = int;
@@ -97,7 +97,7 @@ inline IPV4Address convertIPAddress(in_addr const &address) noexcept
     };
 }
 
-#if defined(_WIN32)
+#ifdef _WIN32
 #define W u.Word
 #else
 #define W s6_addr16

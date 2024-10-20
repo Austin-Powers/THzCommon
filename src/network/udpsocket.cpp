@@ -27,7 +27,7 @@ Result<std::span<std::byte>> UDPSocket<TVersion>::receiveFrom(Address<TVersion> 
     }
     if (result == -1)
     {
-        return Result<std::span<std::byte>>::error(errno);
+        return Result<std::span<std::byte>>::error();
     }
     return buffer.first(result);
 }
