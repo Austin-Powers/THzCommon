@@ -134,7 +134,7 @@ public:
         {
             auto const time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
             struct tm  tmTime;
-#if _WIN32
+#ifdef _WIN32
             localtime_s(&tmTime, &time);
 #else
             localtime_r(&time, &tmTime);
