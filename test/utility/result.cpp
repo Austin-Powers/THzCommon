@@ -44,4 +44,14 @@ TEST_F(UtilityResult, ErrorConstructionErrnoType)
     EXPECT_THROW(static_cast<errno_t>(sut), std::bad_variant_access);
 }
 
+TEST_F(UtilityResult, ErrorConstructionUsingCurrentValueOfErrno)
+{
+    errno    = 128;
+    auto sut = Result<double>::error();
+    EXPECT_TRUE(sut.isError());
+    EXPECT_EQ(sut.errorCode(), 128);
+    EXPECT_THROW(sut.value(), std::bad_variant_access);
+    EXPECT_THROW(static_cast<errno_t>(sut), std::bad_variant_access);
+}
+
 } // namespace Terrahertz::UnitTests
