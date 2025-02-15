@@ -52,7 +52,7 @@ Result<std::span<std::byte>> TCPSocket<TVersion>::receive(std::span<std::byte> b
                                0);
     if (result == -1)
     {
-        return Result<std::span<std::byte>>::error(errno);
+        return Result<std::span<std::byte>>::error();
     }
     return buffer.first(result);
 }
@@ -66,7 +66,7 @@ Result<std::size_t> TCPSocket<TVersion>::send(std::span<std::byte const> buffer)
                                0);
     if (result == -1)
     {
-        return Result<std::size_t>::error(errno);
+        return Result<std::size_t>::error();
     }
     return static_cast<std::size_t>(result);
 }

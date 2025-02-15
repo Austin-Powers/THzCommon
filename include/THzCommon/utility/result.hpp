@@ -23,6 +23,11 @@ public:
     /// @return The result instance carrying the error.
     static Result error(errno_t const errorCode) noexcept { return Result(errorCode); }
 
+    /// @brief Creates a result signalling an error, using the current value of errno.
+    ///
+    /// @return The result instance carrying the error.
+    static Result error() noexcept { return Result(errno); }
+
     /// @brief Initializes a new result instance carrying the result.
     ///
     /// @param result The result value.
@@ -70,6 +75,11 @@ public:
     /// @param errorCode The error code.
     /// @return The result instance carrying the error.
     static Result error(errno_t const errorCode) noexcept { return Result(errorCode, true); }
+
+    /// @brief Creates a result signalling an error using the current value of errno.
+    ///
+    /// @return The result instance carrying the error.
+    static Result error() noexcept { return Result(errno, true); }
 
     /// @brief Initializes a new result instance carrying the result.
     ///

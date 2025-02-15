@@ -60,7 +60,7 @@ TEST_F(LoggingLogger, FilepathGetsExtended)
     auto const time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
     char       timeString[sizeof "19700101_0000.log"];
     struct tm  tmTime;
-#if _WIN32
+#ifdef _WIN32
     gmtime_s(&tmTime, &time);
 #else
     gmtime_r(&time, &tmTime);
