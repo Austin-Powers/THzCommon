@@ -21,7 +21,6 @@ struct StructuresOctree : public testing::Test
                    std::uint8_t const    maxDepth,
                    size_t const          totalEntries) noexcept
     {
-
         EXPECT_EQ(tree.getCenterX(), centerX);
         EXPECT_EQ(tree.getCenterY(), centerY);
         EXPECT_EQ(tree.getCenterZ(), centerZ);
