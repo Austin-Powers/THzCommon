@@ -44,7 +44,7 @@ public:
     /// @return The native handle of the socket.
     [[nodiscard]] SocketHandleType handle() const noexcept;
 
-    /// @brief Binds the socket to the given IPV6 address.
+    /// @brief Binds the socket to the given IP address.
     ///
     /// @param to The address to bind the socket to.
     /// @return True if socket was bound, false otherwise.
