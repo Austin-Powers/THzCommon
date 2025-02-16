@@ -66,7 +66,7 @@ Result<bool> SocketBase<TVersion, TProtocol>::getReuseAddr() noexcept
     auto       length{static_cast<SocketTraits::SockLengthType>(sizeof(reuse))};
     auto const result = ::getsockopt(
         _handle, SOL_SOCKET, SO_REUSEADDR, reinterpret_cast<SocketTraits::RecvBufferType>(&reuse), &length);
-    if (result != -1)
+    if (result == -1)
     {
         return Result<bool>::error();
     }

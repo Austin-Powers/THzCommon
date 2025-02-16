@@ -28,16 +28,28 @@ struct NetworkUDPSocket : public testing::Test
 
 TEST_F(NetworkUDPSocket, DefaultConstruction)
 {
-	UDPSocketV4 socket{};
-	EXPECT_NE(socket.handle(), 0);
-	EXPECT_TRUE(socket.getReuseAddr().isError());
+	UDPSocketV4 sut{};
+	EXPECT_NE(sut.handle(), 0);
+	EXPECT_FALSE(sut.getReuseAddr().value());
+	EXPECT_TRUE(sut.good());
 }
 
 TEST_F(NetworkUDPSocket, Bind)
 {
+	auto const address = getLocalAddress();
+	EXPECT_TRUE(address);
 	
-	UDPSocketV4 socket{};
-	
+	UDPSocketV4 sut{};
+	EXPECT_TRUE(sut.bind(*address));
+	EXPECT_TRUE(sut.good());
+}
+
+TEST_F(NetworkUDPSocket, ReuseAddr)
+{
+	UDPSocketV4 sut{};
+	EXPECT_FALSE(sut.getReuseAddr().value());
+	EXPECT_TRUE(sut.setReuseAddr(true));
+	EXPECT_TRUE(sut.getReuseAddr().value());
 }
 
 }
