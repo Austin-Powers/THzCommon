@@ -34,10 +34,10 @@ FILE_NAME_1=1105;C++;0;EUTF-8;0;1;1;%2Fhome%2Fthomas%2Frepos%2FTHzCommon%2Finclu
 FILE_NAME_2=1597;C++;0;EUTF-8;0;1;1;%2Fhome%2Fthomas%2Frepos%2FTHzCommon%2Finclude%2FTHzCommon%2Fnetwork%2Fsocketbase.hpp;0;4
 FILE_NAME_3=2253;C++;0;EUTF-8;0;1;1;%2Fhome%2Fthomas%2Frepos%2FTHzCommon%2Fsrc%2Fnetwork%2Fsocketbase.cpp;0;4
 FILE_NAME_4=0;C++;0;EUTF-8;0;1;1;%2Fhome%2Fthomas%2Frepos%2FTHzCommon%2Finclude%2FTHzCommon%2Fnetwork%2Faddress.hpp;0;4
-FILE_NAME_5=0;JSON;0;EUTF-8;0;1;1;%2Fhome%2Fthomas%2Frepos%2FTHzCommon%2FCMakePresets.json;0;4
+FILE_NAME_5=4940;JSON;0;EUTF-8;0;1;1;%2Fhome%2Fthomas%2Frepos%2FTHzCommon%2FCMakePresets.json;0;4
 
 [VTE]
-last_dir=/home/thomas/repos/THzCommon/out/build/lin-x64-release
+last_dir=/home/thomas/repos/THzCommon
 
 [build-menu]
 NF_00_LB=_CMake Release
@@ -47,6 +47,6 @@ C++FT_01_LB=_Build
 C++FT_01_CM=cmake --build %p/out/build/lin-x64-release
 C++FT_01_WD=
 filetypes=C++;
-EX_00_LB=_Execute
-EX_00_CM=ctest --output-on-failure --stop-on-failure
-EX_00_WD=%p/out/build/lin-x64-release
+EX_00_LB=_Ausführen
+EX_00_CM=ctest --preset lin-x64-release
+EX_00_WD=
