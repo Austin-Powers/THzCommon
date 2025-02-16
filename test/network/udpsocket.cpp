@@ -52,4 +52,11 @@ TEST_F(NetworkUDPSocket, ReuseAddr)
 	EXPECT_TRUE(sut.getReuseAddr().value());
 }
 
+TEST_F(NetworkUDPSocket, close)
+{
+	UDPSocketV4 sut{};
+	sut.close();
+	EXPECT_FALSE(sut.good());
+}
+
 }
