@@ -28,13 +28,7 @@ long_line_behaviour=2
 long_line_column=120
 
 [files]
-current_page=5
-FILE_NAME_0=127;C++;0;EUTF-8;1;1;0;%2Fhome%2Fthomas%2Frepos%2FTHzCommon%2Ftest%2Fnetwork%2Fudpsocket.cpp;0;4
-FILE_NAME_1=1105;C++;0;EUTF-8;0;1;1;%2Fhome%2Fthomas%2Frepos%2FTHzCommon%2Finclude%2FTHzCommon%2Fnetwork%2Fudpsocket.hpp;0;4
-FILE_NAME_2=1597;C++;0;EUTF-8;0;1;1;%2Fhome%2Fthomas%2Frepos%2FTHzCommon%2Finclude%2FTHzCommon%2Fnetwork%2Fsocketbase.hpp;0;4
-FILE_NAME_3=2253;C++;0;EUTF-8;0;1;1;%2Fhome%2Fthomas%2Frepos%2FTHzCommon%2Fsrc%2Fnetwork%2Fsocketbase.cpp;0;4
-FILE_NAME_4=0;C++;0;EUTF-8;0;1;1;%2Fhome%2Fthomas%2Frepos%2FTHzCommon%2Finclude%2FTHzCommon%2Fnetwork%2Faddress.hpp;0;4
-FILE_NAME_5=4940;JSON;0;EUTF-8;0;1;1;%2Fhome%2Fthomas%2Frepos%2FTHzCommon%2FCMakePresets.json;0;4
+current_page=-1
 
 [VTE]
 last_dir=/home/thomas/repos/THzCommon
@@ -49,4 +43,4 @@ C++FT_01_WD=
 filetypes=C++;
 EX_00_LB=_Ausführen
 EX_00_CM=ctest --preset lin-x64-release
-EX_00_WD=
+EX_00_WD=%p
