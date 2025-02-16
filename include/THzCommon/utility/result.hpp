@@ -36,12 +36,12 @@ public:
     /// @brief Checks if this result carries an error.
     ///
     /// @return True if the result is an error, false otherwise.
-    bool isError() noexcept { return std::get_if<T>(&_result) == nullptr; }
+    bool isError() const noexcept { return std::get_if<T>(&_result) == nullptr; }
 
     /// @brief Returns the error code.
     ///
     /// @return The error code, 0 if this is not an error.
-    errno_t errorCode() noexcept
+    errno_t errorCode() const noexcept
     {
         auto const code = std::get_if<errno_t>(&_result);
         return (code == nullptr) ? errno_t{} : (*code);
@@ -51,13 +51,13 @@ public:
     ///
     /// @return The value of the result.
     /// @throws bad_variant_access If the result carries an error.
-    T value() noexcept(false) { return std::get<T>(_result); }
+    T value() const noexcept(false) { return std::get<T>(_result); }
 
     /// @brief Returns the value of the result.
     ///
     /// @return The value of the result.
     /// @throws bad_variant_access If the result carries an error.
-    operator T() noexcept(false) { return std::get<T>(_result); }
+    operator T() const noexcept(false) { return std::get<T>(_result); }
 
 private:
     inline Result(errno_t const errorCode) noexcept : _result{errorCode} {}
@@ -89,18 +89,18 @@ public:
     /// @brief Checks if this result carries an error.
     ///
     /// @return True if the result is an error, false otherwise.
-    bool isError() noexcept { return _error; }
+    bool isError() const noexcept { return _error; }
 
     /// @brief Returns the error code.
     ///
     /// @return The error code, 0 if this is not an error.
-    errno_t errorCode() noexcept { return _error ? _result : errno_t{}; }
+    errno_t errorCode() const noexcept { return _error ? _result : errno_t{}; }
 
     /// @brief Returns the value of the result.
     ///
     /// @return The value of the result.
     /// @throws bad_variant_access If the result carries an error.
-    errno_t value() noexcept(false)
+    errno_t value() const noexcept(false)
     {
         if (_error)
         {
@@ -113,7 +113,7 @@ public:
     ///
     /// @return The value of the result.
     /// @throws bad_variant_access If the result carries an error.
-    operator errno_t() noexcept(false)
+    operator errno_t() const noexcept(false)
     {
         if (_error)
         {

@@ -33,7 +33,7 @@ Result<std::size_t> Selector::select(std::chrono::microseconds timeout) noexcept
     tv.tv_usec = static_cast<decltype(tv.tv_usec)>(timeout.count() % 1'000'000);
 
     auto const result = ::select(_data->nfds, &_data->readfd, &_data->writefd, &_data->exceptfd, &tv);
-    if (result)
+    if (result == -1)
     {
         return Result<std::size_t>::error();
     }
