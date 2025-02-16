@@ -10,12 +10,17 @@ struct NetworkUDPSocket : public testing::Test
 {
 	using UDPSocketV4 = UDPSocket<IPVersion::V4>;
 	
-	/// @brief Returns a localhost IPv4 address with an random port between 2000 and 4000.
-	Address<IPVersion::V4> getLocalAddress() noexcept(false)
+	/// @brief Returns a localhost IPv4 address with an random port between 2000 and 4000, if possible.
+	std::optional<Address<IPVersion::V4>> getLocalAddress() noexcept
 	{
 		auto const ipAddresses = resolveIPAddresses("localhost");
-		std::uniform_int_distribution<> distrib{2000, 4000};
-		// return {ipAddress, distrib(randomEngine)};
+		auto const ipAddress = getFirstIPV4From(ipAddresses);
+		if (ipAddress)
+		{
+			std::uniform_int_distribution<> distrib{2000, 4000};
+			return Address<IPVersion::V4>{*ipAddress, static_cast<std::uint16_t>(distrib(randomEngine))};
+		}
+		return {};
 	}
 	
 	std::mt19937 randomEngine{1337};
