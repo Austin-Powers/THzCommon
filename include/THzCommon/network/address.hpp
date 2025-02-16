@@ -32,6 +32,18 @@ using IPV_Addresses = std::vector<std::variant<Internal::IPV4Address, Internal::
 /// @return A vector of ip addresses, if successful.
 std::optional<IPV_Addresses> resolveIPAddresses(std::string_view address,
                                                 Internal::SocketApi const & = Internal::SocketApi::instance()) noexcept;
+                                                
+/// @brief Returns the first IPV4Address from the given list of addresses, if possible.
+///
+/// @param addresses The list of addresses to extract the address from.
+/// @return The first IPV4Address from the given list, if there is one.
+std::optional<Internal::IPV4Address> getFirstIPV4From(std::optional<IPV_Addresses> const &addresses) noexcept;
+
+/// @brief Returns the first IPV6Address from the given list of addresses, if possible.
+///
+/// @param addresses The list of addresses to extract the address from.
+/// @return The first IPV6Address from the given list, if there is one.
+std::optional<Internal::IPV6Address> getFirstIPV6From(std::optional<IPV_Addresses> const &addresses) noexcept;
 
 } // namespace Terrahertz
 

@@ -34,4 +34,38 @@ std::optional<IPV_Addresses> resolveIPAddresses(std::string_view address, Intern
     return result;
 }
 
+std::optional<Internal::IPV4Address> getFirstIPV4From(std::optional<IPV_Addresses> const &addresses) noexcept
+{
+    if (!addresses)
+    {
+        return {};
+    }
+    for (auto const &address : *addresses)
+    {
+        auto const result = std::get_if<Internal::IPV4Address>(&address);
+        if (result != nullptr)
+        {
+            return *result;
+        }
+    }
+    return {};
+}
+
+std::optional<Internal::IPV6Address> getFirstIPV6From(std::optional<IPV_Addresses> const &addresses) noexcept
+{
+    if (!addresses)
+    {
+        return {};
+    }
+    for (auto const &address : *addresses)
+    {
+        auto const result = std::get_if<Internal::IPV6Address>(&address);
+        if (result != nullptr)
+        {
+            return *result;
+        }
+    }
+    return {};
+}
+
 } // namespace Terrahertz

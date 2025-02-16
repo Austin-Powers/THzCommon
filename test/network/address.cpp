@@ -34,4 +34,52 @@ TEST(NetworkAddress, ResolvingLocalhost)
     }
 }
 
+TEST(NetworkAddress, GetFirstIPV_AddressReturnsNothingIfAddressesIsEmpty)
+{
+    std::optional<IPV_Addresses> addresses{};
+    auto const result4 = getFirstIPV4From(addresses);
+    auto const result6 = getFirstIPV6From(addresses);
+    
+    EXPECT_FALSE(result4);
+    EXPECT_FALSE(result6);
+}
+
+TEST(NetworkAddress, GetFirstIPV4ReturnsFirstIPV4Address)
+{
+    Internal::IPV6Address ipv6{12, 12, 12, 12, 12, 12, 12, 12};
+    Internal::IPV4Address ipv4A{123, 0, 1, 111};
+    Internal::IPV4Address ipv4B{234, 189, 74, 222};
+    IPV_Addresses addresses{};
+    addresses.push_back(ipv6);
+    addresses.push_back(ipv4A);
+    addresses.push_back(ipv4B);
+    
+    auto const result = getFirstIPV4From(addresses);
+    
+    EXPECT_TRUE(result);
+    for (auto i = 0U; i < 4U; ++i)
+    {
+        EXPECT_EQ(result->data()[i], ipv4A[i]);
+    }
+}
+
+TEST(NetworkAddress, GetFirstIPV6ReturnsFirstIPV6Address)
+{
+    Internal::IPV6Address ipv6A{123, 122, 102, 12, 142, 162, 212, 222};
+    Internal::IPV6Address ipv6B{12, 12, 12, 12, 12, 12, 12, 12};
+    Internal::IPV4Address ipv4{123, 0, 1, 111};
+    IPV_Addresses addresses{};
+    addresses.push_back(ipv4);
+    addresses.push_back(ipv6A);
+    addresses.push_back(ipv6B);
+    
+    auto const result = getFirstIPV6From(addresses);
+    
+    EXPECT_TRUE(result);
+    for (auto i = 0U; i < 8U; ++i)
+    {
+        EXPECT_EQ(result->data()[i], ipv6A[i]);
+    }
+}
+
 } // namespace Terrahertz::UnitTests
