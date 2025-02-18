@@ -24,12 +24,22 @@ public:
     using base_t::close;
     using base_t::good;
 
+    /// @brief Checks if receiveFrom would block.
+    ///
+    /// @return True if data there is data to receive, false otherwise.
+    bool receiveIsNonblocking() const noexcept;
+
     /// @brief Receives data from somewhere.
     ///
     /// @param address The address the data was received from, nullptr if address is irrelevant.
     /// @param buffer A span to put the received data into.
     /// @return The part of the buffer that was filled with received data.
     Result<std::span<std::byte>> receiveFrom(Address<TVersion> *address, std::span<std::byte> buffer) noexcept;
+
+    /// @brief Checks if sendTo would block.
+    ///
+    /// @return True if data can be sent, false otherwise.
+    bool sendIsNonblocking() const noexcept;
 
     /// @brief Sends data to the given address.
     ///

@@ -30,6 +30,11 @@ public:
     /// @return True if operation was successfull, false otherwise.
     bool listen(std::uint32_t backlog) noexcept;
 
+    /// @brief Checks if accept would block.
+    ///
+    /// @return True if there is a connection to accept, false otherwise.
+    bool acceptIsNonblocking() const noexcept;
+
     /// @brief Accept an incoming connection.
     ///
     /// @param address The address of the connecting client, nullptr if irrelevant.
@@ -48,11 +53,21 @@ public:
     /// @return True if operation was successful, false otherwise.
     bool shutdown(int what) noexcept;
 
+    /// @brief Checks if receive would block.
+    ///
+    /// @return True if data can be received, false otherwise.
+    bool receiveIsNonblocking() const noexcept;
+
     /// @brief Receives data from the connected peer.
     ///
     /// @param buffer The buffer for the received data.
     /// @return The part of the buffer that was filled with received data.
     Result<std::span<std::byte>> receive(std::span<std::byte> buffer) noexcept;
+
+    /// @brief Checks if send would block.
+    ///
+    /// @return True if data can sent, false otherwise.
+    bool sendIsNonblocking() const noexcept;
 
     /// @brief Sends data to the connected peer.
     ///

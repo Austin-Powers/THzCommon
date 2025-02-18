@@ -13,6 +13,12 @@ bool TCPSocket<TVersion>::listen(std::uint32_t const backlog) noexcept
 }
 
 template <IPVersion TVersion>
+bool TCPSocket<TVersion>::acceptIsNonblocking() const noexcept
+{
+    return false;
+}
+
+template <IPVersion TVersion>
 TCPSocket<TVersion> TCPSocket<TVersion>::accept(Address<TVersion> *address) noexcept
 {
     Internal::SockAddr<TVersion> addr{};
@@ -44,6 +50,12 @@ bool TCPSocket<TVersion>::shutdown(int what) noexcept
 }
 
 template <IPVersion TVersion>
+bool TCPSocket<TVersion>::receiveIsNonblocking() const noexcept
+{
+    return false;
+}
+
+template <IPVersion TVersion>
 Result<std::span<std::byte>> TCPSocket<TVersion>::receive(std::span<std::byte> buffer) noexcept
 {
     auto const result = ::recv(this->_handle,
@@ -55,6 +67,12 @@ Result<std::span<std::byte>> TCPSocket<TVersion>::receive(std::span<std::byte> b
         return Result<std::span<std::byte>>::error();
     }
     return buffer.first(result);
+}
+
+template <IPVersion TVersion>
+bool TCPSocket<TVersion>::sendIsNonblocking() const noexcept
+{
+    return false;
 }
 
 template <IPVersion TVersion>

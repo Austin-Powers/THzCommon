@@ -7,6 +7,12 @@ namespace Terrahertz {
 using SockTraits = Internal::SocketTraits;
 
 template <IPVersion TVersion>
+bool UDPSocket<TVersion>::receiveIsNonblocking() const noexcept
+{
+    return false;
+}
+
+template <IPVersion TVersion>
 Result<std::span<std::byte>> UDPSocket<TVersion>::receiveFrom(Address<TVersion>   *address,
                                                               std::span<std::byte> buffer) noexcept
 {
@@ -30,6 +36,12 @@ Result<std::span<std::byte>> UDPSocket<TVersion>::receiveFrom(Address<TVersion> 
         return Result<std::span<std::byte>>::error();
     }
     return buffer.first(result);
+}
+
+template <IPVersion TVersion>
+bool UDPSocket<TVersion>::sendIsNonblocking() const noexcept
+{
+    return false;
 }
 
 template <IPVersion TVersion>
