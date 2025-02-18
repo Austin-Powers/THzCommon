@@ -9,7 +9,7 @@ using SockTraits = Internal::SocketTraits;
 template <IPVersion TVersion>
 bool UDPSocket<TVersion>::receiveIsNonblocking() const noexcept
 {
-    return false;
+    return Internal::pollRead(this->_handle);
 }
 
 template <IPVersion TVersion>
@@ -41,7 +41,7 @@ Result<std::span<std::byte>> UDPSocket<TVersion>::receiveFrom(Address<TVersion> 
 template <IPVersion TVersion>
 bool UDPSocket<TVersion>::sendIsNonblocking() const noexcept
 {
-    return false;
+    return Internal::pollWrite(this->_handle);
 }
 
 template <IPVersion TVersion>
