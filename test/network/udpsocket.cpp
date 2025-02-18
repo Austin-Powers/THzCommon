@@ -1,7 +1,6 @@
 #include "THzCommon/network/udpsocket.hpp"
 
 #include "THzCommon/network/address.hpp"
-#include "THzCommon/network/selector.hpp"
 
 #include <gtest/gtest.h>
 #include <random>
@@ -59,20 +58,6 @@ TEST_F(NetworkUDPSocket, Bind)
     UDPSocketV4 sut{};
     EXPECT_TRUE(sut.bind(*address));
     EXPECT_TRUE(sut.good());
-}
-
-TEST_F(NetworkUDPSocket, SelectReadYieldsNothingOnNewSocket)
-{
-    auto const address = getLocalAddress();
-    EXPECT_TRUE(address);
-
-    UDPSocketV4 sut{};
-    EXPECT_TRUE(sut.bind(*address));
-
-    Selector selector{};
-    selector.add(sut);
-    auto const result = selector.select();
-    EXPECT_EQ(result.value(), 0U);
 }
 
 TEST_F(NetworkUDPSocket, SimpleDataTransfer)

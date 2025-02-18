@@ -36,7 +36,6 @@ add_library(${PROJECT_NAME} STATIC
 	src/math/rectangle.cpp
 	src/network/address.cpp
 	src/network/privatecommon.hpp
-	src/network/selector.cpp
 	src/network/socketbase.cpp
 	src/network/tcpsocket.cpp
 	src/network/udpsocket.cpp
@@ -60,7 +59,6 @@ add_library(${PROJECT_NAME} STATIC
 	include/THzCommon/memory/imemorypool.hpp
 	include/THzCommon/network/address.hpp
 	include/THzCommon/network/common.hpp
-	include/THzCommon/network/selector.hpp
 	include/THzCommon/network/socketbase.hpp
 	include/THzCommon/network/tcpsocket.hpp
 	include/THzCommon/network/udpsocket.hpp
