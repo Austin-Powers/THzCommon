@@ -19,6 +19,7 @@
 #else
 
 #include <netdb.h>
+#include <poll.h>
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -159,6 +160,40 @@ inline Address<IPVersion::V4> convertSocketAddress(sockaddr_in const &address) n
 inline Address<IPVersion::V6> convertSocketAddress(sockaddr_in6 const &address) noexcept
 {
     return {convertIPAddress(address.sin6_addr), ntohs(address.sin6_port)};
+}
+
+/// @brief Performs a poll operation to see if there is data to read on the socket.
+///
+/// @param socket The socket to poll.
+/// @return True if data can be read from the socket without blocking, false otherwise.
+inline bool pollRead(SocketHandleType socket) noexcept
+{
+    std::array<pollfd, 1U> fds{};
+    fds[0].fd     = socket;
+    fds[0].events = POLLIN;
+#ifdef _WIN32
+    auto const result = WSAPoll(fds.data(), 1U, 0);
+#else
+    auto const result = poll(fds.data(), 1U, 0);
+#endif
+    return (result > 0) && ((fds[0].revents & POLLIN) == POLLIN);
+}
+
+/// @brief Performs a poll operation to see if data can be written to the socket. without blocking.
+///
+/// @param socket The  socket to poll.
+/// @return True if data can be written to the socket without blocking, false otherwise.
+inline bool pollWrite(SocketHandleType socket) noexcept
+{
+    std::array<pollfd, 1U> fds{};
+    fds[0].fd     = socket;
+    fds[0].events = POLLOUT;
+#ifdef _WIN32
+    auto const result = WSAPoll(fds.data(), 1U, 0);
+#else
+    auto const result = poll(fds.data(), 1U, 0);
+#endif
+    return (result > 0) && ((fds[0].revents & POLLOUT) == POLLOUT);
 }
 
 } // namespace Internal
