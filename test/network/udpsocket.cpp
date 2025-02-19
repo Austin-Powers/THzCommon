@@ -60,7 +60,25 @@ TEST_F(NetworkUDPSocket, Bind)
     EXPECT_TRUE(sut.good());
 }
 
-TEST_F(NetworkUDPSocket, SimpleDataTransfer)
+TEST_F(NetworkUDPSocket, ReceiveIstNonblockingReturnsFalseOnNewSocket)
+{
+    auto const address = getLocalAddress();
+    EXPECT_TRUE(address);
+
+    UDPSocketV4 sut{};
+    EXPECT_FALSE(sut.receiveIsNonblocking());
+}
+
+TEST_F(NetworkUDPSocket, SendIsNonblockingReturnsTrueOnNewSocket)
+{
+    auto const address = getLocalAddress();
+    EXPECT_TRUE(address);
+
+    UDPSocketV4 sut{};
+    EXPECT_TRUE(sut.sendIsNonblocking());
+}
+
+TEST_F(NetworkUDPSocket, BasicDataTransfer)
 {
     auto const senderAddress   = getLocalAddress();
     auto const receiverAddress = getLocalAddress();
@@ -71,8 +89,24 @@ TEST_F(NetworkUDPSocket, SimpleDataTransfer)
     EXPECT_TRUE(sender.bind(*senderAddress));
     EXPECT_TRUE(receiver.bind(*receiverAddress));
 
-    std::array<std::uint8_t, 32U> sendBuffer{};
-    std::array<std::uint8_t, 64U> receiveBuffer{};
+    std::array<std::uint8_t, 16U> sendBuffer{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+    std::array<std::uint8_t, 32U> receiveBuffer{};
+
+    std::span<std::byte const> sendSpan{reinterpret_cast<std::byte *>(sendBuffer.data()), sendBuffer.size()};
+    std::span<std::byte>       receiveSpan{reinterpret_cast<std::byte *>(receiveBuffer.data()), receiveBuffer.size()};
+
+    auto const sendResult = sender.sendTo(*receiverAddress, sendSpan);
+    EXPECT_FALSE(sendResult.isError());
+    EXPECT_EQ(sendResult.value(), sendBuffer.size());
+
+    EXPECT_TRUE(receiver.receiveIsNonblocking());
+    auto const receiveResult = receiver.receiveFrom(nullptr, receiveSpan);
+    EXPECT_FALSE(receiveResult.isError());
+    EXPECT_EQ(receiveResult.value().size(), sendBuffer.size());
+    for (auto i = 0U; i < sendBuffer.size(); ++i)
+    {
+        EXPECT_EQ(sendBuffer[i], receiveBuffer[i]);
+    }
 }
 
 } // namespace Terrahertz::UnitTests

@@ -176,7 +176,7 @@ inline bool pollRead(SocketHandleType socket) noexcept
 #else
     auto const result = poll(fds.data(), 1U, 0);
 #endif
-    return (result > 0) && ((fds[0].revents & POLLIN) == POLLIN);
+    return (result > 0) && ((fds[0].revents & POLLIN) != 0);
 }
 
 /// @brief Performs a poll operation to see if data can be written to the socket. without blocking.
@@ -193,7 +193,7 @@ inline bool pollWrite(SocketHandleType socket) noexcept
 #else
     auto const result = poll(fds.data(), 1U, 0);
 #endif
-    return (result > 0) && ((fds[0].revents & POLLOUT) == POLLOUT);
+    return (result > 0) && ((fds[0].revents & POLLOUT) != 0);
 }
 
 } // namespace Internal
