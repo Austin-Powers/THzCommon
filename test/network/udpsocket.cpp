@@ -99,7 +99,7 @@ TEST_F(NetworkUDPSocket, BasicDataTransfer)
     EXPECT_FALSE(sendResult.isError());
     EXPECT_EQ(sendResult.value(), sendBuffer.size());
 
-    EXPECT_TRUE(receiver.receiveIsNonblocking());
+    ASSERT_TRUE(receiver.receiveIsNonblocking());
     auto const receiveResult = receiver.receiveFrom(nullptr, receiveSpan);
     EXPECT_FALSE(receiveResult.isError());
     EXPECT_EQ(receiveResult.value().size(), sendBuffer.size());
