@@ -11,7 +11,7 @@ struct NetworkUDPSocket : public testing::Test
 {
     using UDPSocketV4 = UDPSocket<IPVersion::V4>;
 
-    /// @brief Returns a localhost IPv4 address with an random port between 2000 and 4000, if possible.
+    /// @brief Returns a localhost IPv4 address with a random port between 2000 and 4000, if possible.
     std::optional<Address<IPVersion::V4>> getLocalAddress() noexcept
     {
         auto const ipAddresses = resolveIPAddresses("localhost");
@@ -20,6 +20,23 @@ struct NetworkUDPSocket : public testing::Test
         {
             std::uniform_int_distribution<> distrib{2000, 4000};
             return Address<IPVersion::V4>{*ipAddress, static_cast<std::uint16_t>(distrib(randomEngine))};
+        }
+        return {};
+    }
+
+    /// @brief Tries to bind the given socket to a local address.
+    ///
+    /// @param socket The socket to bind.
+    /// @return The address the socket was bind to, if successful.
+    std::optional<Address<IPVersion::V4>> tryBind(UDPSocketV4 &socket) noexcept
+    {
+        for (uint16_t i = 0U; i < 5U; ++i)
+        {
+            auto const address = getLocalAddress();
+            if (address && socket.bind(*address))
+            {
+                return address;
+            }
         }
         return {};
     }
@@ -52,11 +69,8 @@ TEST_F(NetworkUDPSocket, Close)
 
 TEST_F(NetworkUDPSocket, Bind)
 {
-    auto const address = getLocalAddress();
-    EXPECT_TRUE(address);
-
     UDPSocketV4 sut{};
-    EXPECT_TRUE(sut.bind(*address));
+    EXPECT_TRUE(tryBind(sut));
     EXPECT_TRUE(sut.good());
 }
 
@@ -80,14 +94,12 @@ TEST_F(NetworkUDPSocket, SendIsNonblockingReturnsTrueOnNewSocket)
 
 TEST_F(NetworkUDPSocket, BasicDataTransfer)
 {
-    auto const senderAddress   = getLocalAddress();
-    auto const receiverAddress = getLocalAddress();
-    EXPECT_TRUE(senderAddress);
-    EXPECT_TRUE(receiverAddress);
     UDPSocketV4 sender{};
     UDPSocketV4 receiver{};
-    EXPECT_TRUE(sender.bind(*senderAddress));
-    EXPECT_TRUE(receiver.bind(*receiverAddress));
+    auto const  senderAddress   = tryBind(sender);
+    auto const  receiverAddress = tryBind(receiver);
+    EXPECT_TRUE(senderAddress);
+    EXPECT_TRUE(receiverAddress);
 
     std::array<std::uint8_t, 16U> sendBuffer{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
     std::array<std::uint8_t, 32U> receiveBuffer{};

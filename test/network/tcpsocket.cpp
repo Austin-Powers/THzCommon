@@ -25,6 +25,23 @@ struct NetworkTCPSocket : public testing::Test
         return {};
     }
 
+    /// @brief Tries to bind the given socket to a local address.
+    ///
+    /// @param socket The socket to bind.
+    /// @return The address the socket was bind to, if successful.
+    std::optional<Address<IPVersion::V4>> tryBind(TCPSocketV4 &socket) noexcept
+    {
+        for (uint16_t i = 0U; i < 5U; ++i)
+        {
+            auto const address = getLocalAddress();
+            if (address && socket.bind(*address))
+            {
+                return address;
+            }
+        }
+        return {};
+    }
+
     std::mt19937 randomEngine{1337};
 };
 
@@ -53,31 +70,23 @@ TEST_F(NetworkTCPSocket, Close)
 
 TEST_F(NetworkTCPSocket, Bind)
 {
-    auto const address = getLocalAddress();
-    EXPECT_TRUE(address);
-
     TCPSocketV4 sut{};
-    EXPECT_TRUE(sut.bind(*address));
+    EXPECT_TRUE(tryBind(sut));
     EXPECT_TRUE(sut.good());
 }
 
 TEST_F(NetworkTCPSocket, Listen)
 {
-    auto const address = getLocalAddress();
-    EXPECT_TRUE(address);
-
     TCPSocketV4 sut{};
-    EXPECT_TRUE(sut.bind(*address));
+    EXPECT_TRUE(tryBind(sut));
     EXPECT_TRUE(sut.listen(2U));
 }
 
 TEST_F(NetworkTCPSocket, EstablishConnection)
 {
-    auto const address = getLocalAddress();
-    EXPECT_TRUE(address);
-
     TCPSocketV4 server{};
-    EXPECT_TRUE(server.bind(*address));
+    auto const  address = tryBind(server);
+    EXPECT_TRUE(address) << "binding to address failed.";
     EXPECT_TRUE(server.listen(2U));
 
     EXPECT_FALSE(server.acceptIsNonblocking());
@@ -104,12 +113,9 @@ TEST_F(NetworkTCPSocket, EstablishConnection)
 
 TEST_F(NetworkTCPSocket, BidirectionalDataTransfer)
 {
-    auto const address = getLocalAddress();
-    EXPECT_TRUE(address);
-
     TCPSocketV4 server{};
-    EXPECT_TRUE(server.bind(*address));
-    std::cout << errno << std::endl;
+    auto const  address = tryBind(server);
+    EXPECT_TRUE(address) << "binding to address failed.";
     EXPECT_TRUE(server.listen(2U));
 
     TCPSocketV4 client{};
