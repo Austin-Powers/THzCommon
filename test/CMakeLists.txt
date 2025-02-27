@@ -13,6 +13,7 @@ add_executable(${PROJECTNAME}
 	network/address.cpp
 	network/tcpsocket.cpp
 	network/udpsocket.cpp
+	random/ant.cpp
 	structures/octree.cpp
 	structures/queue.cpp
 	structures/stack.cpp
