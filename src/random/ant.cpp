@@ -36,7 +36,17 @@ gsl::span<char> Ant::save() const noexcept { return {}; }
 
 std::uint32_t Ant::step() const noexcept { return _step; }
 
-void Ant::syncTo(std::uint32_t const step) noexcept {}
+void Ant::syncTo(std::uint32_t const step) noexcept
+{
+    while (_step > step)
+    {
+        backward();
+    }
+    while (_step < step)
+    {
+        forward();
+    }
+}
 
 std::uint8_t Ant::nextByte() noexcept
 {

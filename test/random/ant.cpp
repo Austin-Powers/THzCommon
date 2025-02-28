@@ -52,4 +52,50 @@ TEST_F(RandomAnt, DistributionOfRandomNumbersIsUniform)
     }
 }
 
+TEST_F(RandomAnt, StepCounterWorkingCorrectly)
+{
+    Ant sut{};
+    for (auto i = 0U; i < 16U; ++i)
+    {
+        EXPECT_EQ(sut.step(), i * 8U);
+        sut.nextByte();
+    }
+}
+
+TEST_F(RandomAnt, SynchronisationBackwards)
+{
+    Ant sut{};
+
+    std::array<std::uint8_t, 8U> numbers{};
+    for (auto &i : numbers)
+    {
+        i = sut.nextByte();
+    }
+    sut.syncTo(0);
+    for (auto const i : numbers)
+    {
+        EXPECT_EQ(sut.nextByte(), i);
+    }
+}
+
+TEST_F(RandomAnt, SynchronisationForwards)
+{
+    Ant sut{};
+
+    std::array<std::uint8_t, 12U> numbers{};
+    for (auto &i : numbers)
+    {
+        i = sut.nextByte();
+    }
+    sut.syncTo(0);
+    sut.syncTo(32);
+    for (auto i = 0U; i < numbers.size(); ++i)
+    {
+        if (i > 3)
+        {
+            EXPECT_EQ(sut.nextByte(), numbers[i]);
+        }
+    }
+}
+
 } // namespace Terrahertz::UnitTests
