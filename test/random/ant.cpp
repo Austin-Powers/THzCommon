@@ -98,4 +98,50 @@ TEST_F(RandomAnt, SynchronisationForwards)
     }
 }
 
+TEST_F(RandomAnt, SavingToTooSmallBufferFails)
+{
+    Ant                    sut{};
+    std::array<char, 128U> buffer{};
+    gsl::span<char>        bufferSpan{buffer.data(), buffer.size()};
+
+    auto const encodedSpan = sut.save(bufferSpan);
+    EXPECT_EQ(encodedSpan.size(), 0U);
+}
+
+TEST_F(RandomAnt, LoadingFromTooSmallBufferFails)
+{
+    Ant                    sut{};
+    std::array<char, 128U> buffer{};
+    gsl::span<char>        bufferSpan{buffer.data(), buffer.size()};
+
+    EXPECT_FALSE(sut.load(bufferSpan));
+}
+
+TEST_F(RandomAnt, SaveAndLoad)
+{
+    Ant base{};
+    Ant copy{};
+
+    base.nextByte();
+    base.nextByte();
+
+    std::array<char, 4096U> buffer{};
+    gsl::span<char>         bufferSpan{buffer.data(), buffer.size()};
+
+    auto const encodedData = base.save(bufferSpan);
+    EXPECT_EQ(encodedData.size(), 2744U);
+    ASSERT_TRUE(copy.load(encodedData));
+    EXPECT_EQ(base.step(), copy.step());
+
+    EXPECT_EQ(base._posX, copy._posX);
+    EXPECT_EQ(base._posY, copy._posY);
+    EXPECT_EQ(base._direction, copy._direction);
+    EXPECT_EQ(base._sequence, copy._sequence);
+
+    for (auto i = 0U; i < 16; ++i)
+    {
+        EXPECT_EQ(base.nextByte(), copy.nextByte());
+    }
+}
+
 } // namespace Terrahertz::UnitTests

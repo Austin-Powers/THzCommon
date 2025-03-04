@@ -1,5 +1,8 @@
 #include "THzCommon/random/ant.hpp"
 
+#include "THzCommon/converter/base64.hpp"
+
+#include <iostream>
 #include <random>
 
 namespace Terrahertz {
@@ -30,9 +33,65 @@ Ant::Ant() noexcept
     }
 }
 
-bool Ant::load(gsl::span<char const> const encodedData) noexcept { return false; }
+/// @brief The size of the encoded data [bytes].
+constexpr std::uint16_t ENCODEDSIZE = 2744U;
 
-gsl::span<char> Ant::save() const noexcept { return {}; }
+bool Ant::load(gsl::span<char const> const encodedData) noexcept
+{
+    if (encodedData.size() < ENCODEDSIZE)
+    {
+        return false;
+    }
+    Base64::Decoder decoder{encodedData};
+    _posX      = decoder.readByte();
+    _posY      = decoder.readByte();
+    _direction = decoder.readByte();
+    std::uint16_t sequence{};
+    decoder.read(sequence);
+    for (auto &part : _sequence)
+    {
+        part = sequence >> 0xFU;
+        sequence <<= 1U;
+    }
+    decoder.read(_step);
+    decoder.readByte();
+    for (auto i = 0U; i < _grid.size(); i += 2U)
+    {
+        auto const packedCells = decoder.readByte();
+
+        _grid[i]        = (packedCells >> 4U);
+        _grid[i + 1ULL] = (packedCells & 0xFU);
+    }
+    return true;
+}
+
+gsl::span<char> Ant::save(gsl::span<char> buffer) noexcept
+{
+    if (buffer.size() < ENCODEDSIZE)
+    {
+        return {};
+    }
+    Base64::Encoder encoder{buffer};
+    encoder.writeByte(_posX);
+    encoder.writeByte(_posY);
+    encoder.writeByte(_direction);
+    std::uint16_t sequence{};
+    for (auto const part : _sequence)
+    {
+        sequence <<= 1U;
+        sequence |= part;
+    }
+    encoder.write(sequence);
+    encoder.write(_step);
+    // Add one byte of padding to make handling easier
+    encoder.writeByte(0U);
+    for (auto i = 0U; i < _grid.size(); i += 2U)
+    {
+        std::uint8_t packedCells = (_grid[i] << 4U) | _grid[i + 1ULL];
+        encoder.writeByte(packedCells);
+    }
+    return buffer.subspan(0U, ENCODEDSIZE);
+}
 
 std::uint32_t Ant::step() const noexcept { return _step; }
 

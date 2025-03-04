@@ -11,6 +11,9 @@ namespace Terrahertz {
 class Ant final
 {
 public:
+    /// @brief The length of the grid the ant is working on.
+    static constexpr uint64_t GRIDLENGTH = 64ULL;
+
     /// @brief Initializes a new random number generator with a random state.
     Ant() noexcept;
 
@@ -20,10 +23,11 @@ public:
     /// @return True if data was loaded successfully, false otherwise.
     bool load(gsl::span<char const> const encodedData) noexcept;
 
-    /// @brief Returns the encoded state of the generator.
+    /// @brief Tries to saves the state of the generator to the given buffer.
     ///
-    /// @return Buffer containing the encoded data.
-    gsl::span<char> save() const noexcept;
+    /// @param buffer The buffer to put the encoded in.
+    /// @return The part of the buffer the data was written to, empty if the buffer was not big enough.
+    gsl::span<char> save(gsl::span<char> buffer) noexcept;
 
     /// @brief Returns the current step of the generator.
     ///
@@ -40,10 +44,7 @@ public:
     /// @return The next random byte.
     std::uint8_t nextByte() noexcept;
 
-private:
-    /// @brief The length of the grid the ant is working on.
-    static constexpr uint64_t GRIDLENGTH = 64ULL;
-
+    // private:
     /// @brief Moves the ant one step forward.
     ///
     /// @return True if the ant turned right, false if it turned left.
