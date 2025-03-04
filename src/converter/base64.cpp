@@ -162,4 +162,53 @@ gsl::span<std::uint8_t> decode(gsl::span<char const> const input, gsl::span<std:
     return output.subspan(0U, output.size() - buffer.size() - equalSignsEnd);
 }
 
+Encoder::Encoder(gsl::span<char> outputBuffer) noexcept : _outputBuffer{outputBuffer}
+{
+    _accSpan = gsl::span<std::uint8_t>(_accumulator.data(), _accumulator.size());
+}
+
+bool Encoder::writeByte(std::uint8_t const byte) noexcept
+{
+    if (_outputBuffer.size() < 4U)
+    {
+        return false;
+    }
+    _accumulator[_bytesAccumulated] = byte;
+    ++_bytesAccumulated;
+    if (_bytesAccumulated == 3U)
+    {
+        _bytesAccumulated = 0U;
+        encode(_accSpan, _outputBuffer);
+        _outputBuffer = _outputBuffer.subspan(4U);
+    }
+    return true;
+}
+
+Decoder::Decoder(gsl::span<char const> inputBuffer) noexcept : _inputBuffer{inputBuffer}
+{
+    _accSpan = gsl::span<std::uint8_t>(_accumulator.data(), _accumulator.size());
+}
+
+bool Decoder::dataAvailable() const noexcept { return (_readIndex > 2U) || (_inputBuffer.size() > 3U); }
+
+std::uint8_t Decoder::readByte() noexcept
+{
+    std::uint8_t result{};
+    if (_readIndex > 2U)
+    {
+        if (_inputBuffer.size() > 3U)
+        {
+            _readIndex = 0U;
+            decode(_inputBuffer.subspan(0U, 4U), _accSpan);
+            _inputBuffer = _inputBuffer.subspan(4U);
+        }
+    }
+    if (_readIndex < 3U)
+    {
+        result = _accumulator[_readIndex];
+        ++_readIndex;
+    }
+    return result;
+}
+
 } // namespace Terrahertz::Base64

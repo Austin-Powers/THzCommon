@@ -157,4 +157,56 @@ TEST_F(ConverterBase64, DecodingRecreatesEncodedDataInDifferentLengths)
     checkRecreation("Test12345");
 }
 
+TEST_F(ConverterBase64, EncoderWritingBytes)
+{
+    Base64::Encoder sut{encodedDataSpan};
+    EXPECT_TRUE(sut.writeByte(2U));
+    EXPECT_EQ(encodedDataSpan[0U], 0U);
+    EXPECT_TRUE(sut.writeByte(4U));
+    EXPECT_EQ(encodedDataSpan[0U], 0U);
+    EXPECT_TRUE(sut.writeByte(8U));
+    EXPECT_EQ(encodedDataSpan[0U], 'A');
+}
+
+TEST_F(ConverterBase64, EncoderRunningOutOfBuffer)
+{
+    auto const buffer = encodedDataSpan.subspan(0U, 3U);
+
+    Base64::Encoder sut{buffer};
+    EXPECT_FALSE(sut.writeByte(2U));
+}
+
+TEST_F(ConverterBase64, DecoderReadingBytes)
+{
+    Base64::Encoder encoder{encodedDataSpan};
+    EXPECT_TRUE(encoder.writeByte(32U));
+    EXPECT_TRUE(encoder.writeByte(16U));
+    EXPECT_TRUE(encoder.writeByte(8U));
+
+    Base64::Decoder sut{encodedDataSpan};
+    EXPECT_TRUE(sut.dataAvailable());
+    EXPECT_EQ(sut.readByte(), 32U);
+    EXPECT_TRUE(sut.dataAvailable());
+    EXPECT_EQ(sut.readByte(), 16U);
+    EXPECT_TRUE(sut.dataAvailable());
+    EXPECT_EQ(sut.readByte(), 8U);
+    EXPECT_TRUE(sut.dataAvailable());
+}
+
+TEST_F(ConverterBase64, DecoderReadingMultibyteType)
+{
+    std::uint32_t const expectedValue{4711U};
+    std::uint32_t       actualValue{};
+    Base64::Encoder     encoder{encodedDataSpan};
+
+    EXPECT_TRUE(encoder.write(expectedValue));
+    // add two bytes to actually write things
+    EXPECT_TRUE(encoder.writeByte(12U));
+    EXPECT_TRUE(encoder.writeByte(24U));
+
+    Base64::Decoder sut{encodedDataSpan};
+    EXPECT_TRUE(sut.read(actualValue));
+    EXPECT_EQ(expectedValue, actualValue);
+}
+
 } // namespace Terrahertz::UnitTests
