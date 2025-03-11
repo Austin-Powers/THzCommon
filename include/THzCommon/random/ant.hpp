@@ -62,6 +62,12 @@ public:
     /// @brief The direction the ant is is pointing towards.
     std::uint8_t _direction{};
 
+    /// @brief Lookup table for the movement on the x-axis.
+    std::array<std::int8_t, 4U> _xLookup{};
+
+    /// @brief Lookup table for the movement on the y-axis.
+    std::array<std::int8_t, 4U> _yLookup{};
+
     /// @brief The move sequence R=0 L=1.
     std::array<std::uint8_t, 16U> _sequence{};
 

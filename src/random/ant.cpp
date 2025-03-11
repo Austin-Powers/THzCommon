@@ -9,6 +9,12 @@ namespace Terrahertz {
 
 Ant::Ant() noexcept
 {
+    // setup lookup tables
+    _yLookup[0U] = -1;
+    _xLookup[1U] = 1;
+    _yLookup[2U] = 1;
+    _xLookup[3U] = -1;
+
     std::random_device rd{};
     std::mt19937       randomEngine{rd()};
 
@@ -131,21 +137,8 @@ bool Ant::forward() noexcept
     // change color
     cell = (cell + 1U) & 0xFU;
     // move
-    switch (_direction)
-    {
-    case 0: // Up
-        _posY = (_posY - 1U) & 0x3FU;
-        break;
-    case 1: // Right
-        _posX = (_posX + 1U) & 0x3FU;
-        break;
-    case 2: // Down
-        _posY = (_posY + 1U) & 0x3FU;
-        break;
-    case 3: // Left
-        _posX = (_posX - 1U) & 0x3FU;
-        break;
-    }
+    _posX = (_posX + _xLookup[_direction]) & 0x3FU;
+    _posY = (_posY + _yLookup[_direction]) & 0x3FU;
     ++_step;
     return turnRight;
 }
@@ -154,21 +147,9 @@ void Ant::backward() noexcept
 {
     --_step;
     // move
-    switch (_direction)
-    {
-    case 0: // Up
-        _posY = (_posY + 1U) & 0x3FU;
-        break;
-    case 1: // Right
-        _posX = (_posX - 1U) & 0x3FU;
-        break;
-    case 2: // Down
-        _posY = (_posY - 1U) & 0x3FU;
-        break;
-    case 3: // Left
-        _posX = (_posX + 1U) & 0x3FU;
-        break;
-    }
+    _posX = (_posX - _xLookup[_direction]) & 0x3FU;
+    _posY = (_posY - _yLookup[_direction]) & 0x3FU;
+
     auto &cell = _grid[(GRIDLENGTH * _posY) + _posX];
     // change color
     cell = (cell - 1U) & 0xFU;
