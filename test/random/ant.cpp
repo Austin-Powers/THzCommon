@@ -133,11 +133,6 @@ TEST_F(RandomAnt, SaveAndLoad)
     ASSERT_TRUE(copy.load(encodedData));
     EXPECT_EQ(base.step(), copy.step());
 
-    EXPECT_EQ(base._posX, copy._posX);
-    EXPECT_EQ(base._posY, copy._posY);
-    EXPECT_EQ(base._direction, copy._direction);
-    EXPECT_EQ(base._sequence, copy._sequence);
-
     for (auto i = 0U; i < 16; ++i)
     {
         EXPECT_EQ(base.nextByte(), copy.nextByte());

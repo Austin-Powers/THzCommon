@@ -44,7 +44,7 @@ public:
     /// @return The next random byte.
     std::uint8_t nextByte() noexcept;
 
-    // private:
+private:
     /// @brief Moves the ant one step forward.
     ///
     /// @return True if the ant turned right, false if it turned left.
