@@ -1,6 +1,8 @@
 set(PROJECTNAME THzCommon.Tests)
 
 add_executable(${PROJECTNAME}
+	configuration/configuration.cpp
+	configuration/configurationstorage.cpp
 	converter/base64.cpp
 	converter/huffmancoder.cpp
 	converter/huffmancommons.cpp

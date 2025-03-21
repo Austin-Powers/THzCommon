@@ -26,6 +26,8 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(gsl)
 
 add_library(${PROJECT_NAME} STATIC
+	src/configuration/configuration.cpp
+	src/configuration/configurationstorage.cpp
 	src/converter/base64.cpp
 	src/converter/huffmancoder.cpp
 	src/converter/huffmancommons.cpp
@@ -45,6 +47,8 @@ add_library(${PROJECT_NAME} STATIC
 	src/utility/range2D.cpp
 	src/utility/time.cpp
 
+	include/THzCommon/configuration/configuration.hpp
+	include/THzCommon/configuration/configurationstorage.hpp
 	include/THzCommon/converter/base64.hpp
 	include/THzCommon/converter/huffmancoder.hpp
 	include/THzCommon/converter/huffmancommons.hpp
