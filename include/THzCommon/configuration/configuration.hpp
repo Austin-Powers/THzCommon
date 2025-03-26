@@ -16,12 +16,6 @@ public:
     /// @param configurationMap The map containing the configuration values.
     Configuration(std::map<std::string, std::string> const &buffer) noexcept;
 
-    /// @brief Checks if a certain key is present in this configuration.
-    ///
-    /// @param key The key to lookup.
-    /// @return True if the key is present, false otherwise.
-    bool isPresent(std::string const key) const noexcept;
-
     /// @brief Retrieves the value for the given key.
     ///
     /// @param key The key to of the value.
@@ -35,20 +29,17 @@ public:
     Configuration const *subConfiguration(std::string const key) const noexcept;
 
 private:
-    /// @brief Initializes a sub configuration instance.
+    /// @brief Adds the given key-value-pair to the configuration.
     ///
-    /// @param buffer The map containing the configuration values.
-    /// @param prefix The prefix to put on all keys.
-    Configuration(std::map<std::string, std::string> const &buffer, std::string const prefix) noexcept;
+    /// @param key The key of to find the value by.
+    /// @param value The value to the key.
+    void addEntry(std::string const &key, std::string const &value) noexcept;
 
-    /// @brief The prefix put on all keys.
-    std::string _prefix{};
+    /// @brief Map of sub configurations.
+    std::map<std::string, Configuration> _branches{};
 
-    /// @brief Pointer to the map containing the configuration values.
-    std::map<std::string, std::string> const *_buffer{};
-
-    /// @brief Set containing all entries of the configuration.
-    std::set<std::string> _entries{};
+    /// @brief Map of values.
+    std::map<std::string, std::string> _leaves{};
 };
 
 } // namespace Terrahertz

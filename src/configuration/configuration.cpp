@@ -4,37 +4,58 @@
 
 namespace Terrahertz {
 
-Configuration::Configuration(std::map<std::string, std::string> const &buffer) noexcept : _prefix{""}, _buffer{&buffer}
+Configuration::Configuration(std::map<std::string, std::string> const &buffer) noexcept
 {
     for (auto const &kvPair : buffer)
     {
-        auto const &key = kvPair.first;
-        for (auto pos = key.find('.'); pos != std::string::npos; pos = key.find('.', pos + 1U))
-        {
-            _entries.insert(key.substr(0U, pos));
-        }
-        _entries.insert(key);
+        addEntry(kvPair.first, kvPair.second);
     }
 }
-
-bool Configuration::isPresent(std::string const key) const noexcept { return _entries.contains(key); }
 
 std::string_view Configuration::valueOf(std::string const key) const noexcept
 {
     std::string_view result{};
-    if (_buffer)
+
+    auto const valueIter = _leaves.find(key);
+    if (valueIter != _leaves.end())
     {
-        auto const valueIter = _buffer->find(key);
-        if (valueIter != _buffer->end())
-        {
-            result = (*valueIter).second;
-        }
+        result = (*valueIter).second;
     }
     return result;
 }
 
-Configuration const *Configuration::subConfiguration(std::string const key) const noexcept { return nullptr; }
+Configuration const *Configuration::subConfiguration(std::string const key) const noexcept
+{
+    Configuration const *result{};
 
-Configuration::Configuration(std::map<std::string, std::string> const &buffer, std::string const prefix) noexcept {}
+    auto const subIter = _branches.find(key);
+    if (subIter != _branches.end())
+    {
+        result = &(subIter->second);
+    }
+    return result;
+}
+
+void Configuration::addEntry(std::string const &key, std::string const &value) noexcept
+{
+    auto const pos = key.find('.');
+    if (pos == std::string::npos)
+    {
+        // value
+        _leaves.emplace(key, value);
+    }
+    else
+    {
+        // sub configuration
+        auto const subkey = key.substr(0U, pos);
+        auto       iter   = _branches.find(subkey);
+        if (iter == _branches.end())
+        {
+            _branches.emplace(subkey, Configuration());
+            iter = _branches.find(subkey);
+        }
+        (*iter).second.addEntry(key.substr(pos + 1U), value);
+    }
+}
 
 } // namespace Terrahertz
