@@ -72,4 +72,10 @@ private:
     char _delimiter{};
 };
 
+/// @brief Trims whitespaces of the beginning and end of the view.
+///
+/// @param view The view to trim.
+/// @return The trimmed view.
+std::string_view trim(std::string_view view) noexcept;
+
 } // namespace Terrahertz

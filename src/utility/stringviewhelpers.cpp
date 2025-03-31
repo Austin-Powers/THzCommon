@@ -1,5 +1,8 @@
 #include "THzCommon/utility/stringviewhelpers.hpp"
 
+#include <cctype>
+#include <cstddef>
+
 namespace Terrahertz {
 
 StringViewTokenizer::Iterator::Iterator(std::string_view const &view, char const delimiter) noexcept
@@ -44,5 +47,21 @@ StringViewTokenizer::StringViewTokenizer(std::string_view const &view, char cons
 StringViewTokenizer::Iterator StringViewTokenizer::begin() const noexcept { return Iterator(_view, _delimiter); }
 
 StringViewTokenizer::Iterator StringViewTokenizer::end() const noexcept { return Iterator(); }
+
+std::string_view trim(std::string_view view) noexcept
+{
+    size_t off  = 0U;
+    size_t size = view.size();
+    while ((size != 0U) && (std::isspace(view[off]) != 0))
+    {
+        ++off;
+        --size;
+    }
+    while ((size > 0U) && (std::isspace(view[off + size - 1U]) != 0))
+    {
+        --size;
+    }
+    return view.substr(off, size);
+}
 
 } // namespace Terrahertz
