@@ -30,7 +30,7 @@ add_executable(${PROJECTNAME}
 	utility/sptesthelper.cpp
 	utility/sptesthelper.hpp
 	utility/staticPImpl.cpp
-	utility/tokenizer.cpp)
+	utility/stringviewhelpers.cpp)
 
 target_include_directories(${PROJECTNAME} PUBLIC
 	${PROJECT_SOURCE_DIR}
