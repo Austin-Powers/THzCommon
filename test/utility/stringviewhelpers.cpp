@@ -54,4 +54,41 @@ TEST_F(UtilityStringViewHelpers, Trim)
     EXPECT_TRUE(inside == trim(inside));
 }
 
+TEST_F(UtilityStringViewHelpers, Split)
+{
+    std::string_view empty          = "";
+    std::string_view onlyDelimiterA = " ";
+    std::string_view onlyDelimiterB = "   ";
+    std::string_view noDelimiter    = "test";
+    std::string_view front          = " test";
+    std::string_view back           = "test ";
+    std::string_view middleA        = "test this";
+    std::string_view middleB        = "test=this";
+
+    auto result = split(empty, ' ');
+    EXPECT_EQ(result.first, "");
+    EXPECT_EQ(result.second, "");
+    result = split(onlyDelimiterA, ' ');
+    EXPECT_EQ(result.first, "");
+    EXPECT_EQ(result.second, "");
+    result = split(onlyDelimiterB, ' ');
+    EXPECT_EQ(result.first, "");
+    EXPECT_EQ(result.second, "  ");
+    result = split(noDelimiter, ' ');
+    EXPECT_EQ(result.first, "test");
+    EXPECT_EQ(result.second, "");
+    result = split(front, ' ');
+    EXPECT_EQ(result.first, "");
+    EXPECT_EQ(result.second, "test");
+    result = split(back, ' ');
+    EXPECT_EQ(result.first, "test");
+    EXPECT_EQ(result.second, "");
+    result = split(middleA, ' ');
+    EXPECT_EQ(result.first, "test");
+    EXPECT_EQ(result.second, "this");
+    result = split(middleB, '=');
+    EXPECT_EQ(result.first, "test");
+    EXPECT_EQ(result.second, "this");
+}
+
 } // namespace Terrahertz::UnitTests

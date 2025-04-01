@@ -48,6 +48,16 @@ StringViewTokenizer::Iterator StringViewTokenizer::begin() const noexcept { retu
 
 StringViewTokenizer::Iterator StringViewTokenizer::end() const noexcept { return Iterator(); }
 
+std::pair<std::string_view, std::string_view> split(std::string_view const toSplit, char const delimiter) noexcept
+{
+    auto const position = toSplit.find(delimiter);
+    if (position == std::string_view::npos)
+    {
+        return {toSplit.substr(0U, position), ""};
+    }
+    return {toSplit.substr(0U, position), toSplit.substr(position + 1U)};
+}
+
 std::string_view trim(std::string_view view) noexcept
 {
     size_t off  = 0U;

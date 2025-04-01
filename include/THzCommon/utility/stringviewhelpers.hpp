@@ -72,6 +72,14 @@ private:
     char _delimiter{};
 };
 
+/// @brief Splits the given string view at the first occurence of the given delimiter.
+///
+/// @param toSplit The view to split.
+/// @param delimiter The delimiter to split the view at.
+/// @return Pair of first and second part of the split.
+/// @remark The delimiter will not be part of either result view.
+std::pair<std::string_view, std::string_view> split(std::string_view const toSplit, char const delimiter) noexcept;
+
 /// @brief Trims whitespaces of the beginning and end of the view.
 ///
 /// @param view The view to trim.
