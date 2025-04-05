@@ -4,6 +4,12 @@
 
 namespace Terrahertz {
 
+/// @brief Name provider for the configuration project.
+struct ConfigurationProject
+{
+    static constexpr char const *name() noexcept { return "THzCommon.Configuration"; }
+};
+
 /// @brief Manages access to a tree like configuration structure.
 class Configuration
 {
