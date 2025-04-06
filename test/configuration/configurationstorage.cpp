@@ -1,5 +1,7 @@
 #include "THzCommon/configuration/configurationstorage.hpp"
 
+#include <filesystem>
+#include <fstream>
 #include <gtest/gtest.h>
 #include <string_view>
 
@@ -50,8 +52,52 @@ TEST_F(ConfigurationConfigurationStorage, LoadFromStringSuccessful)
     EXPECT_TRUE(configSubsection->valueOf("test") == "none");
 }
 
-TEST_F(ConfigurationConfigurationStorage, LoadFromStringOverwritesOldConfig) {}
+TEST_F(ConfigurationConfigurationStorage, LoadFromStringOverwritesOldConfig)
+{
+    ConfigurationStorage sut{};
 
-TEST_F(ConfigurationConfigurationStorage, LoadFromFile) {}
+    std::string_view testData0 = "foo = 123\n";
+    EXPECT_TRUE(sut.load(testData0));
+    auto config = sut.configuration();
+    EXPECT_TRUE(config.valueOf("foo") == "123");
+    EXPECT_TRUE(config.valueOf("bar") == "");
+
+    std::string_view testData1 = "bar = 234\n";
+    EXPECT_TRUE(sut.load(testData1));
+    config = sut.configuration();
+    EXPECT_TRUE(config.valueOf("foo") == "");
+    EXPECT_TRUE(config.valueOf("bar") == "234");
+}
+
+TEST_F(ConfigurationConfigurationStorage, LoadFromNonexistentFile)
+{
+    std::filesystem::path testFilePath = "nope.config";
+
+    ConfigurationStorage sut{};
+    EXPECT_FALSE(sut.load(testFilePath));
+}
+
+TEST_F(ConfigurationConfigurationStorage, LoadFromFile)
+{
+    // Create the test file
+    std::filesystem::path testFilePath = "test.config";
+    std::ofstream         testFile(testFilePath);
+    testFile << "[test]" << std::endl;
+    testFile << ";test" << std::endl;
+    testFile << "test = 123" << std::endl;
+    testFile << "empty =" << std::endl;
+    testFile.close();
+
+    ConfigurationStorage sut{};
+    EXPECT_TRUE(sut.load(testFilePath));
+    auto const configuration = sut.configuration();
+    auto const subConfig     = configuration.subConfiguration("test");
+    ASSERT_NE(subConfig, nullptr);
+    EXPECT_TRUE(subConfig->valueOf("test") == "123");
+    EXPECT_TRUE(subConfig->valueOf("empty") == "");
+
+    // Remove the test file
+    std::filesystem::remove(testFilePath.c_str());
+}
 
 } // namespace Terrahertz::UnitTests

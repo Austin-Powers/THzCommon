@@ -3,7 +3,7 @@
 #include "THzCommon/logging/logging.hpp"
 #include "THzCommon/utility/stringviewhelpers.hpp"
 
-#include <iostream>
+#include <fstream>
 #include <map>
 
 namespace Terrahertz {
@@ -62,7 +62,20 @@ bool ConfigurationStorage::load(std::string_view const buffer) noexcept
     return true;
 }
 
-bool ConfigurationStorage::load(std::filesystem::path const &location) noexcept { return false; }
+bool ConfigurationStorage::load(std::filesystem::path const &location) noexcept
+{
+    std::ifstream configFile{location};
+    if (!configFile.is_open())
+    {
+        return false;
+    }
+    std::string fileContent = "";
+    for (std::string line; std::getline(configFile, line);)
+    {
+        fileContent += (line + "\n");
+    }
+    return load(std::string_view(fileContent));
+}
 
 Configuration const &ConfigurationStorage::configuration() const noexcept { return _configuration; }
 
