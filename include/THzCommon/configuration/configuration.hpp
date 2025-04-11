@@ -1,3 +1,6 @@
+#ifndef THZ_COMMON_CONFIGURATION_CONFIGURATION_HPP
+#define THZ_COMMON_CONFIGURATION_CONFIGURATION_HPP
+
 #include <map>
 #include <set>
 #include <string>
@@ -49,3 +52,5 @@ private:
 };
 
 } // namespace Terrahertz
+
+#endif // !THZ_COMMON_CONFIGURATION_CONFIGURATION_HPP

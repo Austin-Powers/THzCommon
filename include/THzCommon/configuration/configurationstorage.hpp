@@ -1,3 +1,6 @@
+#ifndef THZ_COMMON_CONFIGURATION_CONFIGURATIONSTORAGE_HPP
+#define THZ_COMMON_CONFIGURATION_CONFIGURATIONSTORAGE_HPP
+
 #include "THzCommon/configuration/configuration.hpp"
 
 #include <filesystem>
@@ -47,3 +50,5 @@ private:
 };
 
 } // namespace Terrahertz
+
+#endif // !THZ_COMMON_CONFIGURATION_CONFIGURATIONSTORAGE_HPP
