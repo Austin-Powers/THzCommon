@@ -6,7 +6,7 @@ namespace Terrahertz::UnitTests {
 
 struct ConfigurationConfigrationBuilder : public testing::Test
 {};
-/*
+
 TEST_F(ConfigurationConfigrationBuilder, DefaultConstruction)
 {
     ConfigurationBuilder sut{};
@@ -33,5 +33,5 @@ TEST_F(ConfigurationConfigrationBuilder, AddEntryOverwritesExistingEntry)
     std::string const expectedResult = "test = 234;bcd\n";
     EXPECT_TRUE(sut.buildConfigurationString() == expectedResult);
 }
-*/
+
 } // namespace Terrahertz::UnitTests
