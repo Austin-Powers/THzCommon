@@ -34,4 +34,16 @@ TEST_F(ConfigurationConfigrationBuilder, AddEntryOverwritesExistingEntry)
     EXPECT_TRUE(sut.buildConfigurationString() == expectedResult);
 }
 
+TEST_F(ConfigurationConfigrationBuilder, SubConfiguration)
+{
+    ConfigurationBuilder sut{};
+    sut.addEntry("before", "123");
+    auto &sub = sut.createSubConfiguration("subcon", "baba");
+    sub.addEntry("test", "234", "comment");
+    sut.addEntry("after", "345");
+
+    std::string const expectedResult = "before = 123\nafter = 345\n\n[subcon];baba\ntest = 234;comment\n";
+    EXPECT_TRUE(sut.buildConfigurationString() == expectedResult);
+}
+
 } // namespace Terrahertz::UnitTests

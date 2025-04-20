@@ -18,7 +18,7 @@ public:
     /// @param key The key for the subconfiguration.
     /// @param comment A comment to add to the subconfiguration.
     /// @return The builder for the sub configuration.
-    ConfigurationBuilder createSubConfiguration(std::string_view key, std::string_view comment) noexcept;
+    ConfigurationBuilder &createSubConfiguration(std::string_view key, std::string_view comment) noexcept;
 
     /// @brief Adds a configuration entry to the configuration.
     ///
@@ -46,8 +46,17 @@ private:
         std::string_view comment;
     };
 
+    /// @brief The key, if this is a subconfiguration.
+    std::string_view _key;
+
+    /// @brief The comment if this is a subconfiguration.
+    std::string_view _comment;
+
     /// @brief The vector for the entries of this configuration.
     std::vector<Entry> _entries{};
+
+    /// @brief The vector for subconfigurations of this configuration.
+    std::vector<ConfigurationBuilder> _subConfigurations{};
 };
 
 } // namespace Terrahertz
