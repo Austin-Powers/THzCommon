@@ -13,12 +13,12 @@ public:
     /// @brief Creates a new ConfigruationBuilder instance.
     ConfigurationBuilder() noexcept;
 
-    /// @brief Creates a builder for a subconfiguration.
+    /// @brief Returns a builder for a subconfiguration, creating one if nonexistent.
     ///
     /// @param key The key for the subconfiguration.
     /// @param comment A comment to add to the subconfiguration.
     /// @return The builder for the sub configuration.
-    ConfigurationBuilder &createSubConfiguration(std::string_view key, std::string_view comment) noexcept;
+    ConfigurationBuilder &getCreateSubConfiguration(std::string_view key, std::string_view comment = "") noexcept;
 
     /// @brief Adds a configuration entry to the configuration.
     ///
@@ -45,6 +45,12 @@ private:
         /// @brief A comment to add to the entry.
         std::string_view comment;
     };
+
+    /// @brief Builds the example configuration string for a sub configuration.
+    ///
+    /// @param prefix The prefix for the section string.
+    /// @return A string containing the configuration example.
+    std::string buildSubConfigurationString(std::string const prefix) const noexcept;
 
     /// @brief The key, if this is a subconfiguration.
     std::string_view _key;

@@ -4,8 +4,8 @@ namespace Terrahertz {
 
 ConfigurationBuilder::ConfigurationBuilder() noexcept {}
 
-ConfigurationBuilder &ConfigurationBuilder::createSubConfiguration(std::string_view const key,
-                                                                   std::string_view const comment) noexcept
+ConfigurationBuilder &ConfigurationBuilder::getCreateSubConfiguration(std::string_view const key,
+                                                                      std::string_view const comment) noexcept
 {
     for (auto &sub : _subConfigurations)
     {
@@ -41,7 +41,9 @@ void ConfigurationBuilder::addEntry(std::string_view const key,
     }
 }
 
-std::string ConfigurationBuilder::buildConfigurationString() const noexcept
+std::string ConfigurationBuilder::buildConfigurationString() const noexcept { return buildSubConfigurationString(""); }
+
+std::string ConfigurationBuilder::buildSubConfigurationString(std::string const prefix) const noexcept
 {
     std::string result = "";
 
@@ -61,7 +63,8 @@ std::string ConfigurationBuilder::buildConfigurationString() const noexcept
     // subconfigurations
     for (auto const &sub : _subConfigurations)
     {
-        result += "\n[";
+        result += "[";
+        result += prefix;
         result += sub._key;
         result += "]";
         if (!sub._comment.empty())
@@ -70,7 +73,10 @@ std::string ConfigurationBuilder::buildConfigurationString() const noexcept
             result += sub._comment;
         }
         result += "\n";
-        result += sub.buildConfigurationString();
+        std::string subPrefix = prefix;
+        subPrefix += sub._key;
+        subPrefix += ".";
+        result += sub.buildSubConfigurationString(subPrefix);
     }
 
     if (result.empty())
