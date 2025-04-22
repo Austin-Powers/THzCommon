@@ -1,6 +1,7 @@
 #ifndef THZ_COMMON_CONFIGURATION_CONFIGURATIONBUILDER_HPP
 #define THZ_COMMON_CONFIGURATION_CONFIGURATIONBUILDER_HPP
 
+#include <string>
 #include <string_view>
 #include <vector>
 
