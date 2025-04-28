@@ -40,6 +40,7 @@ add_library(${PROJECT_NAME} STATIC
 	src/network/address.cpp
 	src/network/privatecommon.hpp
 	src/network/socketbase.cpp
+	src/network/tcpconnection.cpp
 	src/network/tcpsocket.cpp
 	src/network/udpsocket.cpp
 	src/random/ant.cpp
@@ -68,6 +69,7 @@ add_library(${PROJECT_NAME} STATIC
 	include/THzCommon/network/address.hpp
 	include/THzCommon/network/common.hpp
 	include/THzCommon/network/socketbase.hpp
+	include/THzCommon/network/tcpconnection.hpp
 	include/THzCommon/network/tcpsocket.hpp
 	include/THzCommon/network/udpsocket.hpp
 	include/THzCommon/random/ant.hpp

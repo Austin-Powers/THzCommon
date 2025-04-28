@@ -18,10 +18,10 @@ template <IPVersion TIPV>
 struct Address final
 {
     /// @brief The IP address of the machine.
-    Internal::IPAddress<TIPV>::type ipAddress;
+    Internal::IPAddress<TIPV>::type ipAddress{};
 
     /// @brief The port of the application.
-    std::uint16_t port;
+    std::uint16_t port{};
 };
 
 using IPV_Addresses = std::vector<std::variant<Internal::IPV4Address, Internal::IPV6Address>>;
@@ -32,7 +32,7 @@ using IPV_Addresses = std::vector<std::variant<Internal::IPV4Address, Internal::
 /// @return A vector of ip addresses, if successful.
 std::optional<IPV_Addresses> resolveIPAddresses(std::string_view address,
                                                 Internal::SocketApi const & = Internal::SocketApi::instance()) noexcept;
-                                                
+
 /// @brief Returns the first IPV4Address from the given list of addresses, if possible.
 ///
 /// @param addresses The list of addresses to extract the address from.
