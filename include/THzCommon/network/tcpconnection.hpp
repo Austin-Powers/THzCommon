@@ -16,21 +16,11 @@ template <IPVersion TVersion>
 class TCPConnection
 {
 public:
-    /// @brief The role an end of the connection takes.
-    enum class Role
-    {
-        /// @brief This end will connect to a server.
-        Client,
-
-        /// @brief This end will accept client connections.
-        Server
-    };
-
     /// @brief Initializes a new connection using the given IPv4 address.
     ///
-    /// @param role The role of this end of the connection.
     /// @param address The address to connect/bind to.
-    TCPConnection(Role const role, Address<TVersion> const &address) noexcept;
+    /// @param server True if the connection assumes the role of a server, false for client.
+    TCPConnection(Address<TVersion> const &address, bool const server = false) noexcept;
 
     /// @brief Sends the content of the given buffer via the connection, if established.
     ///
@@ -48,8 +38,8 @@ private:
     /// @brief Establishes the connection.
     void establish() noexcept;
 
-    /// @brief The role of this end of the connection.
-    Role _role{};
+    /// @brief True if this connection acts as a server, false for client.
+    bool _server{};
 
     /// @brief The address to connect/bind to.
     Address<TVersion> _address{};

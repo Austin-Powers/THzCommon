@@ -5,14 +5,14 @@ namespace Terrahertz {
 /// @brief Checks if the given address is allowed for the given role.
 ///
 /// @tparam TVersion The version of the internet protocol.
-/// @param role The role ofthe connection side.
 /// @param address The address to check.
+/// @param server True if the connection assumes the role of a server, false for client.
 /// @return True if the address can be used, false otherwise.
 template <IPVersion TVersion>
-static bool addressAllowed(typename TCPConnection<TVersion>::Role const role, Address<TVersion> const &address) noexcept
+static bool addressAllowed(Address<TVersion> const &address, bool const server) noexcept
 {
     bool result = true;
-    if (role != TCPConnection<TVersion>::Role::Server)
+    if (server)
     {
         bool allZeros = true;
         for (auto const i : address.ipAddress)
@@ -36,12 +36,12 @@ static bool addressAllowed(typename TCPConnection<TVersion>::Role const role, Ad
 }
 
 template <IPVersion TVersion>
-TCPConnection<TVersion>::TCPConnection(Role const role, Address<TVersion> const &address) noexcept
-    : _role{role}, _address{address}
+TCPConnection<TVersion>::TCPConnection(Address<TVersion> const &address, bool const server) noexcept
+    : _server{server}, _address{address}
 {
-    if (!addressAllowed(_role, _address))
+    if (!addressAllowed(_address, _server))
     {
-        if (_role == Role::Server)
+        if (_server)
         {}
     }
     establish();
@@ -50,7 +50,7 @@ TCPConnection<TVersion>::TCPConnection(Role const role, Address<TVersion> const 
 template <IPVersion TVersion>
 Result<size_t> TCPConnection<TVersion>::send(std::span<std::uint8_t const> const buffer) noexcept
 {
-    if (!addressAllowed(_role, _address))
+    if (!addressAllowed(_address, _server))
     {
         return Result<size_t>::error(ENXIO);
     }
@@ -60,7 +60,7 @@ Result<size_t> TCPConnection<TVersion>::send(std::span<std::uint8_t const> const
 template <IPVersion TVersion>
 Result<std::span<std::uint8_t>> TCPConnection<TVersion>::receive(std::span<std::uint8_t> buffer) noexcept
 {
-    if (!addressAllowed(_role, _address))
+    if (!addressAllowed(_address, _server))
     {
         return Result<std::span<std::uint8_t>>::error(ENXIO);
     }
