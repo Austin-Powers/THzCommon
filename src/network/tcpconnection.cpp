@@ -54,7 +54,8 @@ Result<size_t> TCPConnection<TVersion>::send(std::span<std::uint8_t const> const
     {
         return Result<size_t>::error(ENXIO);
     }
-    return 0ULL;
+    size_t result{};
+    return result;
 }
 
 template <IPVersion TVersion>
