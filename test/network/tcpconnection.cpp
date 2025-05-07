@@ -18,6 +18,8 @@ TEST_F(NetworkTCPConnection, EmptyAddress)
     std::array<std::uint8_t, 16U> buffer{};
     std::span<std::uint8_t>       span{buffer};
 
+    EXPECT_FALSE(sutServer.establish());
+    EXPECT_FALSE(sutClient.establish());
     EXPECT_TRUE(sutServer.receive(span).isError());
     EXPECT_TRUE(sutClient.receive(span).isError());
     EXPECT_TRUE(sutServer.send(span).isError());
@@ -34,6 +36,9 @@ TEST_F(NetworkTCPConnection, OtherSideNotAvailable)
 
     std::array<std::uint8_t, 16U> buffer{};
     std::span<std::uint8_t>       span{buffer};
+
+    EXPECT_FALSE(sutServer.establish());
+    EXPECT_FALSE(sutClient.establish());
 
     auto receiveResult = sutClient.receive(span);
     ASSERT_FALSE(receiveResult.isError());
@@ -52,6 +57,27 @@ TEST_F(NetworkTCPConnection, OtherSideNotAvailable)
     EXPECT_EQ(sendResult.value(), 0U);
 }
 
+/// @brief Fills the given buffer with test data.
+///
+/// @param buffer The buffer to fill.
+/// @param length The amount of bytes to fill.
+/// @param startValue The value to begin the sequence with.
+/// @return A span over the filled bytes.
+std::span<std::uint8_t> createTestDataSpan(
+    std::array<std::uint8_t, 16U> &buffer,
+    std::uint8_t const length,
+    std::uint8_t startValue) noexcept
+{
+    std::span<std::uint8_t> result{buffer};
+    result = result.subspan(length);
+    for(auto &slot : result)
+    {
+        slot = startValue;
+        ++startValue;
+    }
+    return result;
+}
+
 TEST_F(NetworkTCPConnection, TransferData)
 {
     Address<IPVersion::V4> const address{{127, 0, 0, 1}, 14400};
@@ -61,8 +87,25 @@ TEST_F(NetworkTCPConnection, TransferData)
 
     std::array<std::uint8_t, 16U> inputBuffer{};
     std::array<std::uint8_t, 16U> outputBuffer{};
-    std::span<std::uint8_t>       inputSpan{inputBuffer};
     std::span<std::uint8_t>       outputSpan{outputBuffer};
+
+    // establish
+    //ASSERT_FALSE(sutServer.establish());
+    //ASSERT_TRUE(sutClient.establish());
+    //ASSERT_TRUE(sutServer.establish());
+
+    // client -> server
+    //std::uint8_t bytesToSend = 8U;
+    //auto inputSpan = createTestDataSpan(inputBuffer, bytesToSend, 4U);
+    //auto sendResult = sutClient.send(inputSpan);
+    //ASSERT_FALSE(sendResult.isError());
+    //EXPECT_EQ(sendResult.value(), bytesToSend);
+
+    // server -> client
 }
+
+TEST_F(NetworkTCPConnection, OneSideClientSideCloses){}
+
+TEST_F(NetworkTCPConnection, OneSideServerSideCloses){}
 
 } // namespace Terrahertz::UnitTests
