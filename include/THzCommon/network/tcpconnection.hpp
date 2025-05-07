@@ -22,6 +22,11 @@ public:
     /// @param server True if the connection assumes the role of a server, false for client.
     TCPConnection(Address<TVersion> const &address, bool const server = false) noexcept;
 
+    /// @brief Establishes the connection, if not already established.
+    ///
+    /// @return True if the connection is established, false otherwise.
+    bool establish() noexcept;
+
     /// @brief Sends the content of the given buffer via the connection, if established.
     ///
     /// @param buffer The buffer containing the data to send.
@@ -35,9 +40,6 @@ public:
     Result<std::span<std::uint8_t>> receive(std::span<std::uint8_t> buffer) noexcept;
 
 private:
-    /// @brief Establishes the connection.
-    void establish() noexcept;
-
     /// @brief True if this connection acts as a server, false for client.
     bool _server{};
 

@@ -42,9 +42,17 @@ TCPConnection<TVersion>::TCPConnection(Address<TVersion> const &address, bool co
     if (!addressAllowed(_address, _server))
     {
         if (_server)
-        {}
+        {
+            auto success = _serverSocket.bind(_address);
+        }
     }
-    establish();
+}
+
+
+template <IPVersion TVersion>
+bool TCPConnection<TVersion>::establish() noexcept
+{
+    return false;
 }
 
 template <IPVersion TVersion>
@@ -67,10 +75,6 @@ Result<std::span<std::uint8_t>> TCPConnection<TVersion>::receive(std::span<std::
     }
     return std::span<std::uint8_t>{};
 }
-
-template <IPVersion TVersion>
-void TCPConnection<TVersion>::establish() noexcept
-{}
 
 template class TCPConnection<IPVersion::V4>;
 template class TCPConnection<IPVersion::V6>;
