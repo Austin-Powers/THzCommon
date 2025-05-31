@@ -11,6 +11,12 @@ constexpr double Pi{3.141592653589793238462643383};
 /// @brief Pi as a float.
 constexpr float PiF{3.141592653589793238462643383f};
 
+/// @brief Conversion factor from degree to radian.
+constexpr double DegreeToRadian{Pi / 180.0};
+
+/// @brief Conversion factor from radian to degree.
+constexpr double RadianToDegree{1.0 / DegreeToRadian};
+
 /// @brief Directions for geometric operations.
 enum class Direction : uint8_t
 {
