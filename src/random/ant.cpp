@@ -19,8 +19,8 @@ Ant::Ant() noexcept
     std::mt19937       randomEngine{rd()};
 
     std::uniform_int_distribution<std::uint16_t> distr{0U, 63U};
-    _posX      = distr(randomEngine);
-    _posY      = distr(randomEngine);
+    _posX      = static_cast<std::uint8_t>(distr(randomEngine));
+    _posY      = static_cast<std::uint8_t>(distr(randomEngine));
     _direction = distr(randomEngine) & 0x3U;
     // Half of the sequence needs to be Right so the output is balanced
     for (auto r = 0U; r < (_sequence.size() / 2U);)
