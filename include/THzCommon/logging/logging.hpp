@@ -2,6 +2,7 @@
 #define THZ_COMMON_LOGGING_LOGGING_HPP
 
 #include <array>
+#include <chrono>
 #include <concepts>
 #include <cstdint>
 #include <fstream>
