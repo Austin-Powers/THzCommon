@@ -1,6 +1,4 @@
-set(PROJECTNAME THzCommon.Tests)
-
-add_executable(${PROJECTNAME}
+set(TEST_FILES 
 	configuration/configuration.cpp
 	configuration/configurationbuilder.cpp
 	configuration/configurationstorage.cpp
@@ -32,7 +30,14 @@ add_executable(${PROJECTNAME}
 	utility/sptesthelper.cpp
 	utility/sptesthelper.hpp
 	utility/staticPImpl.cpp
-	utility/stringviewhelpers.cpp)
+	utility/stringviewhelpers.cpp
+)
+set(THZ_COMMON_TEST_FILES ${TEST_FILES} PARENT_SCOPE)
+
+if(THZ_COMMON_IS_ROOT)
+set(PROJECTNAME THzCommon.Tests)
+
+add_executable(${PROJECTNAME} ${TEST_FILES})
 
 target_include_directories(${PROJECTNAME} PUBLIC
 	${PROJECT_SOURCE_DIR}
@@ -51,3 +56,4 @@ include(GoogleTest)
 gtest_discover_tests(${PROJECTNAME})
 
 add_test(NAME ${PROJECTNAME} COMMAND ${PROJECTNAME})
+endif()
