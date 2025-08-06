@@ -106,7 +106,7 @@ else()
 	target_sources(${PROJECT_NAME} PRIVATE src/network/common_posix.cpp)
 endif()
 
-if(THZ_COMMON_IS_ROOT)
+if(THZ_COMMON_IS_ROOT OR BUILD_THZ_COMMON_TESTS)
 	# For Windows: Prevent overriding the parent project's compiler/linker settings
 	# Not needed here as there will be no parent project, but its good to remember this command
 	set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
