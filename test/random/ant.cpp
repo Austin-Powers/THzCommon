@@ -33,7 +33,7 @@ TEST_F(RandomAnt, DistributionOfRandomNumbersIsUniform)
 
     std::array<std::uint16_t, 16U> distribution{};
 
-    uint16_t const chunksize = 256U / distribution.size();
+    auto const chunksize = static_cast<std::uint16_t>(256U / distribution.size());
     for (auto i = 0U; i < 0xFFFFU; ++i)
     {
         auto const randomNumber = sut.nextByte();
