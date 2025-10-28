@@ -2,6 +2,7 @@
 #define THZ_COMMON_MATH_RECTANGLE_HPP
 
 #include "THzCommon/utility/range2D.hpp"
+#include "THzCommon/utility/range2DFolding.hpp"
 #include "constants.hpp"
 #include "point.hpp"
 
@@ -123,10 +124,22 @@ public:
         return upperLeftPoint != other.upperLeftPoint || width != other.width || height != other.height;
     }
 
-    /// @brief Creates a Range2D object to iterate of a buffer of the size of the rectangle.
+    /// @brief Creates a Range2D object to iterate over a buffer of the size of the rectangle.
     ///
     /// @return A Range2D object to iterate of a buffer of the size of the rectangle.
     [[nodiscard]] Range2D range() const noexcept;
+
+    /// @brief Creates a Range2DFolding object to perform a folding operation over a buffer the size of the rectangle.
+    ///
+    /// @param zoneWidth The width of the folding zone.
+    /// @param zoneHeight The height of the folding zone.
+    /// @param shiftX The shift of the zone on the x axis.
+    /// @param shiftY The shift of the zone on the y axis.
+    /// @return A Range2DFolding object.
+    [[nodiscard]] Range2DFolding range(std::uint32_t const zoneWidth,
+                                       std::uint32_t const zoneHeight,
+                                       std::uint32_t const shiftX,
+                                       std::uint32_t const shiftY) const noexcept;
 };
 
 } // namespace Terrahertz

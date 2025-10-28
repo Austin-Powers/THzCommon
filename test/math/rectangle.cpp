@@ -216,4 +216,28 @@ TEST_F(MathRectangle, RangeCreatedCorrectly)
     EXPECT_EQ((*sut.range().end()).index, sut.area());
 }
 
+TEST_F(MathRectangle, FoldingRangeCreatedCorrectly)
+{
+    Rectangle const sut{0, 0, 16U, 16U};
+
+    auto outerRuns = 0U;
+    for (auto zone : sut.range(4U, 4U, 4U, 4U))
+    {
+        ++outerRuns;
+        auto innerRuns = 0U;
+        for (auto index : zone)
+        {
+            ++innerRuns;
+        }
+        EXPECT_EQ(innerRuns, 16U);
+
+        //  prevent infinite loop
+        if (outerRuns > 32U)
+        {
+            break;
+        }
+    }
+    EXPECT_EQ(outerRuns, 16U);
+}
+
 } // namespace Terrahertz::UnitTests

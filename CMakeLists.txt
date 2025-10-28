@@ -47,6 +47,7 @@ add_library(${PROJECT_NAME} STATIC
 	src/utility/bitbuffer.cpp
 	src/utility/byteorder.cpp
 	src/utility/range2D.cpp
+	src/utility/range2DFolding.cpp
 	src/utility/stringviewhelpers.cpp
 	src/utility/time.cpp
 
@@ -83,6 +84,7 @@ add_library(${PROJECT_NAME} STATIC
 	include/THzCommon/utility/fstreamhelpers.hpp
 	include/THzCommon/utility/lineSequencer.hpp
 	include/THzCommon/utility/range2D.hpp
+	include/THzCommon/utility/range2DFolding.hpp
 	include/THzCommon/utility/result.hpp
 	include/THzCommon/utility/spanhelpers.hpp
 	include/THzCommon/utility/staticPImpl.hpp

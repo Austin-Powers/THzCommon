@@ -42,10 +42,10 @@ public:
         /// @brief The size type of this iterator.
         using size_type = size_t;
 
-        /// @brief Pointer to a pixel of this view.
+        /// @brief Pointer to a value of this iterator.
         using pointer = value_type *;
 
-        /// @brief Reference to a pixel of this view.
+        /// @brief Reference to a value of this iterator.
         using reference = value_type &;
 
         /// @brief Default initializes a new Iterator.
@@ -54,6 +54,7 @@ public:
         /// @brief Initializes a new Iterator.
         ///
         /// @param width The width of the buffer.
+        /// @param startIndex The index in the array at which to start.
         Iterator(std::uint32_t const width, size_t const startIndex = 0U) noexcept;
 
         /// @brief Provides access to the index.
@@ -74,7 +75,7 @@ public:
         /// @brief Compares this iterator to another iterator.
         ///
         /// @param other The other iterator to compare this one with.
-        /// @return True if the this iterators index equals the other ones, false otherwise.
+        /// @return True if this iterators index equals the other ones, false otherwise.
         [[nodiscard]] bool operator==(Iterator const &other) const noexcept;
 
     private:

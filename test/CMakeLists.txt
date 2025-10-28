@@ -27,12 +27,14 @@ add_executable(${PROJECTNAME}
 	utility/fstreamhelpers.cpp
 	utility/lineSequencer.cpp
 	utility/range2D.cpp
+	utility/range2DFolding.cpp
 	utility/result.cpp
 	utility/spanhelpers.cpp
 	utility/sptesthelper.cpp
 	utility/sptesthelper.hpp
 	utility/staticPImpl.cpp
-	utility/stringviewhelpers.cpp)
+	utility/stringviewhelpers.cpp
+)
 
 target_include_directories(${PROJECTNAME} PUBLIC
 	${PROJECT_SOURCE_DIR}
