@@ -7,7 +7,7 @@
 
 namespace Terrahertz {
 
-/// @brief Generator for indexing a 2D buffer using a for-each loop.
+/// @brief Generator for indexing a buffer representing 2D data using a for-each loop.
 class Range2D
 {
 public:

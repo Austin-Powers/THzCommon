@@ -4,10 +4,11 @@
 #include <cstddef>
 #include <cstdint>
 #include <iterator>
+#include <utility>
 
 namespace Terrahertz {
 
-/// @brief Generator for folding the content of a 2D buffer using 2 nested for-each loops.
+/// @brief Generator for folding the content of a buffer representing 2D data using 2 nested for-each loops.
 class Range2DFolding
 {
 public:
@@ -148,7 +149,7 @@ public:
         /// @brief Provides access to the index.
         ///
         /// @return The index of the iterator.
-        [[nodiscard]] value_type operator*() const noexcept;
+        [[nodiscard]] value_type const &operator*() const noexcept;
 
         /// @brief Increments the iterator.
         ///
@@ -176,6 +177,11 @@ public:
         /// @return An Iterator with its index at the end of the buffer.
         [[nodiscard]] InnerIterator end() const noexcept;
 
+        /// @brief Returns the position in the target buffer.
+        ///
+        /// @return The position in the target buffer.
+        [[nodiscard]] Position targetPosition() const noexcept;
+
     private:
         /// @brief The width of the buffer.
         std::uint32_t _bufferWidth{};
@@ -197,6 +203,9 @@ public:
 
         /// @brief The current index of the iterator.
         Position _index{};
+
+        /// @brief The index in the target buffer.
+        Position _targetIndex{};
     };
 
     /// @brief Initialzes a new Range2DFolding instance.
@@ -223,6 +232,11 @@ public:
     ///
     /// @return An Iterator with its index at the end of the buffer.
     [[nodiscard]] OuterIterator end() const noexcept;
+
+    /// @brief Returns the width and height of the target buffer.
+    ///
+    /// @return Pair of width and height of the target buffer.
+    [[nodiscard]] std::pair<std::uint32_t, std::uint32_t> targetDimensions() const noexcept;
 
 private:
     /// @brief The width of the buffer.

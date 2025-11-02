@@ -40,12 +40,12 @@ struct UtilityRange2DFolding : public testing::Test
     }
 
     void checkRangeParameters(Range2DFolding     &toCheck,
-                              std::uint32_t const expectedBufferWidth,
-                              std::uint32_t const expectedBufferHeight,
-                              std::uint32_t const expectedZoneWidth,
-                              std::uint32_t const expectedZoneHeight,
-                              std::uint32_t const expectedShiftX,
-                              std::uint32_t const expectedShiftY) noexcept
+                              std::uint32_t const bufferWidth,
+                              std::uint32_t const bufferHeight,
+                              std::uint32_t const zoneWidth,
+                              std::uint32_t const zoneHeight,
+                              std::uint32_t const shiftX,
+                              std::uint32_t const shiftY) noexcept
     {
         std::uint32_t actualBufferWidth  = 0U;
         std::uint32_t actualBufferHeight = 0U;
@@ -54,8 +54,8 @@ struct UtilityRange2DFolding : public testing::Test
         std::uint32_t actualShiftX       = 0U;
         std::uint32_t actualShiftY       = 0U;
 
-        bool      firstRun = true;
         Rectangle prevDims{};
+        auto      counter = 0U;
         for (auto outer : toCheck)
         {
             auto const dims = getZoneDimensions(outer);
@@ -69,7 +69,7 @@ struct UtilityRange2DFolding : public testing::Test
             }
             actualZoneWidth  = dims.width;
             actualZoneHeight = dims.height;
-            if (!firstRun)
+            if (counter > 0U)
             {
                 auto shiftX = dims.upperLeftPoint.x - prevDims.upperLeftPoint.x;
                 if (shiftX < 0)
@@ -90,19 +90,40 @@ struct UtilityRange2DFolding : public testing::Test
                     actualShiftY = shiftY;
                 }
             }
-            firstRun = false;
             prevDims = dims;
+
+            ++counter;
+            EXPECT_LE(counter, 320U);
+            if (counter > 320U)
+            {
+                // Avoid endless loop in case of an error
+                break;
+            }
         }
 
         actualBufferWidth += actualZoneWidth;
         actualBufferHeight += actualZoneHeight;
 
+        EXPECT_EQ(zoneWidth, actualZoneWidth);
+        EXPECT_EQ(zoneHeight, actualZoneHeight);
+
+        auto const expectedBufferWidth  = bufferWidth - ((bufferWidth - zoneWidth) % shiftX);
+        auto const expectedBufferHeight = bufferHeight - ((bufferHeight - zoneHeight) % shiftY);
         EXPECT_EQ(expectedBufferWidth, actualBufferWidth);
-        EXPECT_EQ(expectedBufferHeight, actualBufferHeight);
-        EXPECT_EQ(expectedZoneWidth, actualZoneWidth);
-        EXPECT_EQ(expectedZoneHeight, actualZoneHeight);
-        EXPECT_EQ(expectedShiftX, actualShiftX);
-        EXPECT_EQ(expectedShiftY, actualShiftY);
+        if (expectedBufferHeight != actualBufferHeight)
+        {
+            EXPECT_EQ(expectedBufferHeight, actualBufferHeight);
+        }
+        if (actualShiftX != 0U)
+        {
+            // if shiftX is zero we could not measure it
+            EXPECT_EQ(shiftX, actualShiftX);
+        }
+        if (actualShiftY != 0U)
+        {
+            // if shiftY is zero we could not measure it
+            EXPECT_EQ(shiftY, actualShiftY);
+        }
     }
 };
 
@@ -202,10 +223,16 @@ TEST_F(UtilityRange2DFolding, OuterIteratorInvalidParameters)
     SutClass sut2{16U, 16U, 16U, 17U, 1U, 1U};
     // startIndexOutOfBounds
     SutClass sut3{16U, 16U, 8U, 8U, 8U, 8U, 9U};
+    // shift == 0
+    SutClass sut4{16U, 16U, 4U, 4U, 0U, 0U};
+    // zone... == 0
+    SutClass sut5{16U, 16U, 0U, 0U, 1U, 1U};
 
     EXPECT_EQ(sut0, sut1);
     EXPECT_EQ(sut1, sut2);
     EXPECT_EQ(sut2, sut3);
+    EXPECT_EQ(sut3, sut4);
+    EXPECT_EQ(sut4, sut5);
 }
 
 TEST_F(UtilityRange2DFolding, OuterIteratorBeginEnd)
@@ -215,17 +242,27 @@ TEST_F(UtilityRange2DFolding, OuterIteratorBeginEnd)
     SutClass sut0{16U, 16U, 4U, 4U, 1U, 1U};
     EXPECT_NE(sutDefault, sut0);
     checkOuterIterator(sut0, 0U, 64U);
-    auto const dims = getZoneDimensions(sut0);
-    EXPECT_EQ(dims.width, 4U);
-    EXPECT_EQ(dims.height, 4U);
+    auto const dims0 = getZoneDimensions(sut0);
+    EXPECT_EQ(dims0.width, 4U);
+    EXPECT_EQ(dims0.height, 4U);
+    auto const tPos = sut0.targetPosition();
+    EXPECT_EQ(tPos.index, 0U);
+    EXPECT_EQ(tPos.x, 0U);
+    EXPECT_EQ(tPos.y, 0U);
 
     SutClass sut1{12U, 16U, 8U, 3U, 2U, 3U};
     EXPECT_NE(sutDefault, sut1);
     checkOuterIterator(sut1, 0U, 36U);
+    auto const dims1 = getZoneDimensions(sut1);
+    EXPECT_EQ(dims1.width, 8U);
+    EXPECT_EQ(dims1.height, 3U);
 
     SutClass sut2{4U, 4U, 4U, 4U, 1U, 1U};
     EXPECT_NE(sutDefault, sut2);
     checkOuterIterator(sut2, 0U, 16U);
+    auto const dims2 = getZoneDimensions(sut2);
+    EXPECT_EQ(dims2.width, 4U);
+    EXPECT_EQ(dims2.height, 4U);
 }
 
 TEST_F(UtilityRange2DFolding, OuterIteratorIncrementing)
@@ -234,22 +271,46 @@ TEST_F(UtilityRange2DFolding, OuterIteratorIncrementing)
     SutClass sut0{16U, 16U, 4U, 4U, 1U, 1U};
     sut0++;
     checkOuterIterator(sut0, 1U, 65U);
+    auto targetPosition = sut0.targetPosition();
+    EXPECT_EQ(targetPosition.index, 1U);
+    EXPECT_EQ(targetPosition.x, 1U);
+    EXPECT_EQ(targetPosition.y, 0U);
     for (auto i = 0U; i < 12U; ++i)
     {
         sut0++;
     }
     checkOuterIterator(sut0, 16U, 80U);
+    targetPosition = sut0.targetPosition();
+    EXPECT_EQ(targetPosition.index, 13U);
+    EXPECT_EQ(targetPosition.x, 0U);
+    EXPECT_EQ(targetPosition.y, 1U);
 
     SutClass sut1{12U, 16U, 8U, 3U, 2U, 3U};
     sut1++;
+    targetPosition = sut1.targetPosition();
+    EXPECT_EQ(targetPosition.index, 1U);
+    EXPECT_EQ(targetPosition.x, 1U);
+    EXPECT_EQ(targetPosition.y, 0U);
     checkOuterIterator(sut1, 2U, 38U);
     sut1++;
+    targetPosition = sut1.targetPosition();
+    EXPECT_EQ(targetPosition.index, 2U);
+    EXPECT_EQ(targetPosition.x, 2U);
+    EXPECT_EQ(targetPosition.y, 0U);
     checkOuterIterator(sut1, 4U, 40U);
     sut1++;
+    targetPosition = sut1.targetPosition();
+    EXPECT_EQ(targetPosition.index, 3U);
+    EXPECT_EQ(targetPosition.x, 0U);
+    EXPECT_EQ(targetPosition.y, 1U);
     checkOuterIterator(sut1, 36U, 72U);
 
     SutClass sut2{4U, 4U, 4U, 4U, 1U, 1U};
     sut2++;
+    targetPosition = sut2.targetPosition();
+    EXPECT_EQ(targetPosition.index, 1U);
+    EXPECT_EQ(targetPosition.x, 0U);
+    EXPECT_EQ(targetPosition.y, 1U);
     checkOuterIterator(sut2, 4U, 20U);
 }
 
@@ -287,13 +348,75 @@ TEST_F(UtilityRange2DFolding, BasicFunctionality)
 
 TEST_F(UtilityRange2DFolding, CheckBehavior)
 {
-    Range2DFolding sut0{16U, 12U, 1U, 1U, 1U, 1U};
-    checkRangeParameters(sut0, 16U, 12U, 1U, 1U, 1U, 1U);
-    Range2DFolding sut1{16U, 16U, 2U, 2U, 4U, 4U};
-    // 14 because last 2 rows/colums are skipped
-    checkRangeParameters(sut1, 14U, 14U, 2U, 2U, 4U, 4U);
-    Range2DFolding sut2{9U, 12U, 4U, 4U, 2U, 4U};
-    checkRangeParameters(sut2, 8U, 12U, 4U, 4U, 2U, 4U);
+    for (auto buffer = 1U; buffer < 17U; ++buffer)
+    {
+        for (auto zone = 1U; zone <= buffer; ++zone)
+        {
+            for (auto shift = 1U; shift < 17U; ++shift)
+            {
+                for (auto wobble = 0U; wobble < 2U; ++wobble)
+                {
+                    auto const bufferWidth  = buffer;
+                    auto const bufferHeight = buffer + wobble;
+                    auto const zoneWidth    = zone;
+                    auto const zoneHeight   = zone + wobble;
+                    auto const shiftX       = shift;
+                    auto const shiftY       = shift + wobble;
+
+                    Range2DFolding sut{bufferWidth, bufferHeight, zoneWidth, zoneHeight, shiftX, shiftY};
+                    checkRangeParameters(sut, bufferWidth, bufferHeight, zoneWidth, zoneHeight, shiftX, shiftY);
+                }
+            }
+        }
+    }
+}
+
+TEST_F(UtilityRange2DFolding, EndIsReachedCorrectlyDespiteStrangeShiftValues)
+{
+    Range2DFolding sut{1U, 2U, 1U, 2U, 2U, 3U};
+
+    auto iter = sut.begin();
+    ++iter;
+    EXPECT_EQ(iter, sut.end());
+}
+
+TEST_F(UtilityRange2DFolding, TargetDimensions)
+{
+    for (auto buffer = 0U; buffer < 17U; ++buffer)
+    {
+        for (auto zone = 0U; zone < 17U; ++zone)
+        {
+            for (auto shift = 0U; shift < 17U; ++shift)
+            {
+                Range2DFolding sut{buffer, buffer + 1U, zone, zone + 1U, shift, shift + 1U};
+
+                auto width   = 0U;
+                auto height  = 0U;
+                auto limiter = 0U;
+                for (auto &iter : sut)
+                {
+                    auto const pos = iter.targetPosition();
+                    if (width <= pos.x)
+                    {
+                        width = pos.x + 1U;
+                    }
+                    if (height <= pos.y)
+                    {
+                        height = pos.y + 1U;
+                    }
+                    ++limiter;
+                    if (limiter == 200U)
+                    {
+                        EXPECT_TRUE(false);
+                        break;
+                    }
+                }
+                auto dimensions = sut.targetDimensions();
+                EXPECT_EQ(width, dimensions.first);
+                EXPECT_EQ(height, dimensions.second);
+            }
+        }
+    }
 }
 
 } // namespace Terrahertz::UnitTests
