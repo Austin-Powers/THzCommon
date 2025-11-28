@@ -1,3 +1,6 @@
+#ifndef THZ_TEST_COMMON_UTILITY_SPTESTHELPER_HPP
+#define THZ_TEST_COMMON_UTILITY_SPTESTHELPER_HPP
+
 #include "THzCommon/utility/staticPImpl.hpp"
 
 #include <cstdint>
@@ -37,3 +40,5 @@ private:
 };
 
 } // namespace Terrahertz::UnitTests
+
+#endif // !THZ_TEST_COMMON_UTILITY_SPTESTHELPER_HPP
