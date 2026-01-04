@@ -5,7 +5,7 @@ namespace Internal {
 
 SocketApi::SocketApi() = default;
 
-SocketApi::~SocketApi() = default;
+SocketApi::~SocketApi() noexcept = default;
 
 SocketApi const &SocketApi::instance()
 {
