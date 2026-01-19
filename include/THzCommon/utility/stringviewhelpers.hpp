@@ -1,3 +1,6 @@
+#ifndef THZ_COMMON_UTILITY_STRINGVIEWHELPERS_HPP
+#define THZ_COMMON_UTILITY_STRINGVIEWHELPERS_HPP
+
 #include <string_view>
 
 namespace Terrahertz {
@@ -87,3 +90,5 @@ std::pair<std::string_view, std::string_view> split(std::string_view const toSpl
 std::string_view trim(std::string_view view) noexcept;
 
 } // namespace Terrahertz
+
+#endif // !THZ_COMMON_UTILITY_STRINGVIEWHELPERS_HPP

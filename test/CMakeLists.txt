@@ -33,6 +33,7 @@ add_executable(${PROJECTNAME}
 	utility/sptesthelper.cpp
 	utility/sptesthelper.hpp
 	utility/staticPImpl.cpp
+	utility/stringhelpers.cpp
 	utility/stringviewhelpers.cpp
 )
 

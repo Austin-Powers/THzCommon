@@ -88,6 +88,7 @@ add_library(${PROJECT_NAME} STATIC
 	include/THzCommon/utility/result.hpp
 	include/THzCommon/utility/spanhelpers.hpp
 	include/THzCommon/utility/staticPImpl.hpp
+	include/THzCommon/utility/stringhelpers.hpp
 	include/THzCommon/utility/stringviewhelpers.hpp
 	include/THzCommon/utility/time.hpp
 	include/THzCommon/utility/workerThread.hpp
