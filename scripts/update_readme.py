@@ -6,19 +6,27 @@
 # by the script
 
 import os
+import sys
+
+def getProjectDir() -> str:
+    '''Returns the project directory, which is either second command line argument given to the script
+    or the current working directory
+    '''
+    if(len(sys.argv) > 1):
+        return sys.argv[1]
+    return os.getcwd()
 
 def getReadmePath() -> str:
     '''Returns the path of the README.md.
     '''
-    return os.path.join(os.getcwd(), 'README.md')
+    return os.path.join(getProjectDir(), 'README.md')
 
 def loadReadme() -> str:
     '''Loads the current content of the README.md.
     '''
     result = ''
     with open(getReadmePath()) as readmefile:
-        for line in readmefile:
-            result = result + line
+        result = readmefile.read()
     return result
 
 def saveReadme(newContent: str):
@@ -31,7 +39,7 @@ def listLibraryIncludeSubdirs() -> dict[str, str]:
     '''Returns a list of all subdirectories of the main include directory.
     '''
     result = {}
-    includeDir = os.path.join(os.getcwd(), 'include')
+    includeDir = os.path.join(getProjectDir(), 'include')
     projectDir = ''
     for root, dirs, files in os.walk(includeDir):
         t = os.path.split(root)
@@ -61,6 +69,7 @@ def compileInfoOfFile(root: str, filename: str) -> str:
             elif(line.startswith('template')):
                 pass
             elif(line.startswith('class ')):
+                # TODO umstellen auf string format
                 entry = '- __' + line.split(' ')[1] + '__ `class` `<' + filename + '>` ' + docString
                 result = result + entry + '\n'
                 docString = ''
@@ -82,7 +91,7 @@ def compileInfoOfFile(root: str, filename: str) -> str:
                 result = result + entry + '\n'
                 docString = ''
             elif(docString != ''):
-                print(line.strip() + ' is unknown')
+                print(line.strip() + ' of file ' + filename + ' is unknown')
                 docString = ''
     return result
 
