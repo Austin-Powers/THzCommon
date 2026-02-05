@@ -15,117 +15,117 @@ Collection of classes, functions and templates to be used by other projects.
 Below is more detailed information about the contents of each subdirectory.
 
 ### Configuration
-- __ConfigurationProject__ `struct` `<configuration.hpp>` Name provider for the configuration project.
-- __Configuration__ `class` `<configuration.hpp>` Manages access to a tree like configuration structure.
+- __`struct ConfigurationProject`__ _(configuration.hpp)_ Name provider for the configuration project.
+- __`class Configuration`__ _(configuration.hpp)_ Manages access to a tree like configuration structure.
   
-- __ConfigurationBuilder__ `class` `<configurationbuilder.hpp>` Can be used to create example configurations.
+- __`class ConfigurationBuilder`__ _(configurationbuilder.hpp)_ Can be used to create example configurations.
   
-- __ConfigurationStorage__ `class` `<configurationstorage.hpp>` Loads a configuration from a file or memorybuffer and provides it to the rest of the application.
+- __`class ConfigurationStorage`__ _(configurationstorage.hpp)_ Loads a configuration from a file or memorybuffer and provides it to the rest of the application.
   
 
 ### Converter
-- __Encoder__ `class` `<base64.hpp>` Helps encode data into base64.
-- __Decoder__ `class` `<base64.hpp>` Helps decode data from base64.
+- __`class Encoder`__ _(base64.hpp)_ Helps encode data into base64.
+- __`class Decoder`__ _(base64.hpp)_ Helps decode data from base64.
   
-- __Encoder__ `class` `<huffmancoder.hpp>` Encapsulated the code for performing a Huffman-Encoding.
-- __Decoder__ `class` `<huffmancoder.hpp>` Encapsulated the code for performing a Huffman-Decoding.
+- __`class Encoder`__ _(huffmancoder.hpp)_ Encapsulated the code for performing a Huffman-Encoding.
+- __`class Decoder`__ _(huffmancoder.hpp)_ Encapsulated the code for performing a Huffman-Decoding.
   
-- __HuffmanProject__ `struct` `<huffmancommons.hpp>` Name provider for the Huffman project.
-- __CodeHeader__ `struct` `<huffmancommons.hpp>` The header of a table of Huffman codes.
-- __SymbolDistribution__ `definition` `<huffmancommons.hpp>` The type for a symbol distribution.
-- __CodeTable__ `class` `<huffmancommons.hpp>` Encapsulates the code table for the Huffman-Coding.
+- __`struct HuffmanProject`__ _(huffmancommons.hpp)_ Name provider for the Huffman project.
+- __`struct CodeHeader`__ _(huffmancommons.hpp)_ The header of a table of Huffman codes.
+- __`definition SymbolDistribution`__ _(huffmancommons.hpp)_ The type for a symbol distribution.
+- __`class CodeTable`__ _(huffmancommons.hpp)_ Encapsulates the code table for the Huffman-Coding.
   
 
 ### Diagnostics
-- __HexView__ `class` `<hexview.hpp>` Viewer to conveniently display binary data on the console and export it human readable to files.
+- __`class HexView`__ _(hexview.hpp)_ Viewer to conveniently display binary data on the console and export it human readable to files.
   
-- __StopWatch__ `class` `<stopwatch.hpp>` Class for measuring the duration of certain processes and operations.
+- __`class StopWatch`__ _(stopwatch.hpp)_ Class for measuring the duration of certain processes and operations.
   
 
 ### Logging
-- __LogLevel__ `enum` `<logging.hpp>` Enumeration of the different log levels.
-- __Project__ `concept` `<logging.hpp>` Concept for ProjectClass, able to provide a name to the Logger.
-- __LoggingProject__ `struct` `<logging.hpp>` Name provider for the logging project.
-- __Logger__ `class` `<logging.hpp>` Logs messages to console and specified log file.
+- __`enum LogLevel`__ _(logging.hpp)_ Enumeration of the different log levels.
+- __`concept Project`__ _(logging.hpp)_ Concept for ProjectClass, able to provide a name to the Logger.
+- __`struct LoggingProject`__ _(logging.hpp)_ Name provider for the logging project.
+- __`class Logger`__ _(logging.hpp)_ Logs messages to console and specified log file.
   
 
 ### Math
-- __BilinearInterpolation__ `class` `<bilinearInterpolation.hpp>` Template class encapsulating the algorithm for bilinear interpolation.
+- __`class BilinearInterpolation`__ _(bilinearInterpolation.hpp)_ Template class encapsulating the algorithm for bilinear interpolation.
   
-- __Direction__ `enum` `<constants.hpp>` Directions for geometric operations.
+- __`enum Direction`__ _(constants.hpp)_ Directions for geometric operations.
   
-- __MatrixProject__ `struct` `<matrix.hpp>` Name provider for the THzCommon.Math.Matrix project.
-- __Matrix__ `class` `<matrix.hpp>` Represents a Matrix.
+- __`struct MatrixProject`__ _(matrix.hpp)_ Name provider for the THzCommon.Math.Matrix project.
+- __`class Matrix`__ _(matrix.hpp)_ Represents a Matrix.
   
-- __Point__ `class` `<point.hpp>` A point in 2 dimensional space.
+- __`class Point`__ _(point.hpp)_ A point in 2 dimensional space.
   
-- __Rectangle__ `class` `<rectangle.hpp>` A rectangle with basic geometrical methods.
+- __`class Rectangle`__ _(rectangle.hpp)_ A rectangle with basic geometrical methods.
   
 
 ### Memory
-- __IMemoryPool__ `class` `<imemorypool.hpp>` Interface for all memory pools.
+- __`class IMemoryPool`__ _(imemorypool.hpp)_ Interface for all memory pools.
   
 
 ### Network
-- __Address__ `struct` `<address.hpp>` Combines IP address and port.
+- __`struct Address`__ _(address.hpp)_ Combines IP address and port.
   
-- __IPVersion__ `enum` `<common.hpp>` Enumerates the version of the IP protocol.
-- __Protocol__ `enum` `<common.hpp>` The type of protocol building on top of the internet protocol.
-- __IPAddress;__ `struct` `<common.hpp>` 
-- __IPAddress<IPVersion::V4>__ `struct` `<common.hpp>` 
-- __IPAddress<IPVersion::V6>__ `struct` `<common.hpp>` 
-- __SocketApi__ `class` `<common.hpp>` Encapsulates the native socket API.
+- __`enum IPVersion`__ _(common.hpp)_ Enumerates the version of the IP protocol.
+- __`enum Protocol`__ _(common.hpp)_ The type of protocol building on top of the internet protocol.
+- __`struct IPAddress;`__ _(common.hpp)_ 
+- __`struct IPAddress<IPVersion::V4>`__ _(common.hpp)_ 
+- __`struct IPAddress<IPVersion::V6>`__ _(common.hpp)_ 
+- __`class SocketApi`__ _(common.hpp)_ Encapsulates the native socket API.
   
-- __SocketBase__ `class` `<socketbase.hpp>` Base containing shared functionality of all sockets.
+- __`class SocketBase`__ _(socketbase.hpp)_ Base containing shared functionality of all sockets.
   
-- __TCPConnection__ `class` `<tcpconnection.hpp>` Wrapper for handling a TCP connection.
+- __`class TCPConnection`__ _(tcpconnection.hpp)_ Wrapper for handling a TCP connection.
   
-- __TCPSocket__ `class` `<tcpsocket.hpp>` Encapsulates necesarry code to send and receive data via Transmission Control Protocol (TCP).
+- __`class TCPSocket`__ _(tcpsocket.hpp)_ Encapsulates necesarry code to send and receive data via Transmission Control Protocol (TCP).
   
-- __UDPSocket__ `class` `<udpsocket.hpp>` Encapsulates necesarry code to send and receive data via User Datagram Protocol (UDP).
+- __`class UDPSocket`__ _(udpsocket.hpp)_ Encapsulates necesarry code to send and receive data via User Datagram Protocol (UDP).
   
 
 ### Random
-- __Ant__ `class` `<ant.hpp>` Uses Langtons-Ant as a source of random numbers.
+- __`class Ant`__ _(ant.hpp)_ Uses Langtons-Ant as a source of random numbers.
   
 
 ### Structures
-- __Octree__ `class` `<octree.hpp>` Implementation of an octree based on a cube shaped space.
+- __`class Octree`__ _(octree.hpp)_ Implementation of an octree based on a cube shaped space.
   
-- __Queue__ `class` `<queue.hpp>` Template implementation of a static sized queue.
+- __`class Queue`__ _(queue.hpp)_ Template implementation of a static sized queue.
   
-- __Stack__ `class` `<stack.hpp>` Template implementation of a static sized stack.
+- __`class Stack`__ _(stack.hpp)_ Template implementation of a static sized stack.
   
 
 ### Utility
-- __BitBufferReader__ `class` `<bitbuffer.hpp>` Encapsulates the code for reading bitwise from a byte buffer.
-- __BitBufferWriter__ `class` `<bitbuffer.hpp>` Encapsulates the code for writing bitwise from a byte buffer.
+- __`class BitBufferReader`__ _(bitbuffer.hpp)_ Encapsulates the code for reading bitwise from a byte buffer.
+- __`class BitBufferWriter`__ _(bitbuffer.hpp)_ Encapsulates the code for writing bitwise from a byte buffer.
   
-- __MultiplyableBy__ `concept` `<concepts.hpp>` Concept of a type that can be multiplied by another type.
-- __MultiplicationResult__ `struct` `<concepts.hpp>` Deduces the return type of the multiplication of the two given types. 
-- __MultiplicationResult_t__ `definition` `<concepts.hpp>` Shortcut to MultiplicationResult::type
-- __Container__ `concept` `<concepts.hpp>` Concept of a container a span can be created from.
+- __`concept MultiplyableBy`__ _(concepts.hpp)_ Concept of a type that can be multiplied by another type.
+- __`struct MultiplicationResult`__ _(concepts.hpp)_ Deduces the return type of the multiplication of the two given types. 
+- __`definition MultiplicationResult_t`__ _(concepts.hpp)_ Shortcut to MultiplicationResult::type
+- __`concept Container`__ _(concepts.hpp)_ Concept of a container a span can be created from.
   
-- __LineSequencer__ `class` `<lineSequencer.hpp>` Class for accessing a buffer line by line.
+- __`class LineSequencer`__ _(lineSequencer.hpp)_ Class for accessing a buffer line by line.
   
-- __Range2D__ `class` `<range2D.hpp>` Generator for indexing a buffer representing 2D data using a for-each loop.
+- __`class Range2D`__ _(range2D.hpp)_ Generator for indexing a buffer representing 2D data using a for-each loop.
   
-- __Range2DFolding__ `class` `<range2DFolding.hpp>` Generator for folding the content of a buffer representing 2D data using 2 nested for-each loops.
+- __`class Range2DFolding`__ _(range2DFolding.hpp)_ Generator for folding the content of a buffer representing 2D data using 2 nested for-each loops.
   
-- __errno_t__ `definition` `<result.hpp>` The type returned by calling errno.
-- __Result__ `class` `<result.hpp>` Can be returned by function calls that might fail with an error code.
-- __Result<errno_t>__ `class` `<result.hpp>` Specialization in case T is identical to errno_t.
+- __`definition errno_t`__ _(result.hpp)_ The type returned by calling errno.
+- __`class Result`__ _(result.hpp)_ Can be returned by function calls that might fail with an error code.
+- __`class Result<errno_t>`__ _(result.hpp)_ Specialization in case T is identical to errno_t.
   
-- __StaticPImpl__ `class` `<staticPImpl.hpp>` Helper class for using static memory for the pointer-to-implementation-idiom.
+- __`class StaticPImpl`__ _(staticPImpl.hpp)_ Helper class for using static memory for the pointer-to-implementation-idiom.
   
-- __Character__ `concept` `<stringhelpers.hpp>` Concept of a character type.
+- __`concept Character`__ _(stringhelpers.hpp)_ Concept of a character type.
   
-- __StringViewTokenizer__ `class` `<stringviewhelpers.hpp>` Enables easy tokenizing of string_view instances.
+- __`class StringViewTokenizer`__ _(stringviewhelpers.hpp)_ Enables easy tokenizing of string_view instances.
   
-- __SystemNow__ `definition` `<time.hpp>` Shortcut to the system_clock::now function.
-- __Milliseconds__ `definition` `<time.hpp>` Shortcut for milliseconds.
-- __SystemTimePoint__ `definition` `<time.hpp>` Shortcut for the system_clock time_point.
+- __`definition SystemNow`__ _(time.hpp)_ Shortcut to the system_clock::now function.
+- __`definition Milliseconds`__ _(time.hpp)_ Shortcut for milliseconds.
+- __`definition SystemTimePoint`__ _(time.hpp)_ Shortcut for the system_clock time_point.
   
-- __WorkerThread__ `struct` `<workerThread.hpp>` Instances and code common for running a worker thread.
+- __`struct WorkerThread`__ _(workerThread.hpp)_ Instances and code common for running a worker thread.
   
 

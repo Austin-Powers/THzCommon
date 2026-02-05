@@ -49,6 +49,9 @@ def listLibraryIncludeSubdirs() -> dict[str, str]:
             result[t[1]] = root
     return result
 
+def createEntry(name: str, type: str, filename: str, docString: str) -> str:
+    return f'- __`{type} {name}`__ _({filename})_ {docString}\n'
+
 def compileInfoOfFile(root: str, filename: str) -> str:
     '''Compiles the information for the given file.
     '''
@@ -68,30 +71,24 @@ def compileInfoOfFile(root: str, filename: str) -> str:
                     docString = docString + (line[3:])
             elif(line.startswith('template')):
                 pass
+            elif(line.startswith('struct ')):
+                result += createEntry(line.split(' ')[1], 'struct', filename, docString)
+                docString = ''
             elif(line.startswith('class ')):
-                # TODO umstellen auf string format
-                entry = '- __' + line.split(' ')[1] + '__ `class` `<' + filename + '>` ' + docString
-                result = result + entry + '\n'
+                result += createEntry(line.split(' ')[1], 'class', filename, docString)
                 docString = ''
             elif(line.startswith('enum class ')):
-                entry = '- __' + line.split(' ')[2] + '__ `enum` `<' + filename + '>` ' + docString
-                result = result + entry + '\n'
+                result += createEntry(line.split(' ')[2], 'enum', filename, docString)
                 docString = ''
-            elif(line.startswith('struct ')):
-                entry = '- __' + line.split(' ')[1] + '__ `struct` `<' + filename + '>` ' + docString
-                result = result + entry + '\n'
+            elif(line.startswith('concept ')):
+                result += createEntry(line.split(' ')[1], 'concept', filename, docString)
                 docString = ''
             elif(line.startswith('using ') or line.startswith('#define ')):
                 if(docString != ''):
-                    entry = '- __' + line.split(' ')[1] + '__ `definition` `<' + filename + '>` ' + docString
-                    result = result + entry + '\n'
+                    result += createEntry(line.split(' ')[1], 'definition', filename, docString)
                     docString = ''
-            elif(line.startswith('concept ')):
-                entry = '- __' + line.split(' ')[1] + '__ `concept` `<' + filename + '>` ' + docString
-                result = result + entry + '\n'
-                docString = ''
             elif(docString != ''):
-                print(line.strip() + ' of file ' + filename + ' is unknown')
+                print(f'{line.strip()} of file {filename} is unknown')
                 docString = ''
     return result
 

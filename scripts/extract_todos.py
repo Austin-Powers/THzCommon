@@ -21,7 +21,8 @@ def finallizeContentForFile(content: str, filename: str) -> str:
 <hr />
 '''
 
-def createContentForComment(startingLine: int, comment: str) -> str:
+def createContentForComment(filename: str, startingLine: int, comment: str) -> str:
+    print(f'{filename}L{startingLine}: {comment}')
     return f'<b>Z{startingLine}:</b> {comment}'
 
 def createContentForFile(root: str, filename: str, todoStart: str, commentStart: str) -> str:
@@ -36,7 +37,7 @@ def createContentForFile(root: str, filename: str, todoStart: str, commentStart:
             if(line.startswith(todoStart)):
                 if(len(comment) != 0):
                     # finalize last comment
-                    content = createContentForComment(startingLine, comment)
+                    content = createContentForComment(filename, startingLine, comment)
                 startingLine = lineNumber
                 comment = line[len(todoStart):]
             elif(line.startswith(commentStart)):
@@ -44,7 +45,7 @@ def createContentForFile(root: str, filename: str, todoStart: str, commentStart:
                     comment = comment + ' ' + line[len(commentStart):]
             else:
                 if(len(comment) != 0):
-                    content = createContentForComment(startingLine, comment)
+                    content = createContentForComment(filename, startingLine, comment)
                     comment = ''
             lineNumber += 1
     return finallizeContentForFile(content, filename)
@@ -53,7 +54,7 @@ def createContent() ->  str:
     '''Creates the content for the todo list.'''
     content = ''
     for root, dirs, files in os.walk(getProjectDir()):
-        if(root.find('build') != -1):
+        if((root.find('build') != -1) or (root.find('.git') != -1)):
             # remove files from build directory
             continue
         for file in files:
@@ -107,4 +108,5 @@ def writeTodoFile(content: str):
     with open(os.path.join(getProjectDir(), 'todos.html'), 'w') as file:
         file.write(content)
 
+print(f'Extracting TODOS for {getProjectName()}')
 writeTodoFile(addHeadAndTail(createContent()))
