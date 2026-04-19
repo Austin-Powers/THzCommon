@@ -13,6 +13,7 @@ add_executable(${PROJECTNAME}
 	math/matrix.cpp
 	math/point.cpp
 	math/rectangle.cpp
+	memory/addresshelper.cpp
 	network/address.cpp
 	network/tcpconnection.cpp
 	network/tcpsocket.cpp

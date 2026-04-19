@@ -66,6 +66,7 @@ add_library(${PROJECT_NAME} STATIC
 	include/THzCommon/math/matrix.hpp
 	include/THzCommon/math/point.hpp
 	include/THzCommon/math/rectangle.hpp
+	include/THzCommon/memory/addresshelper.hpp
 	include/THzCommon/memory/imemorypool.hpp
 	include/THzCommon/network/address.hpp
 	include/THzCommon/network/common.hpp
