@@ -39,3 +39,7 @@ out/
 .vs/
 obj/
 bin/
+
+# Meson
+subprojects/*
+!subprojects/*.wrap
