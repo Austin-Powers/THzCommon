@@ -16,8 +16,7 @@ jobs:
         run: sudo apt install gcc-11 g++-11
 
       - name: Create Build Environment
-        working-directory: ${{runner.workspace}}
-        run: pip install meson && meson setup build
+        run: pip install meson && meson setup ${{runner.workspace}}/build
 
       - name: Build
         working-directory: ${{runner.workspace}}/build
