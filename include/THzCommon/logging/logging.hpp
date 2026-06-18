@@ -5,6 +5,7 @@
 #include <chrono>
 #include <concepts>
 #include <cstdint>
+#include <cstring>
 #include <fstream>
 #include <gsl/gsl>
 #include <mutex>
